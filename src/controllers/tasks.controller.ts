@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { prisma } from "../lib/prisma.js";
 
 // Data model for a task
 interface Task {
@@ -23,8 +24,12 @@ let tasks: Task[] = [];
 let nextId = 1;
 
 // GET /api/tasks — returns all tasks
-export const getAllTasks = (_req: Request, res: Response): void => {
-  res.json(tasks);
+export const getAllTasks = async (_req: Request, res: Response): Promise<void> => {
+  console.log("testing...")
+  const t = await prisma.task.findMany();
+  console.log(t);
+
+  res.json(t);
 };
 
 // GET /api/tasks/:id — returns a single task by ID
@@ -35,6 +40,7 @@ export const getTaskById = (
   next: NextFunction
 ): void => {
   const task = tasks.find((t) => t.id === parseInt(req.params.id, 10));
+
   if (!task) {
     const err: AppError = new Error("Task not found");
     err.statusCode = 404;
