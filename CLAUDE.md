@@ -7,6 +7,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run dev` — start dev server with hot-reload (nodemon + ts-node)
 - `npm run build` — compile TypeScript to `dist/`
 - `npm start` — run compiled server (`node dist/server.js`)
+- `npm run db:seed` — seed the database with sample data
+- `npx prisma migrate dev` — create and apply migrations
+- `npx prisma generate` — regenerate Prisma client after schema changes
 
 No test framework is configured yet.
 
@@ -26,3 +29,17 @@ Express 5 + TypeScript server using a layered MVC pattern. The app runs on the p
 **Configuration:** `src/config/index.ts` loads `.env` via dotenv and exports a typed config object. All modules should read config from this module rather than `process.env` directly.
 
 **Error handling:** The error handler in `src/middleware/errorHandler.ts` expects errors with an optional `statusCode` property. Pass errors via `next(err)` in route handlers.
+
+## Database
+
+Prisma ORM with SQLite (via better-sqlite3 adapter). The database file is at `dev.db` in the project root.
+
+**Schema:** Defined in `prisma/schema.prisma`. After schema changes, run `npx prisma migrate dev` to create migrations and `npx prisma generate` to regenerate the client.
+
+**Prisma client:** Generated to `src/generated/prisma/`. Import the singleton instance from `src/lib/prisma.ts`:
+
+```typescript
+import { prisma } from "../lib/prisma.js";
+```
+
+**Seeding:** `prisma/seed.ts` populates the database with sample data. Run via `npm run db:seed`.
