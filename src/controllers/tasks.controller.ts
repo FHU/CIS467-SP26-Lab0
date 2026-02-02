@@ -24,8 +24,11 @@ let tasks: Task[] = [];
 let nextId = 1;
 
 // GET /api/tasks — returns all tasks
-export const getAllTasks = async (_req: Request, res: Response): Promise<void> => {
-  console.log("testing...")
+export const getAllTasks = async (
+  _req: Request,
+  res: Response,
+): Promise<void> => {
+  console.log("testing...");
   const t = await prisma.task.findMany();
   console.log(t);
 
@@ -37,7 +40,7 @@ export const getAllTasks = async (_req: Request, res: Response): Promise<void> =
 export const getTaskById = (
   req: Request<TaskParams>,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
   const task = tasks.find((t) => t.id === parseInt(req.params.id, 10));
 
@@ -67,7 +70,7 @@ export const createTask = (req: Request, res: Response): void => {
 export const updateTask = (
   req: Request<TaskParams>,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
   const task = tasks.find((t) => t.id === parseInt(req.params.id, 10));
   if (!task) {
@@ -85,7 +88,7 @@ export const updateTask = (
 export const deleteTask = (
   req: Request<TaskParams>,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
   const index = tasks.findIndex((t) => t.id === parseInt(req.params.id, 10));
   if (index === -1) {
