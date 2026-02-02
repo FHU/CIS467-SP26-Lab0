@@ -8,6 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run build` — compile TypeScript to `dist/`
 - `npm start` — run compiled server (`node dist/server.js`)
 - `npm run db:seed` — seed the database with sample data
+- `npm run db:dropdata` — reset database (removes all data and migrations)
+- `npm run db:reset` — reset database and re-seed
 - `npx prisma migrate dev` — create and apply migrations
 - `npx prisma generate` — regenerate Prisma client after schema changes
 

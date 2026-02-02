@@ -7,7 +7,10 @@
     "dev": "nodemon",
     "build": "tsc",
     "start": "node dist/server.js",
-    "db:seed": "npx prisma db seed"
+    
+    "db:seed": "npx prisma db seed",
+    "db:dropdata": "prisma migrate reset",
+    "db:reset": "prisma migrate reset && npx prisma db seed"
   },
   "keywords": [],
   "author": "",
