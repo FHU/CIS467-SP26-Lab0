@@ -8,6 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run build` — compile TypeScript to `dist/`
 - `npm start` — run compiled server (`node dist/server.js`)
 - `npm run db:seed` — seed the database with sample data
+- `npm run db:dropdata` — reset database (removes all data and migrations)
+- `npm run db:reset` — reset database and re-seed
 - `npx prisma migrate dev` — create and apply migrations
 - `npx prisma generate` — regenerate Prisma client after schema changes
 
@@ -43,3 +45,57 @@ import { prisma } from "../lib/prisma.js";
 ```
 
 **Seeding:** `prisma/seed.ts` populates the database with sample data. Run via `npm run db:seed`.
+
+```mermaid
+
+
+erDiagram
+  %%USER ||--o| STUDENT_PROFILE : has
+  SPEAKER ||--o{ CHAPEL_SESSION : speaks 
+  
+  %%USER ||--o{ ATTENDANCE : records
+  %%CHAPEL_SERVICE ||--o{ ATTENDANCE : includes
+
+  USER ||--o{ FEEDBACK : gives
+  CHAPEL_SESSION ||--o{ FEEDBACK : receives
+
+  USER {
+    int id PK
+    string email UK "unique"
+    string first_name
+    string last_name
+    UserType type "STUDENT | FACUTLY | STAFF | ALUMNI | GUEST"
+  }
+
+  SPEAKER {
+    int id PK
+    string first_name
+    string last_name
+    string bio
+    string title "Dr., Mrs., Mr., etc."
+    UserType user_type "STUDENT | FACUTLY | STAFF | ALUMNI | GUEST"
+    %%CHAPEL_SESSION chapel_session_id FK
+  }
+
+%%   UserType {
+%%       string value PK "STUDENT | FACUTLY | STAFF | ALUMNI | GUEST"
+%%   }
+
+  CHAPEL_SESSION {
+    int id PK
+    int speaker_id FK 
+    string topic
+    string scripture
+    date date
+    time end_time
+    int number_standings
+  }
+
+  FEEDBACK {
+    int id PK
+    int stars "1 - 5"
+    string response 
+    int user_id FK
+    int chapel_session_id FK
+  }
+  ```
