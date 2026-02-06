@@ -10,32 +10,54 @@ datasource db {
   provider = "sqlite"
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+enum UserType {
+  STUDENT
+  FACULTY
+  STAFF
+  ALUMNI
+  GUEST
 }
 
 model Task {
-  id        Int   @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   title     String
   completed Boolean @default(false)
 }
 
+model User {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  first_name String
+  last_name  String
+  user_type  UserType
+}
+
 model Speaker {
-  id    Int     @id @default(autoincrement())
-  name  String
-  completed Boolean @default(false)
+  id         Int      @id @default(autoincrement())
+  first_name String
+  last_name  String
+  bio        String
+  title      String
+  type       UserType
+  completed  Boolean  @default(false)
 }
 
 model ChapelSession {
-  id Int @id @default(autoincrement())
-  name  String
-  completed Boolean @default(false)
+  id               Int      @id @default(autoincrement())
+  speaker_id       Int
+  topic            String
+  scripture        String
+  date             DateTime
+  end_time         DateTime
+  number_standings Int
+  completed        Boolean  @default(false)
 }
 
 model Feedback {
-  id    Int     @id @default(autoincrement())
-  name  String
-  completed Boolean @default(false)
+  id                Int     @id @default(autoincrement())
+  stars             Int
+  response          String
+  user_id           Int
+  chapel_session_id Int
+  completed         Boolean @default(false)
 }
