@@ -1,0 +1,51 @@
+
+
+erDiagram
+  %%USER ||--o| STUDENT_PROFILE : has
+  SPEAKER ||--o{ CHAPEL_SESSION : speaks 
+  
+  %%USER ||--o{ ATTENDANCE : records
+  %%CHAPEL_SERVICE ||--o{ ATTENDANCE : includes
+
+  USER ||--o{ FEEDBACK : gives
+  CHAPEL_SESSION ||--o{ FEEDBACK : receives
+
+  USER {
+    int id PK
+    string email UK "unique"
+    string first_name
+    string last_name
+    UserType type "STUDENT | FACUTLY | STAFF | ALUMNI | GUEST"
+  }
+
+  SPEAKER {
+    int id PK
+    string first_name
+    string last_name
+    string bio
+    string title "Dr., Mrs., Mr., etc."
+    UserType user_type "STUDENT | FACUTLY | STAFF | ALUMNI | GUEST"
+    %%CHAPEL_SESSION chapel_session_id FK
+  }
+
+%%   UserType {
+%%       string value PK "STUDENT | FACUTLY | STAFF | ALUMNI | GUEST"
+%%   }
+
+  CHAPEL_SESSION {
+    int id PK
+    int speaker_id FK 
+    string topic
+    string scripture
+    date date
+    time end_time
+    int number_standings
+  }
+
+  FEEDBACK {
+    int id PK
+    int stars "1 - 5"
+    string response 
+    int user_id FK
+    int chapel_session_id FK
+  }
