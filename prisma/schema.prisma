@@ -30,6 +30,8 @@ model User {
   first_name String
   last_name  String
   user_type  UserType
+
+  feedbacks Feedback[]
 }
 
 model Speaker {
@@ -40,6 +42,8 @@ model Speaker {
   title      String
   type       UserType
   completed  Boolean  @default(false)
+
+  chapelSessions ChapelSession[]
 }
 
 model ChapelSession {
@@ -51,6 +55,9 @@ model ChapelSession {
   end_time         DateTime
   number_standings Int
   completed        Boolean  @default(false)
+
+  feedbacks Feedback[]
+  speaker   Speaker    @relation(fields: [speaker_id], references: [id])
 }
 
 model Feedback {
@@ -60,4 +67,7 @@ model Feedback {
   user_id           Int
   chapel_session_id Int
   completed         Boolean @default(false)
+
+  user          User          @relation(fields: [user_id], references: [id])
+  chapelSession ChapelSession @relation(fields: [chapel_session_id], references: [id])
 }
