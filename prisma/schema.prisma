@@ -13,21 +13,39 @@ datasource db {
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
-  name  String?
-  posts Post[]
-}
-
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+  first_name String
+  last_name String
 }
 
 model Task {
   id        Int   @id @default(autoincrement())
   title     String
   completed Boolean @default(false)
+}
+
+model Speaker {
+  id Int @id @default(autoincrement())
+  first_name String
+  last_name String
+  bio String
+  title String
+}
+
+model ChapelSession {
+  id Int @id @default(autoincrement())
+  speaker_id Int
+  topic String
+  scripture String
+  date DateTime
+  end_time DateTime
+  number_standing Int
+
+}
+
+model Feedback {
+  id Int @id @default(autoincrement())
+  stars Int
+  response String
+  user_id Int
+  chapel_session_id Int 
 }
