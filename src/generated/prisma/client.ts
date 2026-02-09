@@ -16,12 +16,12 @@ import { fileURLToPath } from 'node:url'
 globalThis['__dirname'] = path.dirname(fileURLToPath(import.meta.url))
 
 import * as runtime from "@prisma/client/runtime/client"
-import * as $Enums from "./enums"
-import * as $Class from "./internal/class"
-import * as Prisma from "./internal/prismaNamespace"
+import * as $Enums from "./enums.js"
+import * as $Class from "./internal/class.js"
+import * as Prisma from "./internal/prismaNamespace.js"
 
-export * as $Enums from './enums'
-export * from "./enums"
+export * as $Enums from './enums.js'
+export * from "./enums.js"
 /**
  * ## Prisma Client
  * 
@@ -29,8 +29,8 @@ export * from "./enums"
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more USERS
+ * const uSERS = await prisma.uSER.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -40,17 +40,22 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 /**
- * Model User
+ * Model USER
  * 
  */
-export type User = Prisma.UserModel
+export type USER = Prisma.USERModel
 /**
- * Model Post
+ * Model SPEAKER
  * 
  */
-export type Post = Prisma.PostModel
+export type SPEAKER = Prisma.SPEAKERModel
 /**
- * Model Task
+ * Model CHAPEL_SESSION
  * 
  */
-export type Task = Prisma.TaskModel
+export type CHAPEL_SESSION = Prisma.CHAPEL_SESSIONModel
+/**
+ * Model FEEDBACK
+ * 
+ */
+export type FEEDBACK = Prisma.FEEDBACKModel

@@ -12,7 +12,7 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "./prismaNamespace"
+import type * as Prisma from "./prismaNamespace.js"
 
 
 const config: runtime.GetPrismaClientConfig = {
@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.3.0",
   "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
   "activeProvider": "sqlite",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n}\n\nmodel User {\n  id    Int     @id @default(autoincrement())\n  email String  @unique\n  name  String?\n  posts Post[]\n}\n\nmodel Post {\n  id        Int     @id @default(autoincrement())\n  title     String\n  content   String?\n  published Boolean @default(false)\n  author    User    @relation(fields: [authorId], references: [id])\n  authorId  Int\n}\n\nmodel Task {\n  id        Int     @id @default(autoincrement())\n  title     String\n  completed Boolean @default(false)\n}\n",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n}\n\nenum UserType {\n  STUDENT\n  FACULTY\n  STAFF\n  ALUMNI\n  GUEST\n}\n\nenum Title {\n  Dr\n  Mr\n  Mrs\n}\n\nmodel USER {\n  id         Int        @id @default(autoincrement())\n  email      String     @unique\n  first_name String?\n  last_name  String?\n  type       UserType\n  feedbacks  FEEDBACK[]\n}\n\nmodel SPEAKER {\n  id              Int              @id @default(autoincrement())\n  first_name      String?\n  last_name       String?\n  type            UserType\n  bio             String?\n  title           Title?\n  chapel_sessions CHAPEL_SESSION[] @relation(\"SpeakerToChapelSession\")\n}\n\nmodel CHAPEL_SESSION {\n  id               Int        @id @default(autoincrement())\n  speaker_id       Int\n  speaker          SPEAKER    @relation(fields: [speaker_id], references: [id], name: \"SpeakerToChapelSession\")\n  topic            String\n  date             DateTime\n  time             DateTime\n  number_standings Int\n  feedbacks        FEEDBACK[]\n}\n\nmodel FEEDBACK {\n  id                Int            @id @default(autoincrement())\n  stars             Int\n  response          String\n  user_id           Int\n  user              USER           @relation(fields: [user_id], references: [id])\n  chapel_session_id Int\n  chapel_session    CHAPEL_SESSION @relation(fields: [chapel_session_id], references: [id])\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToUser\"}],\"dbName\":null},\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"published\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"author\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PostToUser\"},{\"name\":\"authorId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"Task\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"completed\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"USER\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"first_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"last_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"UserType\"},{\"name\":\"feedbacks\",\"kind\":\"object\",\"type\":\"FEEDBACK\",\"relationName\":\"FEEDBACKToUSER\"}],\"dbName\":null},\"SPEAKER\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"first_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"last_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"UserType\"},{\"name\":\"bio\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"enum\",\"type\":\"Title\"},{\"name\":\"chapel_sessions\",\"kind\":\"object\",\"type\":\"CHAPEL_SESSION\",\"relationName\":\"SpeakerToChapelSession\"}],\"dbName\":null},\"CHAPEL_SESSION\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"speaker_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"speaker\",\"kind\":\"object\",\"type\":\"SPEAKER\",\"relationName\":\"SpeakerToChapelSession\"},{\"name\":\"topic\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"time\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"number_standings\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"feedbacks\",\"kind\":\"object\",\"type\":\"FEEDBACK\",\"relationName\":\"CHAPEL_SESSIONToFEEDBACK\"}],\"dbName\":null},\"FEEDBACK\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"stars\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"response\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"USER\",\"relationName\":\"FEEDBACKToUSER\"},{\"name\":\"chapel_session_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"chapel_session\",\"kind\":\"object\",\"type\":\"CHAPEL_SESSION\",\"relationName\":\"CHAPEL_SESSIONToFEEDBACK\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -60,8 +60,8 @@ export interface PrismaClientConstructor {
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more USERS
+   * const uSERS = await prisma.uSER.findMany()
    * ```
    * 
    * Read more in our [docs](https://pris.ly/d/client).
@@ -82,8 +82,8 @@ export interface PrismaClientConstructor {
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more USERS
+ * const uSERS = await prisma.uSER.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -177,34 +177,44 @@ export interface PrismaClient<
   }>>
 
       /**
-   * `prisma.user`: Exposes CRUD operations for the **User** model.
+   * `prisma.uSER`: Exposes CRUD operations for the **USER** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Users
-    * const users = await prisma.user.findMany()
+    * // Fetch zero or more USERS
+    * const uSERS = await prisma.uSER.findMany()
     * ```
     */
-  get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
+  get uSER(): Prisma.USERDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.post`: Exposes CRUD operations for the **Post** model.
+   * `prisma.sPEAKER`: Exposes CRUD operations for the **SPEAKER** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Posts
-    * const posts = await prisma.post.findMany()
+    * // Fetch zero or more SPEAKERS
+    * const sPEAKERS = await prisma.sPEAKER.findMany()
     * ```
     */
-  get post(): Prisma.PostDelegate<ExtArgs, { omit: OmitOpts }>;
+  get sPEAKER(): Prisma.SPEAKERDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.task`: Exposes CRUD operations for the **Task** model.
+   * `prisma.cHAPEL_SESSION`: Exposes CRUD operations for the **CHAPEL_SESSION** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Tasks
-    * const tasks = await prisma.task.findMany()
+    * // Fetch zero or more CHAPEL_SESSIONS
+    * const cHAPEL_SESSIONS = await prisma.cHAPEL_SESSION.findMany()
     * ```
     */
-  get task(): Prisma.TaskDelegate<ExtArgs, { omit: OmitOpts }>;
+  get cHAPEL_SESSION(): Prisma.CHAPEL_SESSIONDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.fEEDBACK`: Exposes CRUD operations for the **FEEDBACK** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FEEDBACKS
+    * const fEEDBACKS = await prisma.fEEDBACK.findMany()
+    * ```
+    */
+  get fEEDBACK(): Prisma.FEEDBACKDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

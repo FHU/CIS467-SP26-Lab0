@@ -10,24 +10,57 @@ datasource db {
   provider = "sqlite"
 }
 
-model User {
+enum UserType {
+  STUDENT 
+  FACULTY
+  STAFF
+  ALUMNI
+  GUEST
+}
+
+enum Title {
+  Dr
+  Mr
+  Mrs
+  Ms
+}
+
+model USER {
   id    Int     @id @default(autoincrement())
   email String  @unique
-  name  String?
-  posts Post[]
+  first_name  String?
+  last_name String?
+  type UserType
+  feedbacks  FEEDBACK[]
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+model SPEAKER{
+  id Int @id @default(autoincrement())
+  first_name  String?
+  last_name String?
+  type UserType
+  bio String?
+  title Title?
+  chapel_sessions CHAPEL_SESSION[] @relation("SpeakerToChapelSession")
 }
 
-model Task {
-  id        Int   @id @default(autoincrement())
-  title     String
-  completed Boolean @default(false)
+model CHAPEL_SESSION {
+  id Int @id @default(autoincrement())
+  speaker_id Int
+  speaker SPEAKER @relation(fields: [speaker_id], references: [id], name: "SpeakerToChapelSession")
+  topic String
+  date DateTime
+  time DateTime
+  number_standings Int
+  feedbacks FEEDBACK[]
+}
+
+model FEEDBACK{
+  id Int @id @default(autoincrement())
+  stars Int
+  response String
+  user_id Int
+  user    USER @relation(fields: [user_id], references: [id])
+  chapel_session_id Int
+  chapel_session CHAPEL_SESSION @relation(fields: [chapel_session_id], references: [id])
 }

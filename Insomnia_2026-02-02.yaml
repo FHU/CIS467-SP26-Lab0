@@ -1,0 +1,149 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Tasks API
+meta:
+  id: wrk_5d70bddee8664dd3aec6ea99561bc267
+  created: 1769892083543
+  modified: 1769892203454
+  description: ""
+collection:
+  - url: http://localhost:3000/api/tasks
+    name: Get All Tasks
+    meta:
+      id: req_deb8fcf614e741ad915a427769412153
+      created: 1769892083550
+      modified: 1770060308194
+      isPrivate: false
+      description: ""
+      sortKey: -1769892388693
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.6.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:3000/api/tasks/2
+    name: Get Tasks by ID
+    meta:
+      id: req_6149288896f34a7b90ae5bf3790f0fb9
+      created: 1769892128389
+      modified: 1770060306069
+      isPrivate: false
+      description: ""
+      sortKey: -1769892388643
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.6.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:3000/api/tasks
+    name: Add Task
+    meta:
+      id: req_63bd1337cc914b46a30effa744f03a5f
+      created: 1769892222628
+      modified: 1770060274202
+      isPrivate: false
+      description: ""
+      sortKey: -1769892350867
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"title": "go to 3rd floor ARC"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.3.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:3000/api/tasks/2
+    name: Update Task
+    meta:
+      id: req_e5179cc57b7244cfbe4beeb6ece0101c
+      created: 1769892313091
+      modified: 1770060366661
+      isPrivate: false
+      description: ""
+      sortKey: -1769892313091
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"title": "Read 1 John"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/12.3.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:3000/api/tasks/2
+    name: Delete Task
+    meta:
+      id: req_cc144dc7ff2144518cd7334549fe780c
+      created: 1770060132459
+      modified: 1770060235170
+      isPrivate: false
+      description: ""
+      sortKey: -1769892267809.5
+    method: DELETE
+    headers:
+      - name: User-Agent
+        value: insomnia/12.3.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_541677f5ab4b1de23a8ae5e428775cb89ed7c876
+    created: 1769892083547
+    modified: 1769892083547
+environments:
+  name: Base Environment
+  meta:
+    id: env_541677f5ab4b1de23a8ae5e428775cb89ed7c876
+    created: 1769892083546
+    modified: 1769892083546
+    isPrivate: false

@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models'
-export type * from './prismaNamespace'
+export type * from '../models.js'
+export type * from './prismaNamespace.js'
 
 export const Decimal = runtime.Decimal
 
@@ -51,9 +51,10 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User',
-  Post: 'Post',
-  Task: 'Task'
+  USER: 'USER',
+  SPEAKER: 'SPEAKER',
+  CHAPEL_SESSION: 'CHAPEL_SESSION',
+  FEEDBACK: 'FEEDBACK'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -69,33 +70,50 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const UserScalarFieldEnum = {
+export const USERScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  name: 'name'
+  first_name: 'first_name',
+  last_name: 'last_name',
+  type: 'type'
 } as const
 
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+export type USERScalarFieldEnum = (typeof USERScalarFieldEnum)[keyof typeof USERScalarFieldEnum]
 
 
-export const PostScalarFieldEnum = {
+export const SPEAKERScalarFieldEnum = {
   id: 'id',
-  title: 'title',
-  content: 'content',
-  published: 'published',
-  authorId: 'authorId'
+  first_name: 'first_name',
+  last_name: 'last_name',
+  type: 'type',
+  bio: 'bio',
+  title: 'title'
 } as const
 
-export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+export type SPEAKERScalarFieldEnum = (typeof SPEAKERScalarFieldEnum)[keyof typeof SPEAKERScalarFieldEnum]
 
 
-export const TaskScalarFieldEnum = {
+export const CHAPEL_SESSIONScalarFieldEnum = {
   id: 'id',
-  title: 'title',
-  completed: 'completed'
+  speaker_id: 'speaker_id',
+  topic: 'topic',
+  date: 'date',
+  time: 'time',
+  number_standings: 'number_standings'
 } as const
 
-export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+export type CHAPEL_SESSIONScalarFieldEnum = (typeof CHAPEL_SESSIONScalarFieldEnum)[keyof typeof CHAPEL_SESSIONScalarFieldEnum]
+
+
+export const FEEDBACKScalarFieldEnum = {
+  id: 'id',
+  stars: 'stars',
+  response: 'response',
+  user_id: 'user_id',
+  chapel_session_id: 'chapel_session_id'
+} as const
+
+export type FEEDBACKScalarFieldEnum = (typeof FEEDBACKScalarFieldEnum)[keyof typeof FEEDBACKScalarFieldEnum]
 
 
 export const SortOrder = {

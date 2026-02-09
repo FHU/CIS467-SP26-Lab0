@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from "express";
+import express from "express";
+
 
 interface AppError extends Error {
   statusCode?: number;
