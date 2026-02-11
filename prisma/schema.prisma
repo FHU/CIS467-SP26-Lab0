@@ -41,7 +41,6 @@ model Speaker {
   bio        String
   title      String
   type       UserType
-  completed  Boolean  @default(false)
 
   chapelSessions ChapelSession[]
 }
@@ -54,7 +53,6 @@ model ChapelSession {
   date             DateTime
   end_time         DateTime
   number_standings Int
-  completed        Boolean  @default(false)
 
   feedbacks Feedback[]
   speaker   Speaker    @relation(fields: [speaker_id], references: [id])

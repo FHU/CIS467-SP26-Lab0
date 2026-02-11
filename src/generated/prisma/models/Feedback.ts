@@ -28,27 +28,42 @@ export type AggregateFeedback = {
 
 export type FeedbackAvgAggregateOutputType = {
   id: number | null
+  stars: number | null
+  user_id: number | null
+  chapel_session_id: number | null
 }
 
 export type FeedbackSumAggregateOutputType = {
   id: number | null
+  stars: number | null
+  user_id: number | null
+  chapel_session_id: number | null
 }
 
 export type FeedbackMinAggregateOutputType = {
   id: number | null
-  name: string | null
+  stars: number | null
+  response: string | null
+  user_id: number | null
+  chapel_session_id: number | null
   completed: boolean | null
 }
 
 export type FeedbackMaxAggregateOutputType = {
   id: number | null
-  name: string | null
+  stars: number | null
+  response: string | null
+  user_id: number | null
+  chapel_session_id: number | null
   completed: boolean | null
 }
 
 export type FeedbackCountAggregateOutputType = {
   id: number
-  name: number
+  stars: number
+  response: number
+  user_id: number
+  chapel_session_id: number
   completed: number
   _all: number
 }
@@ -56,27 +71,42 @@ export type FeedbackCountAggregateOutputType = {
 
 export type FeedbackAvgAggregateInputType = {
   id?: true
+  stars?: true
+  user_id?: true
+  chapel_session_id?: true
 }
 
 export type FeedbackSumAggregateInputType = {
   id?: true
+  stars?: true
+  user_id?: true
+  chapel_session_id?: true
 }
 
 export type FeedbackMinAggregateInputType = {
   id?: true
-  name?: true
+  stars?: true
+  response?: true
+  user_id?: true
+  chapel_session_id?: true
   completed?: true
 }
 
 export type FeedbackMaxAggregateInputType = {
   id?: true
-  name?: true
+  stars?: true
+  response?: true
+  user_id?: true
+  chapel_session_id?: true
   completed?: true
 }
 
 export type FeedbackCountAggregateInputType = {
   id?: true
-  name?: true
+  stars?: true
+  response?: true
+  user_id?: true
+  chapel_session_id?: true
   completed?: true
   _all?: true
 }
@@ -169,7 +199,10 @@ export type FeedbackGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type FeedbackGroupByOutputType = {
   id: number
-  name: string
+  stars: number
+  response: string
+  user_id: number
+  chapel_session_id: number
   completed: boolean
   _count: FeedbackCountAggregateOutputType | null
   _avg: FeedbackAvgAggregateOutputType | null
@@ -198,14 +231,24 @@ export type FeedbackWhereInput = {
   OR?: Prisma.FeedbackWhereInput[]
   NOT?: Prisma.FeedbackWhereInput | Prisma.FeedbackWhereInput[]
   id?: Prisma.IntFilter<"Feedback"> | number
-  name?: Prisma.StringFilter<"Feedback"> | string
+  stars?: Prisma.IntFilter<"Feedback"> | number
+  response?: Prisma.StringFilter<"Feedback"> | string
+  user_id?: Prisma.IntFilter<"Feedback"> | number
+  chapel_session_id?: Prisma.IntFilter<"Feedback"> | number
   completed?: Prisma.BoolFilter<"Feedback"> | boolean
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  chapelSession?: Prisma.XOR<Prisma.ChapelSessionScalarRelationFilter, Prisma.ChapelSessionWhereInput>
 }
 
 export type FeedbackOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  stars?: Prisma.SortOrder
+  response?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
+  chapel_session_id?: Prisma.SortOrder
   completed?: Prisma.SortOrder
+  user?: Prisma.UserOrderByWithRelationInput
+  chapelSession?: Prisma.ChapelSessionOrderByWithRelationInput
 }
 
 export type FeedbackWhereUniqueInput = Prisma.AtLeast<{
@@ -213,13 +256,21 @@ export type FeedbackWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.FeedbackWhereInput | Prisma.FeedbackWhereInput[]
   OR?: Prisma.FeedbackWhereInput[]
   NOT?: Prisma.FeedbackWhereInput | Prisma.FeedbackWhereInput[]
-  name?: Prisma.StringFilter<"Feedback"> | string
+  stars?: Prisma.IntFilter<"Feedback"> | number
+  response?: Prisma.StringFilter<"Feedback"> | string
+  user_id?: Prisma.IntFilter<"Feedback"> | number
+  chapel_session_id?: Prisma.IntFilter<"Feedback"> | number
   completed?: Prisma.BoolFilter<"Feedback"> | boolean
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  chapelSession?: Prisma.XOR<Prisma.ChapelSessionScalarRelationFilter, Prisma.ChapelSessionWhereInput>
 }, "id">
 
 export type FeedbackOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  stars?: Prisma.SortOrder
+  response?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
+  chapel_session_id?: Prisma.SortOrder
   completed?: Prisma.SortOrder
   _count?: Prisma.FeedbackCountOrderByAggregateInput
   _avg?: Prisma.FeedbackAvgOrderByAggregateInput
@@ -233,109 +284,430 @@ export type FeedbackScalarWhereWithAggregatesInput = {
   OR?: Prisma.FeedbackScalarWhereWithAggregatesInput[]
   NOT?: Prisma.FeedbackScalarWhereWithAggregatesInput | Prisma.FeedbackScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Feedback"> | number
-  name?: Prisma.StringWithAggregatesFilter<"Feedback"> | string
+  stars?: Prisma.IntWithAggregatesFilter<"Feedback"> | number
+  response?: Prisma.StringWithAggregatesFilter<"Feedback"> | string
+  user_id?: Prisma.IntWithAggregatesFilter<"Feedback"> | number
+  chapel_session_id?: Prisma.IntWithAggregatesFilter<"Feedback"> | number
   completed?: Prisma.BoolWithAggregatesFilter<"Feedback"> | boolean
 }
 
 export type FeedbackCreateInput = {
-  name: string
+  stars: number
+  response: string
   completed?: boolean
+  user: Prisma.UserCreateNestedOneWithoutFeedbacksInput
+  chapelSession: Prisma.ChapelSessionCreateNestedOneWithoutFeedbacksInput
 }
 
 export type FeedbackUncheckedCreateInput = {
   id?: number
-  name: string
+  stars: number
+  response: string
+  user_id: number
+  chapel_session_id: number
   completed?: boolean
 }
 
 export type FeedbackUpdateInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  stars?: Prisma.IntFieldUpdateOperationsInput | number
+  response?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  user?: Prisma.UserUpdateOneRequiredWithoutFeedbacksNestedInput
+  chapelSession?: Prisma.ChapelSessionUpdateOneRequiredWithoutFeedbacksNestedInput
 }
 
 export type FeedbackUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  stars?: Prisma.IntFieldUpdateOperationsInput | number
+  response?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.IntFieldUpdateOperationsInput | number
+  chapel_session_id?: Prisma.IntFieldUpdateOperationsInput | number
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type FeedbackCreateManyInput = {
   id?: number
-  name: string
+  stars: number
+  response: string
+  user_id: number
+  chapel_session_id: number
   completed?: boolean
 }
 
 export type FeedbackUpdateManyMutationInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  stars?: Prisma.IntFieldUpdateOperationsInput | number
+  response?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type FeedbackUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  stars?: Prisma.IntFieldUpdateOperationsInput | number
+  response?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.IntFieldUpdateOperationsInput | number
+  chapel_session_id?: Prisma.IntFieldUpdateOperationsInput | number
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type FeedbackListRelationFilter = {
+  every?: Prisma.FeedbackWhereInput
+  some?: Prisma.FeedbackWhereInput
+  none?: Prisma.FeedbackWhereInput
+}
+
+export type FeedbackOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type FeedbackCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  stars?: Prisma.SortOrder
+  response?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
+  chapel_session_id?: Prisma.SortOrder
   completed?: Prisma.SortOrder
 }
 
 export type FeedbackAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  stars?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
+  chapel_session_id?: Prisma.SortOrder
 }
 
 export type FeedbackMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  stars?: Prisma.SortOrder
+  response?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
+  chapel_session_id?: Prisma.SortOrder
   completed?: Prisma.SortOrder
 }
 
 export type FeedbackMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  stars?: Prisma.SortOrder
+  response?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
+  chapel_session_id?: Prisma.SortOrder
   completed?: Prisma.SortOrder
 }
 
 export type FeedbackSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  stars?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
+  chapel_session_id?: Prisma.SortOrder
+}
+
+export type FeedbackCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.FeedbackCreateWithoutUserInput, Prisma.FeedbackUncheckedCreateWithoutUserInput> | Prisma.FeedbackCreateWithoutUserInput[] | Prisma.FeedbackUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.FeedbackCreateOrConnectWithoutUserInput | Prisma.FeedbackCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.FeedbackCreateManyUserInputEnvelope
+  connect?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+}
+
+export type FeedbackUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.FeedbackCreateWithoutUserInput, Prisma.FeedbackUncheckedCreateWithoutUserInput> | Prisma.FeedbackCreateWithoutUserInput[] | Prisma.FeedbackUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.FeedbackCreateOrConnectWithoutUserInput | Prisma.FeedbackCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.FeedbackCreateManyUserInputEnvelope
+  connect?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+}
+
+export type FeedbackUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.FeedbackCreateWithoutUserInput, Prisma.FeedbackUncheckedCreateWithoutUserInput> | Prisma.FeedbackCreateWithoutUserInput[] | Prisma.FeedbackUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.FeedbackCreateOrConnectWithoutUserInput | Prisma.FeedbackCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.FeedbackUpsertWithWhereUniqueWithoutUserInput | Prisma.FeedbackUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.FeedbackCreateManyUserInputEnvelope
+  set?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  disconnect?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  delete?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  connect?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  update?: Prisma.FeedbackUpdateWithWhereUniqueWithoutUserInput | Prisma.FeedbackUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.FeedbackUpdateManyWithWhereWithoutUserInput | Prisma.FeedbackUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.FeedbackScalarWhereInput | Prisma.FeedbackScalarWhereInput[]
+}
+
+export type FeedbackUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.FeedbackCreateWithoutUserInput, Prisma.FeedbackUncheckedCreateWithoutUserInput> | Prisma.FeedbackCreateWithoutUserInput[] | Prisma.FeedbackUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.FeedbackCreateOrConnectWithoutUserInput | Prisma.FeedbackCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.FeedbackUpsertWithWhereUniqueWithoutUserInput | Prisma.FeedbackUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.FeedbackCreateManyUserInputEnvelope
+  set?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  disconnect?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  delete?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  connect?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  update?: Prisma.FeedbackUpdateWithWhereUniqueWithoutUserInput | Prisma.FeedbackUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.FeedbackUpdateManyWithWhereWithoutUserInput | Prisma.FeedbackUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.FeedbackScalarWhereInput | Prisma.FeedbackScalarWhereInput[]
+}
+
+export type FeedbackCreateNestedManyWithoutChapelSessionInput = {
+  create?: Prisma.XOR<Prisma.FeedbackCreateWithoutChapelSessionInput, Prisma.FeedbackUncheckedCreateWithoutChapelSessionInput> | Prisma.FeedbackCreateWithoutChapelSessionInput[] | Prisma.FeedbackUncheckedCreateWithoutChapelSessionInput[]
+  connectOrCreate?: Prisma.FeedbackCreateOrConnectWithoutChapelSessionInput | Prisma.FeedbackCreateOrConnectWithoutChapelSessionInput[]
+  createMany?: Prisma.FeedbackCreateManyChapelSessionInputEnvelope
+  connect?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+}
+
+export type FeedbackUncheckedCreateNestedManyWithoutChapelSessionInput = {
+  create?: Prisma.XOR<Prisma.FeedbackCreateWithoutChapelSessionInput, Prisma.FeedbackUncheckedCreateWithoutChapelSessionInput> | Prisma.FeedbackCreateWithoutChapelSessionInput[] | Prisma.FeedbackUncheckedCreateWithoutChapelSessionInput[]
+  connectOrCreate?: Prisma.FeedbackCreateOrConnectWithoutChapelSessionInput | Prisma.FeedbackCreateOrConnectWithoutChapelSessionInput[]
+  createMany?: Prisma.FeedbackCreateManyChapelSessionInputEnvelope
+  connect?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+}
+
+export type FeedbackUpdateManyWithoutChapelSessionNestedInput = {
+  create?: Prisma.XOR<Prisma.FeedbackCreateWithoutChapelSessionInput, Prisma.FeedbackUncheckedCreateWithoutChapelSessionInput> | Prisma.FeedbackCreateWithoutChapelSessionInput[] | Prisma.FeedbackUncheckedCreateWithoutChapelSessionInput[]
+  connectOrCreate?: Prisma.FeedbackCreateOrConnectWithoutChapelSessionInput | Prisma.FeedbackCreateOrConnectWithoutChapelSessionInput[]
+  upsert?: Prisma.FeedbackUpsertWithWhereUniqueWithoutChapelSessionInput | Prisma.FeedbackUpsertWithWhereUniqueWithoutChapelSessionInput[]
+  createMany?: Prisma.FeedbackCreateManyChapelSessionInputEnvelope
+  set?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  disconnect?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  delete?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  connect?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  update?: Prisma.FeedbackUpdateWithWhereUniqueWithoutChapelSessionInput | Prisma.FeedbackUpdateWithWhereUniqueWithoutChapelSessionInput[]
+  updateMany?: Prisma.FeedbackUpdateManyWithWhereWithoutChapelSessionInput | Prisma.FeedbackUpdateManyWithWhereWithoutChapelSessionInput[]
+  deleteMany?: Prisma.FeedbackScalarWhereInput | Prisma.FeedbackScalarWhereInput[]
+}
+
+export type FeedbackUncheckedUpdateManyWithoutChapelSessionNestedInput = {
+  create?: Prisma.XOR<Prisma.FeedbackCreateWithoutChapelSessionInput, Prisma.FeedbackUncheckedCreateWithoutChapelSessionInput> | Prisma.FeedbackCreateWithoutChapelSessionInput[] | Prisma.FeedbackUncheckedCreateWithoutChapelSessionInput[]
+  connectOrCreate?: Prisma.FeedbackCreateOrConnectWithoutChapelSessionInput | Prisma.FeedbackCreateOrConnectWithoutChapelSessionInput[]
+  upsert?: Prisma.FeedbackUpsertWithWhereUniqueWithoutChapelSessionInput | Prisma.FeedbackUpsertWithWhereUniqueWithoutChapelSessionInput[]
+  createMany?: Prisma.FeedbackCreateManyChapelSessionInputEnvelope
+  set?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  disconnect?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  delete?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  connect?: Prisma.FeedbackWhereUniqueInput | Prisma.FeedbackWhereUniqueInput[]
+  update?: Prisma.FeedbackUpdateWithWhereUniqueWithoutChapelSessionInput | Prisma.FeedbackUpdateWithWhereUniqueWithoutChapelSessionInput[]
+  updateMany?: Prisma.FeedbackUpdateManyWithWhereWithoutChapelSessionInput | Prisma.FeedbackUpdateManyWithWhereWithoutChapelSessionInput[]
+  deleteMany?: Prisma.FeedbackScalarWhereInput | Prisma.FeedbackScalarWhereInput[]
+}
+
+export type FeedbackCreateWithoutUserInput = {
+  stars: number
+  response: string
+  completed?: boolean
+  chapelSession: Prisma.ChapelSessionCreateNestedOneWithoutFeedbacksInput
+}
+
+export type FeedbackUncheckedCreateWithoutUserInput = {
+  id?: number
+  stars: number
+  response: string
+  chapel_session_id: number
+  completed?: boolean
+}
+
+export type FeedbackCreateOrConnectWithoutUserInput = {
+  where: Prisma.FeedbackWhereUniqueInput
+  create: Prisma.XOR<Prisma.FeedbackCreateWithoutUserInput, Prisma.FeedbackUncheckedCreateWithoutUserInput>
+}
+
+export type FeedbackCreateManyUserInputEnvelope = {
+  data: Prisma.FeedbackCreateManyUserInput | Prisma.FeedbackCreateManyUserInput[]
+}
+
+export type FeedbackUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.FeedbackWhereUniqueInput
+  update: Prisma.XOR<Prisma.FeedbackUpdateWithoutUserInput, Prisma.FeedbackUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.FeedbackCreateWithoutUserInput, Prisma.FeedbackUncheckedCreateWithoutUserInput>
+}
+
+export type FeedbackUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.FeedbackWhereUniqueInput
+  data: Prisma.XOR<Prisma.FeedbackUpdateWithoutUserInput, Prisma.FeedbackUncheckedUpdateWithoutUserInput>
+}
+
+export type FeedbackUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.FeedbackScalarWhereInput
+  data: Prisma.XOR<Prisma.FeedbackUpdateManyMutationInput, Prisma.FeedbackUncheckedUpdateManyWithoutUserInput>
+}
+
+export type FeedbackScalarWhereInput = {
+  AND?: Prisma.FeedbackScalarWhereInput | Prisma.FeedbackScalarWhereInput[]
+  OR?: Prisma.FeedbackScalarWhereInput[]
+  NOT?: Prisma.FeedbackScalarWhereInput | Prisma.FeedbackScalarWhereInput[]
+  id?: Prisma.IntFilter<"Feedback"> | number
+  stars?: Prisma.IntFilter<"Feedback"> | number
+  response?: Prisma.StringFilter<"Feedback"> | string
+  user_id?: Prisma.IntFilter<"Feedback"> | number
+  chapel_session_id?: Prisma.IntFilter<"Feedback"> | number
+  completed?: Prisma.BoolFilter<"Feedback"> | boolean
+}
+
+export type FeedbackCreateWithoutChapelSessionInput = {
+  stars: number
+  response: string
+  completed?: boolean
+  user: Prisma.UserCreateNestedOneWithoutFeedbacksInput
+}
+
+export type FeedbackUncheckedCreateWithoutChapelSessionInput = {
+  id?: number
+  stars: number
+  response: string
+  user_id: number
+  completed?: boolean
+}
+
+export type FeedbackCreateOrConnectWithoutChapelSessionInput = {
+  where: Prisma.FeedbackWhereUniqueInput
+  create: Prisma.XOR<Prisma.FeedbackCreateWithoutChapelSessionInput, Prisma.FeedbackUncheckedCreateWithoutChapelSessionInput>
+}
+
+export type FeedbackCreateManyChapelSessionInputEnvelope = {
+  data: Prisma.FeedbackCreateManyChapelSessionInput | Prisma.FeedbackCreateManyChapelSessionInput[]
+}
+
+export type FeedbackUpsertWithWhereUniqueWithoutChapelSessionInput = {
+  where: Prisma.FeedbackWhereUniqueInput
+  update: Prisma.XOR<Prisma.FeedbackUpdateWithoutChapelSessionInput, Prisma.FeedbackUncheckedUpdateWithoutChapelSessionInput>
+  create: Prisma.XOR<Prisma.FeedbackCreateWithoutChapelSessionInput, Prisma.FeedbackUncheckedCreateWithoutChapelSessionInput>
+}
+
+export type FeedbackUpdateWithWhereUniqueWithoutChapelSessionInput = {
+  where: Prisma.FeedbackWhereUniqueInput
+  data: Prisma.XOR<Prisma.FeedbackUpdateWithoutChapelSessionInput, Prisma.FeedbackUncheckedUpdateWithoutChapelSessionInput>
+}
+
+export type FeedbackUpdateManyWithWhereWithoutChapelSessionInput = {
+  where: Prisma.FeedbackScalarWhereInput
+  data: Prisma.XOR<Prisma.FeedbackUpdateManyMutationInput, Prisma.FeedbackUncheckedUpdateManyWithoutChapelSessionInput>
+}
+
+export type FeedbackCreateManyUserInput = {
+  id?: number
+  stars: number
+  response: string
+  chapel_session_id: number
+  completed?: boolean
+}
+
+export type FeedbackUpdateWithoutUserInput = {
+  stars?: Prisma.IntFieldUpdateOperationsInput | number
+  response?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chapelSession?: Prisma.ChapelSessionUpdateOneRequiredWithoutFeedbacksNestedInput
+}
+
+export type FeedbackUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  stars?: Prisma.IntFieldUpdateOperationsInput | number
+  response?: Prisma.StringFieldUpdateOperationsInput | string
+  chapel_session_id?: Prisma.IntFieldUpdateOperationsInput | number
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type FeedbackUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  stars?: Prisma.IntFieldUpdateOperationsInput | number
+  response?: Prisma.StringFieldUpdateOperationsInput | string
+  chapel_session_id?: Prisma.IntFieldUpdateOperationsInput | number
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type FeedbackCreateManyChapelSessionInput = {
+  id?: number
+  stars: number
+  response: string
+  user_id: number
+  completed?: boolean
+}
+
+export type FeedbackUpdateWithoutChapelSessionInput = {
+  stars?: Prisma.IntFieldUpdateOperationsInput | number
+  response?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  user?: Prisma.UserUpdateOneRequiredWithoutFeedbacksNestedInput
+}
+
+export type FeedbackUncheckedUpdateWithoutChapelSessionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  stars?: Prisma.IntFieldUpdateOperationsInput | number
+  response?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.IntFieldUpdateOperationsInput | number
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type FeedbackUncheckedUpdateManyWithoutChapelSessionInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  stars?: Prisma.IntFieldUpdateOperationsInput | number
+  response?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.IntFieldUpdateOperationsInput | number
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
 
 export type FeedbackSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  stars?: boolean
+  response?: boolean
+  user_id?: boolean
+  chapel_session_id?: boolean
   completed?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  chapelSession?: boolean | Prisma.ChapelSessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["feedback"]>
 
 export type FeedbackSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  stars?: boolean
+  response?: boolean
+  user_id?: boolean
+  chapel_session_id?: boolean
   completed?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  chapelSession?: boolean | Prisma.ChapelSessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["feedback"]>
 
 export type FeedbackSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  stars?: boolean
+  response?: boolean
+  user_id?: boolean
+  chapel_session_id?: boolean
   completed?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  chapelSession?: boolean | Prisma.ChapelSessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["feedback"]>
 
 export type FeedbackSelectScalar = {
   id?: boolean
-  name?: boolean
+  stars?: boolean
+  response?: boolean
+  user_id?: boolean
+  chapel_session_id?: boolean
   completed?: boolean
 }
 
-export type FeedbackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "completed", ExtArgs["result"]["feedback"]>
+export type FeedbackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "stars" | "response" | "user_id" | "chapel_session_id" | "completed", ExtArgs["result"]["feedback"]>
+export type FeedbackInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  chapelSession?: boolean | Prisma.ChapelSessionDefaultArgs<ExtArgs>
+}
+export type FeedbackIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  chapelSession?: boolean | Prisma.ChapelSessionDefaultArgs<ExtArgs>
+}
+export type FeedbackIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  chapelSession?: boolean | Prisma.ChapelSessionDefaultArgs<ExtArgs>
+}
 
 export type $FeedbackPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Feedback"
-  objects: {}
+  objects: {
+    user: Prisma.$UserPayload<ExtArgs>
+    chapelSession: Prisma.$ChapelSessionPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    name: string
+    stars: number
+    response: string
+    user_id: number
+    chapel_session_id: number
     completed: boolean
   }, ExtArgs["result"]["feedback"]>
   composites: {}
@@ -731,6 +1103,8 @@ readonly fields: FeedbackFieldRefs;
  */
 export interface Prisma__FeedbackClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  chapelSession<T extends Prisma.ChapelSessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChapelSessionDefaultArgs<ExtArgs>>): Prisma.Prisma__ChapelSessionClient<runtime.Types.Result.GetResult<Prisma.$ChapelSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -761,7 +1135,10 @@ export interface Prisma__FeedbackClient<T, Null = never, ExtArgs extends runtime
  */
 export interface FeedbackFieldRefs {
   readonly id: Prisma.FieldRef<"Feedback", 'Int'>
-  readonly name: Prisma.FieldRef<"Feedback", 'String'>
+  readonly stars: Prisma.FieldRef<"Feedback", 'Int'>
+  readonly response: Prisma.FieldRef<"Feedback", 'String'>
+  readonly user_id: Prisma.FieldRef<"Feedback", 'Int'>
+  readonly chapel_session_id: Prisma.FieldRef<"Feedback", 'Int'>
   readonly completed: Prisma.FieldRef<"Feedback", 'Boolean'>
 }
     
@@ -779,6 +1156,10 @@ export type FeedbackFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the Feedback
    */
   omit?: Prisma.FeedbackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackInclude<ExtArgs> | null
   /**
    * Filter, which Feedback to fetch.
    */
@@ -798,6 +1179,10 @@ export type FeedbackFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.FeedbackOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackInclude<ExtArgs> | null
+  /**
    * Filter, which Feedback to fetch.
    */
   where: Prisma.FeedbackWhereUniqueInput
@@ -815,6 +1200,10 @@ export type FeedbackFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Feedback
    */
   omit?: Prisma.FeedbackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackInclude<ExtArgs> | null
   /**
    * Filter, which Feedback to fetch.
    */
@@ -864,6 +1253,10 @@ export type FeedbackFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.FeedbackOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackInclude<ExtArgs> | null
+  /**
    * Filter, which Feedback to fetch.
    */
   where?: Prisma.FeedbackWhereInput
@@ -912,6 +1305,10 @@ export type FeedbackFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.FeedbackOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackInclude<ExtArgs> | null
+  /**
    * Filter, which Feedbacks to fetch.
    */
   where?: Prisma.FeedbackWhereInput
@@ -955,6 +1352,10 @@ export type FeedbackCreateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.FeedbackOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackInclude<ExtArgs> | null
+  /**
    * The data needed to create a Feedback.
    */
   data: Prisma.XOR<Prisma.FeedbackCreateInput, Prisma.FeedbackUncheckedCreateInput>
@@ -986,6 +1387,10 @@ export type FeedbackCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * The data used to create many Feedbacks.
    */
   data: Prisma.FeedbackCreateManyInput | Prisma.FeedbackCreateManyInput[]
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1000,6 +1405,10 @@ export type FeedbackUpdateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Feedback
    */
   omit?: Prisma.FeedbackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackInclude<ExtArgs> | null
   /**
    * The data needed to update a Feedback.
    */
@@ -1052,6 +1461,10 @@ export type FeedbackUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many Feedbacks to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1066,6 +1479,10 @@ export type FeedbackUpsertArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Feedback
    */
   omit?: Prisma.FeedbackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackInclude<ExtArgs> | null
   /**
    * The filter to search for the Feedback to update in case it exists.
    */
@@ -1092,6 +1509,10 @@ export type FeedbackDeleteArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Feedback
    */
   omit?: Prisma.FeedbackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackInclude<ExtArgs> | null
   /**
    * Filter which Feedback to delete.
    */
@@ -1124,4 +1545,8 @@ export type FeedbackDefaultArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Feedback
    */
   omit?: Prisma.FeedbackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackInclude<ExtArgs> | null
 }

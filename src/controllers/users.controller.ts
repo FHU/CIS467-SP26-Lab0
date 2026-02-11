@@ -42,19 +42,28 @@ export const getAllUsers = async (_req: Request, res: Response): Promise<void> =
 
 // GET /api/users/:id — returns a single user by ID
 // Uses next(err) to pass errors to the global error handler
-export const getUserById = (
+export const getUserById = async (
   req: Request<UserParams>,
   res: Response,
   next: NextFunction
-): void => {
-  const user = users.find((u) => u.id === parseInt(req.params.id, 10));
+): Promise<void> => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: parseInt(req.params.id, 10)
+      }
+    });
 
-  if (!user) {
-    const err: AppError = new Error("User not found");
-    err.statusCode = 404;
-    return next(err); // Delegates to errorHandler middleware
+    if (!user) {
+      const err: AppError = new Error("User not found");
+      err.statusCode = 404;
+      return next(err);
+    }
+    
+    res.json(user);
+  } catch (error) {
+    next(error);
   }
-  res.json(user);
 };
 
 // POST /api/users — creates a new user
@@ -63,11 +72,11 @@ export const createUser = (req: Request, res: Response): void => {
   const { email, first_name, last_name, user_type, feedbacks } = req.body;
   const user: User = {
     id: nextId++,
-    email: email || "",
-    first_name: first_name || "",
-    last_name: last_name || "",
-    user_type: user_type || "customer",
-    feedbacks: feedbacks || []
+    email: email,
+    first_name: first_name,
+    last_name: last_name,
+    user_type: user_type,
+    feedbacks: feedbacks
   };
   users.push(user);
   res.status(201).json(user); // 201 Created

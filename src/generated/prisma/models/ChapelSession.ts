@@ -28,27 +28,46 @@ export type AggregateChapelSession = {
 
 export type ChapelSessionAvgAggregateOutputType = {
   id: number | null
+  speaker_id: number | null
+  number_standings: number | null
 }
 
 export type ChapelSessionSumAggregateOutputType = {
   id: number | null
+  speaker_id: number | null
+  number_standings: number | null
 }
 
 export type ChapelSessionMinAggregateOutputType = {
   id: number | null
-  name: string | null
+  speaker_id: number | null
+  topic: string | null
+  scripture: string | null
+  date: Date | null
+  end_time: Date | null
+  number_standings: number | null
   completed: boolean | null
 }
 
 export type ChapelSessionMaxAggregateOutputType = {
   id: number | null
-  name: string | null
+  speaker_id: number | null
+  topic: string | null
+  scripture: string | null
+  date: Date | null
+  end_time: Date | null
+  number_standings: number | null
   completed: boolean | null
 }
 
 export type ChapelSessionCountAggregateOutputType = {
   id: number
-  name: number
+  speaker_id: number
+  topic: number
+  scripture: number
+  date: number
+  end_time: number
+  number_standings: number
   completed: number
   _all: number
 }
@@ -56,27 +75,46 @@ export type ChapelSessionCountAggregateOutputType = {
 
 export type ChapelSessionAvgAggregateInputType = {
   id?: true
+  speaker_id?: true
+  number_standings?: true
 }
 
 export type ChapelSessionSumAggregateInputType = {
   id?: true
+  speaker_id?: true
+  number_standings?: true
 }
 
 export type ChapelSessionMinAggregateInputType = {
   id?: true
-  name?: true
+  speaker_id?: true
+  topic?: true
+  scripture?: true
+  date?: true
+  end_time?: true
+  number_standings?: true
   completed?: true
 }
 
 export type ChapelSessionMaxAggregateInputType = {
   id?: true
-  name?: true
+  speaker_id?: true
+  topic?: true
+  scripture?: true
+  date?: true
+  end_time?: true
+  number_standings?: true
   completed?: true
 }
 
 export type ChapelSessionCountAggregateInputType = {
   id?: true
-  name?: true
+  speaker_id?: true
+  topic?: true
+  scripture?: true
+  date?: true
+  end_time?: true
+  number_standings?: true
   completed?: true
   _all?: true
 }
@@ -169,7 +207,12 @@ export type ChapelSessionGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 
 export type ChapelSessionGroupByOutputType = {
   id: number
-  name: string
+  speaker_id: number
+  topic: string
+  scripture: string
+  date: Date
+  end_time: Date
+  number_standings: number
   completed: boolean
   _count: ChapelSessionCountAggregateOutputType | null
   _avg: ChapelSessionAvgAggregateOutputType | null
@@ -198,14 +241,28 @@ export type ChapelSessionWhereInput = {
   OR?: Prisma.ChapelSessionWhereInput[]
   NOT?: Prisma.ChapelSessionWhereInput | Prisma.ChapelSessionWhereInput[]
   id?: Prisma.IntFilter<"ChapelSession"> | number
-  name?: Prisma.StringFilter<"ChapelSession"> | string
+  speaker_id?: Prisma.IntFilter<"ChapelSession"> | number
+  topic?: Prisma.StringFilter<"ChapelSession"> | string
+  scripture?: Prisma.StringFilter<"ChapelSession"> | string
+  date?: Prisma.DateTimeFilter<"ChapelSession"> | Date | string
+  end_time?: Prisma.DateTimeFilter<"ChapelSession"> | Date | string
+  number_standings?: Prisma.IntFilter<"ChapelSession"> | number
   completed?: Prisma.BoolFilter<"ChapelSession"> | boolean
+  feedbacks?: Prisma.FeedbackListRelationFilter
+  speaker?: Prisma.XOR<Prisma.SpeakerScalarRelationFilter, Prisma.SpeakerWhereInput>
 }
 
 export type ChapelSessionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  speaker_id?: Prisma.SortOrder
+  topic?: Prisma.SortOrder
+  scripture?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  end_time?: Prisma.SortOrder
+  number_standings?: Prisma.SortOrder
   completed?: Prisma.SortOrder
+  feedbacks?: Prisma.FeedbackOrderByRelationAggregateInput
+  speaker?: Prisma.SpeakerOrderByWithRelationInput
 }
 
 export type ChapelSessionWhereUniqueInput = Prisma.AtLeast<{
@@ -213,13 +270,25 @@ export type ChapelSessionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ChapelSessionWhereInput | Prisma.ChapelSessionWhereInput[]
   OR?: Prisma.ChapelSessionWhereInput[]
   NOT?: Prisma.ChapelSessionWhereInput | Prisma.ChapelSessionWhereInput[]
-  name?: Prisma.StringFilter<"ChapelSession"> | string
+  speaker_id?: Prisma.IntFilter<"ChapelSession"> | number
+  topic?: Prisma.StringFilter<"ChapelSession"> | string
+  scripture?: Prisma.StringFilter<"ChapelSession"> | string
+  date?: Prisma.DateTimeFilter<"ChapelSession"> | Date | string
+  end_time?: Prisma.DateTimeFilter<"ChapelSession"> | Date | string
+  number_standings?: Prisma.IntFilter<"ChapelSession"> | number
   completed?: Prisma.BoolFilter<"ChapelSession"> | boolean
+  feedbacks?: Prisma.FeedbackListRelationFilter
+  speaker?: Prisma.XOR<Prisma.SpeakerScalarRelationFilter, Prisma.SpeakerWhereInput>
 }, "id">
 
 export type ChapelSessionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  speaker_id?: Prisma.SortOrder
+  topic?: Prisma.SortOrder
+  scripture?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  end_time?: Prisma.SortOrder
+  number_standings?: Prisma.SortOrder
   completed?: Prisma.SortOrder
   _count?: Prisma.ChapelSessionCountOrderByAggregateInput
   _avg?: Prisma.ChapelSessionAvgOrderByAggregateInput
@@ -233,109 +302,478 @@ export type ChapelSessionScalarWhereWithAggregatesInput = {
   OR?: Prisma.ChapelSessionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ChapelSessionScalarWhereWithAggregatesInput | Prisma.ChapelSessionScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"ChapelSession"> | number
-  name?: Prisma.StringWithAggregatesFilter<"ChapelSession"> | string
+  speaker_id?: Prisma.IntWithAggregatesFilter<"ChapelSession"> | number
+  topic?: Prisma.StringWithAggregatesFilter<"ChapelSession"> | string
+  scripture?: Prisma.StringWithAggregatesFilter<"ChapelSession"> | string
+  date?: Prisma.DateTimeWithAggregatesFilter<"ChapelSession"> | Date | string
+  end_time?: Prisma.DateTimeWithAggregatesFilter<"ChapelSession"> | Date | string
+  number_standings?: Prisma.IntWithAggregatesFilter<"ChapelSession"> | number
   completed?: Prisma.BoolWithAggregatesFilter<"ChapelSession"> | boolean
 }
 
 export type ChapelSessionCreateInput = {
-  name: string
+  topic: string
+  scripture: string
+  date: Date | string
+  end_time: Date | string
+  number_standings: number
   completed?: boolean
+  feedbacks?: Prisma.FeedbackCreateNestedManyWithoutChapelSessionInput
+  speaker: Prisma.SpeakerCreateNestedOneWithoutChapelSessionsInput
 }
 
 export type ChapelSessionUncheckedCreateInput = {
   id?: number
-  name: string
+  speaker_id: number
+  topic: string
+  scripture: string
+  date: Date | string
+  end_time: Date | string
+  number_standings: number
   completed?: boolean
+  feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutChapelSessionInput
 }
 
 export type ChapelSessionUpdateInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  scripture?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number_standings?: Prisma.IntFieldUpdateOperationsInput | number
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  feedbacks?: Prisma.FeedbackUpdateManyWithoutChapelSessionNestedInput
+  speaker?: Prisma.SpeakerUpdateOneRequiredWithoutChapelSessionsNestedInput
 }
 
 export type ChapelSessionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  speaker_id?: Prisma.IntFieldUpdateOperationsInput | number
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  scripture?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number_standings?: Prisma.IntFieldUpdateOperationsInput | number
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutChapelSessionNestedInput
 }
 
 export type ChapelSessionCreateManyInput = {
   id?: number
-  name: string
+  speaker_id: number
+  topic: string
+  scripture: string
+  date: Date | string
+  end_time: Date | string
+  number_standings: number
   completed?: boolean
 }
 
 export type ChapelSessionUpdateManyMutationInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  scripture?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number_standings?: Prisma.IntFieldUpdateOperationsInput | number
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ChapelSessionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  speaker_id?: Prisma.IntFieldUpdateOperationsInput | number
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  scripture?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number_standings?: Prisma.IntFieldUpdateOperationsInput | number
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type ChapelSessionListRelationFilter = {
+  every?: Prisma.ChapelSessionWhereInput
+  some?: Prisma.ChapelSessionWhereInput
+  none?: Prisma.ChapelSessionWhereInput
+}
+
+export type ChapelSessionOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type ChapelSessionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  speaker_id?: Prisma.SortOrder
+  topic?: Prisma.SortOrder
+  scripture?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  end_time?: Prisma.SortOrder
+  number_standings?: Prisma.SortOrder
   completed?: Prisma.SortOrder
 }
 
 export type ChapelSessionAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  speaker_id?: Prisma.SortOrder
+  number_standings?: Prisma.SortOrder
 }
 
 export type ChapelSessionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  speaker_id?: Prisma.SortOrder
+  topic?: Prisma.SortOrder
+  scripture?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  end_time?: Prisma.SortOrder
+  number_standings?: Prisma.SortOrder
   completed?: Prisma.SortOrder
 }
 
 export type ChapelSessionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  speaker_id?: Prisma.SortOrder
+  topic?: Prisma.SortOrder
+  scripture?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  end_time?: Prisma.SortOrder
+  number_standings?: Prisma.SortOrder
   completed?: Prisma.SortOrder
 }
 
 export type ChapelSessionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  speaker_id?: Prisma.SortOrder
+  number_standings?: Prisma.SortOrder
 }
 
+export type ChapelSessionScalarRelationFilter = {
+  is?: Prisma.ChapelSessionWhereInput
+  isNot?: Prisma.ChapelSessionWhereInput
+}
+
+export type ChapelSessionCreateNestedManyWithoutSpeakerInput = {
+  create?: Prisma.XOR<Prisma.ChapelSessionCreateWithoutSpeakerInput, Prisma.ChapelSessionUncheckedCreateWithoutSpeakerInput> | Prisma.ChapelSessionCreateWithoutSpeakerInput[] | Prisma.ChapelSessionUncheckedCreateWithoutSpeakerInput[]
+  connectOrCreate?: Prisma.ChapelSessionCreateOrConnectWithoutSpeakerInput | Prisma.ChapelSessionCreateOrConnectWithoutSpeakerInput[]
+  createMany?: Prisma.ChapelSessionCreateManySpeakerInputEnvelope
+  connect?: Prisma.ChapelSessionWhereUniqueInput | Prisma.ChapelSessionWhereUniqueInput[]
+}
+
+export type ChapelSessionUncheckedCreateNestedManyWithoutSpeakerInput = {
+  create?: Prisma.XOR<Prisma.ChapelSessionCreateWithoutSpeakerInput, Prisma.ChapelSessionUncheckedCreateWithoutSpeakerInput> | Prisma.ChapelSessionCreateWithoutSpeakerInput[] | Prisma.ChapelSessionUncheckedCreateWithoutSpeakerInput[]
+  connectOrCreate?: Prisma.ChapelSessionCreateOrConnectWithoutSpeakerInput | Prisma.ChapelSessionCreateOrConnectWithoutSpeakerInput[]
+  createMany?: Prisma.ChapelSessionCreateManySpeakerInputEnvelope
+  connect?: Prisma.ChapelSessionWhereUniqueInput | Prisma.ChapelSessionWhereUniqueInput[]
+}
+
+export type ChapelSessionUpdateManyWithoutSpeakerNestedInput = {
+  create?: Prisma.XOR<Prisma.ChapelSessionCreateWithoutSpeakerInput, Prisma.ChapelSessionUncheckedCreateWithoutSpeakerInput> | Prisma.ChapelSessionCreateWithoutSpeakerInput[] | Prisma.ChapelSessionUncheckedCreateWithoutSpeakerInput[]
+  connectOrCreate?: Prisma.ChapelSessionCreateOrConnectWithoutSpeakerInput | Prisma.ChapelSessionCreateOrConnectWithoutSpeakerInput[]
+  upsert?: Prisma.ChapelSessionUpsertWithWhereUniqueWithoutSpeakerInput | Prisma.ChapelSessionUpsertWithWhereUniqueWithoutSpeakerInput[]
+  createMany?: Prisma.ChapelSessionCreateManySpeakerInputEnvelope
+  set?: Prisma.ChapelSessionWhereUniqueInput | Prisma.ChapelSessionWhereUniqueInput[]
+  disconnect?: Prisma.ChapelSessionWhereUniqueInput | Prisma.ChapelSessionWhereUniqueInput[]
+  delete?: Prisma.ChapelSessionWhereUniqueInput | Prisma.ChapelSessionWhereUniqueInput[]
+  connect?: Prisma.ChapelSessionWhereUniqueInput | Prisma.ChapelSessionWhereUniqueInput[]
+  update?: Prisma.ChapelSessionUpdateWithWhereUniqueWithoutSpeakerInput | Prisma.ChapelSessionUpdateWithWhereUniqueWithoutSpeakerInput[]
+  updateMany?: Prisma.ChapelSessionUpdateManyWithWhereWithoutSpeakerInput | Prisma.ChapelSessionUpdateManyWithWhereWithoutSpeakerInput[]
+  deleteMany?: Prisma.ChapelSessionScalarWhereInput | Prisma.ChapelSessionScalarWhereInput[]
+}
+
+export type ChapelSessionUncheckedUpdateManyWithoutSpeakerNestedInput = {
+  create?: Prisma.XOR<Prisma.ChapelSessionCreateWithoutSpeakerInput, Prisma.ChapelSessionUncheckedCreateWithoutSpeakerInput> | Prisma.ChapelSessionCreateWithoutSpeakerInput[] | Prisma.ChapelSessionUncheckedCreateWithoutSpeakerInput[]
+  connectOrCreate?: Prisma.ChapelSessionCreateOrConnectWithoutSpeakerInput | Prisma.ChapelSessionCreateOrConnectWithoutSpeakerInput[]
+  upsert?: Prisma.ChapelSessionUpsertWithWhereUniqueWithoutSpeakerInput | Prisma.ChapelSessionUpsertWithWhereUniqueWithoutSpeakerInput[]
+  createMany?: Prisma.ChapelSessionCreateManySpeakerInputEnvelope
+  set?: Prisma.ChapelSessionWhereUniqueInput | Prisma.ChapelSessionWhereUniqueInput[]
+  disconnect?: Prisma.ChapelSessionWhereUniqueInput | Prisma.ChapelSessionWhereUniqueInput[]
+  delete?: Prisma.ChapelSessionWhereUniqueInput | Prisma.ChapelSessionWhereUniqueInput[]
+  connect?: Prisma.ChapelSessionWhereUniqueInput | Prisma.ChapelSessionWhereUniqueInput[]
+  update?: Prisma.ChapelSessionUpdateWithWhereUniqueWithoutSpeakerInput | Prisma.ChapelSessionUpdateWithWhereUniqueWithoutSpeakerInput[]
+  updateMany?: Prisma.ChapelSessionUpdateManyWithWhereWithoutSpeakerInput | Prisma.ChapelSessionUpdateManyWithWhereWithoutSpeakerInput[]
+  deleteMany?: Prisma.ChapelSessionScalarWhereInput | Prisma.ChapelSessionScalarWhereInput[]
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
+export type ChapelSessionCreateNestedOneWithoutFeedbacksInput = {
+  create?: Prisma.XOR<Prisma.ChapelSessionCreateWithoutFeedbacksInput, Prisma.ChapelSessionUncheckedCreateWithoutFeedbacksInput>
+  connectOrCreate?: Prisma.ChapelSessionCreateOrConnectWithoutFeedbacksInput
+  connect?: Prisma.ChapelSessionWhereUniqueInput
+}
+
+export type ChapelSessionUpdateOneRequiredWithoutFeedbacksNestedInput = {
+  create?: Prisma.XOR<Prisma.ChapelSessionCreateWithoutFeedbacksInput, Prisma.ChapelSessionUncheckedCreateWithoutFeedbacksInput>
+  connectOrCreate?: Prisma.ChapelSessionCreateOrConnectWithoutFeedbacksInput
+  upsert?: Prisma.ChapelSessionUpsertWithoutFeedbacksInput
+  connect?: Prisma.ChapelSessionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ChapelSessionUpdateToOneWithWhereWithoutFeedbacksInput, Prisma.ChapelSessionUpdateWithoutFeedbacksInput>, Prisma.ChapelSessionUncheckedUpdateWithoutFeedbacksInput>
+}
+
+export type ChapelSessionCreateWithoutSpeakerInput = {
+  topic: string
+  scripture: string
+  date: Date | string
+  end_time: Date | string
+  number_standings: number
+  completed?: boolean
+  feedbacks?: Prisma.FeedbackCreateNestedManyWithoutChapelSessionInput
+}
+
+export type ChapelSessionUncheckedCreateWithoutSpeakerInput = {
+  id?: number
+  topic: string
+  scripture: string
+  date: Date | string
+  end_time: Date | string
+  number_standings: number
+  completed?: boolean
+  feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutChapelSessionInput
+}
+
+export type ChapelSessionCreateOrConnectWithoutSpeakerInput = {
+  where: Prisma.ChapelSessionWhereUniqueInput
+  create: Prisma.XOR<Prisma.ChapelSessionCreateWithoutSpeakerInput, Prisma.ChapelSessionUncheckedCreateWithoutSpeakerInput>
+}
+
+export type ChapelSessionCreateManySpeakerInputEnvelope = {
+  data: Prisma.ChapelSessionCreateManySpeakerInput | Prisma.ChapelSessionCreateManySpeakerInput[]
+}
+
+export type ChapelSessionUpsertWithWhereUniqueWithoutSpeakerInput = {
+  where: Prisma.ChapelSessionWhereUniqueInput
+  update: Prisma.XOR<Prisma.ChapelSessionUpdateWithoutSpeakerInput, Prisma.ChapelSessionUncheckedUpdateWithoutSpeakerInput>
+  create: Prisma.XOR<Prisma.ChapelSessionCreateWithoutSpeakerInput, Prisma.ChapelSessionUncheckedCreateWithoutSpeakerInput>
+}
+
+export type ChapelSessionUpdateWithWhereUniqueWithoutSpeakerInput = {
+  where: Prisma.ChapelSessionWhereUniqueInput
+  data: Prisma.XOR<Prisma.ChapelSessionUpdateWithoutSpeakerInput, Prisma.ChapelSessionUncheckedUpdateWithoutSpeakerInput>
+}
+
+export type ChapelSessionUpdateManyWithWhereWithoutSpeakerInput = {
+  where: Prisma.ChapelSessionScalarWhereInput
+  data: Prisma.XOR<Prisma.ChapelSessionUpdateManyMutationInput, Prisma.ChapelSessionUncheckedUpdateManyWithoutSpeakerInput>
+}
+
+export type ChapelSessionScalarWhereInput = {
+  AND?: Prisma.ChapelSessionScalarWhereInput | Prisma.ChapelSessionScalarWhereInput[]
+  OR?: Prisma.ChapelSessionScalarWhereInput[]
+  NOT?: Prisma.ChapelSessionScalarWhereInput | Prisma.ChapelSessionScalarWhereInput[]
+  id?: Prisma.IntFilter<"ChapelSession"> | number
+  speaker_id?: Prisma.IntFilter<"ChapelSession"> | number
+  topic?: Prisma.StringFilter<"ChapelSession"> | string
+  scripture?: Prisma.StringFilter<"ChapelSession"> | string
+  date?: Prisma.DateTimeFilter<"ChapelSession"> | Date | string
+  end_time?: Prisma.DateTimeFilter<"ChapelSession"> | Date | string
+  number_standings?: Prisma.IntFilter<"ChapelSession"> | number
+  completed?: Prisma.BoolFilter<"ChapelSession"> | boolean
+}
+
+export type ChapelSessionCreateWithoutFeedbacksInput = {
+  topic: string
+  scripture: string
+  date: Date | string
+  end_time: Date | string
+  number_standings: number
+  completed?: boolean
+  speaker: Prisma.SpeakerCreateNestedOneWithoutChapelSessionsInput
+}
+
+export type ChapelSessionUncheckedCreateWithoutFeedbacksInput = {
+  id?: number
+  speaker_id: number
+  topic: string
+  scripture: string
+  date: Date | string
+  end_time: Date | string
+  number_standings: number
+  completed?: boolean
+}
+
+export type ChapelSessionCreateOrConnectWithoutFeedbacksInput = {
+  where: Prisma.ChapelSessionWhereUniqueInput
+  create: Prisma.XOR<Prisma.ChapelSessionCreateWithoutFeedbacksInput, Prisma.ChapelSessionUncheckedCreateWithoutFeedbacksInput>
+}
+
+export type ChapelSessionUpsertWithoutFeedbacksInput = {
+  update: Prisma.XOR<Prisma.ChapelSessionUpdateWithoutFeedbacksInput, Prisma.ChapelSessionUncheckedUpdateWithoutFeedbacksInput>
+  create: Prisma.XOR<Prisma.ChapelSessionCreateWithoutFeedbacksInput, Prisma.ChapelSessionUncheckedCreateWithoutFeedbacksInput>
+  where?: Prisma.ChapelSessionWhereInput
+}
+
+export type ChapelSessionUpdateToOneWithWhereWithoutFeedbacksInput = {
+  where?: Prisma.ChapelSessionWhereInput
+  data: Prisma.XOR<Prisma.ChapelSessionUpdateWithoutFeedbacksInput, Prisma.ChapelSessionUncheckedUpdateWithoutFeedbacksInput>
+}
+
+export type ChapelSessionUpdateWithoutFeedbacksInput = {
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  scripture?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number_standings?: Prisma.IntFieldUpdateOperationsInput | number
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  speaker?: Prisma.SpeakerUpdateOneRequiredWithoutChapelSessionsNestedInput
+}
+
+export type ChapelSessionUncheckedUpdateWithoutFeedbacksInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  speaker_id?: Prisma.IntFieldUpdateOperationsInput | number
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  scripture?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number_standings?: Prisma.IntFieldUpdateOperationsInput | number
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type ChapelSessionCreateManySpeakerInput = {
+  id?: number
+  topic: string
+  scripture: string
+  date: Date | string
+  end_time: Date | string
+  number_standings: number
+  completed?: boolean
+}
+
+export type ChapelSessionUpdateWithoutSpeakerInput = {
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  scripture?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number_standings?: Prisma.IntFieldUpdateOperationsInput | number
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  feedbacks?: Prisma.FeedbackUpdateManyWithoutChapelSessionNestedInput
+}
+
+export type ChapelSessionUncheckedUpdateWithoutSpeakerInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  scripture?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number_standings?: Prisma.IntFieldUpdateOperationsInput | number
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutChapelSessionNestedInput
+}
+
+export type ChapelSessionUncheckedUpdateManyWithoutSpeakerInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  scripture?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number_standings?: Prisma.IntFieldUpdateOperationsInput | number
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+
+/**
+ * Count Type ChapelSessionCountOutputType
+ */
+
+export type ChapelSessionCountOutputType = {
+  feedbacks: number
+}
+
+export type ChapelSessionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  feedbacks?: boolean | ChapelSessionCountOutputTypeCountFeedbacksArgs
+}
+
+/**
+ * ChapelSessionCountOutputType without action
+ */
+export type ChapelSessionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChapelSessionCountOutputType
+   */
+  select?: Prisma.ChapelSessionCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ChapelSessionCountOutputType without action
+ */
+export type ChapelSessionCountOutputTypeCountFeedbacksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FeedbackWhereInput
+}
 
 
 export type ChapelSessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  speaker_id?: boolean
+  topic?: boolean
+  scripture?: boolean
+  date?: boolean
+  end_time?: boolean
+  number_standings?: boolean
   completed?: boolean
+  feedbacks?: boolean | Prisma.ChapelSession$feedbacksArgs<ExtArgs>
+  speaker?: boolean | Prisma.SpeakerDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.ChapelSessionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["chapelSession"]>
 
 export type ChapelSessionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  speaker_id?: boolean
+  topic?: boolean
+  scripture?: boolean
+  date?: boolean
+  end_time?: boolean
+  number_standings?: boolean
   completed?: boolean
+  speaker?: boolean | Prisma.SpeakerDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["chapelSession"]>
 
 export type ChapelSessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  speaker_id?: boolean
+  topic?: boolean
+  scripture?: boolean
+  date?: boolean
+  end_time?: boolean
+  number_standings?: boolean
   completed?: boolean
+  speaker?: boolean | Prisma.SpeakerDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["chapelSession"]>
 
 export type ChapelSessionSelectScalar = {
   id?: boolean
-  name?: boolean
+  speaker_id?: boolean
+  topic?: boolean
+  scripture?: boolean
+  date?: boolean
+  end_time?: boolean
+  number_standings?: boolean
   completed?: boolean
 }
 
-export type ChapelSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "completed", ExtArgs["result"]["chapelSession"]>
+export type ChapelSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "speaker_id" | "topic" | "scripture" | "date" | "end_time" | "number_standings" | "completed", ExtArgs["result"]["chapelSession"]>
+export type ChapelSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  feedbacks?: boolean | Prisma.ChapelSession$feedbacksArgs<ExtArgs>
+  speaker?: boolean | Prisma.SpeakerDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.ChapelSessionCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type ChapelSessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  speaker?: boolean | Prisma.SpeakerDefaultArgs<ExtArgs>
+}
+export type ChapelSessionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  speaker?: boolean | Prisma.SpeakerDefaultArgs<ExtArgs>
+}
 
 export type $ChapelSessionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ChapelSession"
-  objects: {}
+  objects: {
+    feedbacks: Prisma.$FeedbackPayload<ExtArgs>[]
+    speaker: Prisma.$SpeakerPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    name: string
+    speaker_id: number
+    topic: string
+    scripture: string
+    date: Date
+    end_time: Date
+    number_standings: number
     completed: boolean
   }, ExtArgs["result"]["chapelSession"]>
   composites: {}
@@ -731,6 +1169,8 @@ readonly fields: ChapelSessionFieldRefs;
  */
 export interface Prisma__ChapelSessionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  feedbacks<T extends Prisma.ChapelSession$feedbacksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChapelSession$feedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  speaker<T extends Prisma.SpeakerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SpeakerDefaultArgs<ExtArgs>>): Prisma.Prisma__SpeakerClient<runtime.Types.Result.GetResult<Prisma.$SpeakerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -761,7 +1201,12 @@ export interface Prisma__ChapelSessionClient<T, Null = never, ExtArgs extends ru
  */
 export interface ChapelSessionFieldRefs {
   readonly id: Prisma.FieldRef<"ChapelSession", 'Int'>
-  readonly name: Prisma.FieldRef<"ChapelSession", 'String'>
+  readonly speaker_id: Prisma.FieldRef<"ChapelSession", 'Int'>
+  readonly topic: Prisma.FieldRef<"ChapelSession", 'String'>
+  readonly scripture: Prisma.FieldRef<"ChapelSession", 'String'>
+  readonly date: Prisma.FieldRef<"ChapelSession", 'DateTime'>
+  readonly end_time: Prisma.FieldRef<"ChapelSession", 'DateTime'>
+  readonly number_standings: Prisma.FieldRef<"ChapelSession", 'Int'>
   readonly completed: Prisma.FieldRef<"ChapelSession", 'Boolean'>
 }
     
@@ -779,6 +1224,10 @@ export type ChapelSessionFindUniqueArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the ChapelSession
    */
   omit?: Prisma.ChapelSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapelSessionInclude<ExtArgs> | null
   /**
    * Filter, which ChapelSession to fetch.
    */
@@ -798,6 +1247,10 @@ export type ChapelSessionFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Ext
    */
   omit?: Prisma.ChapelSessionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapelSessionInclude<ExtArgs> | null
+  /**
    * Filter, which ChapelSession to fetch.
    */
   where: Prisma.ChapelSessionWhereUniqueInput
@@ -815,6 +1268,10 @@ export type ChapelSessionFindFirstArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the ChapelSession
    */
   omit?: Prisma.ChapelSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapelSessionInclude<ExtArgs> | null
   /**
    * Filter, which ChapelSession to fetch.
    */
@@ -864,6 +1321,10 @@ export type ChapelSessionFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Exte
    */
   omit?: Prisma.ChapelSessionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapelSessionInclude<ExtArgs> | null
+  /**
    * Filter, which ChapelSession to fetch.
    */
   where?: Prisma.ChapelSessionWhereInput
@@ -912,6 +1373,10 @@ export type ChapelSessionFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.ChapelSessionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapelSessionInclude<ExtArgs> | null
+  /**
    * Filter, which ChapelSessions to fetch.
    */
   where?: Prisma.ChapelSessionWhereInput
@@ -955,6 +1420,10 @@ export type ChapelSessionCreateArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   omit?: Prisma.ChapelSessionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapelSessionInclude<ExtArgs> | null
+  /**
    * The data needed to create a ChapelSession.
    */
   data: Prisma.XOR<Prisma.ChapelSessionCreateInput, Prisma.ChapelSessionUncheckedCreateInput>
@@ -986,6 +1455,10 @@ export type ChapelSessionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.E
    * The data used to create many ChapelSessions.
    */
   data: Prisma.ChapelSessionCreateManyInput | Prisma.ChapelSessionCreateManyInput[]
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapelSessionIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1000,6 +1473,10 @@ export type ChapelSessionUpdateArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the ChapelSession
    */
   omit?: Prisma.ChapelSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapelSessionInclude<ExtArgs> | null
   /**
    * The data needed to update a ChapelSession.
    */
@@ -1052,6 +1529,10 @@ export type ChapelSessionUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.E
    * Limit how many ChapelSessions to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapelSessionIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1066,6 +1547,10 @@ export type ChapelSessionUpsertArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the ChapelSession
    */
   omit?: Prisma.ChapelSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapelSessionInclude<ExtArgs> | null
   /**
    * The filter to search for the ChapelSession to update in case it exists.
    */
@@ -1093,6 +1578,10 @@ export type ChapelSessionDeleteArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   omit?: Prisma.ChapelSessionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapelSessionInclude<ExtArgs> | null
+  /**
    * Filter which ChapelSession to delete.
    */
   where: Prisma.ChapelSessionWhereUniqueInput
@@ -1113,6 +1602,30 @@ export type ChapelSessionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
+ * ChapelSession.feedbacks
+ */
+export type ChapelSession$feedbacksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Feedback
+   */
+  select?: Prisma.FeedbackSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Feedback
+   */
+  omit?: Prisma.FeedbackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedbackInclude<ExtArgs> | null
+  where?: Prisma.FeedbackWhereInput
+  orderBy?: Prisma.FeedbackOrderByWithRelationInput | Prisma.FeedbackOrderByWithRelationInput[]
+  cursor?: Prisma.FeedbackWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FeedbackScalarFieldEnum | Prisma.FeedbackScalarFieldEnum[]
+}
+
+/**
  * ChapelSession without action
  */
 export type ChapelSessionDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1124,4 +1637,8 @@ export type ChapelSessionDefaultArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the ChapelSession
    */
   omit?: Prisma.ChapelSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapelSessionInclude<ExtArgs> | null
 }

@@ -42,7 +42,12 @@ let nextId = 1;
 // GET /api/feedbacks — returns all feedbacks
 export const getAllFeedbacks = async (_req: Request, res: Response): Promise<void> => {
   console.log("testing...")
-  const f = await prisma.feedback.findMany();
+  const f = await prisma.feedback.findMany({
+    include: {
+      user: true,
+      chapelSession: true,
+    }
+  });
   console.log(f);
 
   res.json(f);

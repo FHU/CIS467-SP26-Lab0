@@ -8,8 +8,8 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User.js'
 export type * from './models/Task.js'
+export type * from './models/User.js'
 export type * from './models/Speaker.js'
 export type * from './models/ChapelSession.js'
 export type * from './models/Feedback.js'

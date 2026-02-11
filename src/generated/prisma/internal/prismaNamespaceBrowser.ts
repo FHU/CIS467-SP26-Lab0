@@ -51,8 +51,8 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User',
   Task: 'Task',
+  User: 'User',
   Speaker: 'Speaker',
   ChapelSession: 'ChapelSession',
   Feedback: 'Feedback'
@@ -71,15 +71,6 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const UserScalarFieldEnum = {
-  id: 'id',
-  email: 'email',
-  name: 'name'
-} as const
-
-export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
 export const TaskScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -89,9 +80,24 @@ export const TaskScalarFieldEnum = {
 export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
 
 
+export const UserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  first_name: 'first_name',
+  last_name: 'last_name',
+  user_type: 'user_type'
+} as const
+
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
 export const SpeakerScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  first_name: 'first_name',
+  last_name: 'last_name',
+  bio: 'bio',
+  title: 'title',
+  type: 'type',
   completed: 'completed'
 } as const
 
@@ -100,7 +106,12 @@ export type SpeakerScalarFieldEnum = (typeof SpeakerScalarFieldEnum)[keyof typeo
 
 export const ChapelSessionScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  speaker_id: 'speaker_id',
+  topic: 'topic',
+  scripture: 'scripture',
+  date: 'date',
+  end_time: 'end_time',
+  number_standings: 'number_standings',
   completed: 'completed'
 } as const
 
@@ -109,7 +120,10 @@ export type ChapelSessionScalarFieldEnum = (typeof ChapelSessionScalarFieldEnum)
 
 export const FeedbackScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  stars: 'stars',
+  response: 'response',
+  user_id: 'user_id',
+  chapel_session_id: 'chapel_session_id',
   completed: 'completed'
 } as const
 
@@ -122,12 +136,4 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-export const NullsOrder = {
-  first: 'first',
-  last: 'last'
-} as const
-
-export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
