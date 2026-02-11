@@ -8,6 +8,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "db:seed": "npx prisma db seed",
+    "db:dropdata": "npx prisma migrate reset",
+    "db:reset": "npx prisma migrate reset && npx prisma db seed",
     "test": "vitest run",
     "test:watch": "vitest"
   },
