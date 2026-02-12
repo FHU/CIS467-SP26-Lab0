@@ -840,8 +840,7 @@ export const SpeakerScalarFieldEnum = {
   last_name: 'last_name',
   bio: 'bio',
   title: 'title',
-  type: 'type',
-  completed: 'completed'
+  type: 'type'
 } as const
 
 export type SpeakerScalarFieldEnum = (typeof SpeakerScalarFieldEnum)[keyof typeof SpeakerScalarFieldEnum]
@@ -854,8 +853,7 @@ export const ChapelSessionScalarFieldEnum = {
   scripture: 'scripture',
   date: 'date',
   end_time: 'end_time',
-  number_standings: 'number_standings',
-  completed: 'completed'
+  number_standings: 'number_standings'
 } as const
 
 export type ChapelSessionScalarFieldEnum = (typeof ChapelSessionScalarFieldEnum)[keyof typeof ChapelSessionScalarFieldEnum]
@@ -866,8 +864,7 @@ export const FeedbackScalarFieldEnum = {
   stars: 'stars',
   response: 'response',
   user_id: 'user_id',
-  chapel_session_id: 'chapel_session_id',
-  completed: 'completed'
+  chapel_session_id: 'chapel_session_id'
 } as const
 
 export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]

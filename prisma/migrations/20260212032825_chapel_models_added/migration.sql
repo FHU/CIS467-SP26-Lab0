@@ -20,8 +20,7 @@ CREATE TABLE "Speaker" (
     "last_name" TEXT NOT NULL,
     "bio" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "type" TEXT NOT NULL,
-    "completed" BOOLEAN NOT NULL DEFAULT false
+    "type" TEXT NOT NULL
 );
 
 -- CreateTable
@@ -33,7 +32,6 @@ CREATE TABLE "ChapelSession" (
     "date" DATETIME NOT NULL,
     "end_time" DATETIME NOT NULL,
     "number_standings" INTEGER NOT NULL,
-    "completed" BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT "ChapelSession_speaker_id_fkey" FOREIGN KEY ("speaker_id") REFERENCES "Speaker" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -44,7 +42,6 @@ CREATE TABLE "Feedback" (
     "response" TEXT NOT NULL,
     "user_id" INTEGER NOT NULL,
     "chapel_session_id" INTEGER NOT NULL,
-    "completed" BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT "Feedback_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Feedback_chapel_session_id_fkey" FOREIGN KEY ("chapel_session_id") REFERENCES "ChapelSession" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );

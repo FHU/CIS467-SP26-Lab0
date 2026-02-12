@@ -46,7 +46,6 @@ export type FeedbackMinAggregateOutputType = {
   response: string | null
   user_id: number | null
   chapel_session_id: number | null
-  completed: boolean | null
 }
 
 export type FeedbackMaxAggregateOutputType = {
@@ -55,7 +54,6 @@ export type FeedbackMaxAggregateOutputType = {
   response: string | null
   user_id: number | null
   chapel_session_id: number | null
-  completed: boolean | null
 }
 
 export type FeedbackCountAggregateOutputType = {
@@ -64,7 +62,6 @@ export type FeedbackCountAggregateOutputType = {
   response: number
   user_id: number
   chapel_session_id: number
-  completed: number
   _all: number
 }
 
@@ -89,7 +86,6 @@ export type FeedbackMinAggregateInputType = {
   response?: true
   user_id?: true
   chapel_session_id?: true
-  completed?: true
 }
 
 export type FeedbackMaxAggregateInputType = {
@@ -98,7 +94,6 @@ export type FeedbackMaxAggregateInputType = {
   response?: true
   user_id?: true
   chapel_session_id?: true
-  completed?: true
 }
 
 export type FeedbackCountAggregateInputType = {
@@ -107,7 +102,6 @@ export type FeedbackCountAggregateInputType = {
   response?: true
   user_id?: true
   chapel_session_id?: true
-  completed?: true
   _all?: true
 }
 
@@ -203,7 +197,6 @@ export type FeedbackGroupByOutputType = {
   response: string
   user_id: number
   chapel_session_id: number
-  completed: boolean
   _count: FeedbackCountAggregateOutputType | null
   _avg: FeedbackAvgAggregateOutputType | null
   _sum: FeedbackSumAggregateOutputType | null
@@ -235,7 +228,6 @@ export type FeedbackWhereInput = {
   response?: Prisma.StringFilter<"Feedback"> | string
   user_id?: Prisma.IntFilter<"Feedback"> | number
   chapel_session_id?: Prisma.IntFilter<"Feedback"> | number
-  completed?: Prisma.BoolFilter<"Feedback"> | boolean
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   chapelSession?: Prisma.XOR<Prisma.ChapelSessionScalarRelationFilter, Prisma.ChapelSessionWhereInput>
 }
@@ -246,7 +238,6 @@ export type FeedbackOrderByWithRelationInput = {
   response?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   chapel_session_id?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   chapelSession?: Prisma.ChapelSessionOrderByWithRelationInput
 }
@@ -260,7 +251,6 @@ export type FeedbackWhereUniqueInput = Prisma.AtLeast<{
   response?: Prisma.StringFilter<"Feedback"> | string
   user_id?: Prisma.IntFilter<"Feedback"> | number
   chapel_session_id?: Prisma.IntFilter<"Feedback"> | number
-  completed?: Prisma.BoolFilter<"Feedback"> | boolean
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   chapelSession?: Prisma.XOR<Prisma.ChapelSessionScalarRelationFilter, Prisma.ChapelSessionWhereInput>
 }, "id">
@@ -271,7 +261,6 @@ export type FeedbackOrderByWithAggregationInput = {
   response?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   chapel_session_id?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
   _count?: Prisma.FeedbackCountOrderByAggregateInput
   _avg?: Prisma.FeedbackAvgOrderByAggregateInput
   _max?: Prisma.FeedbackMaxOrderByAggregateInput
@@ -288,13 +277,11 @@ export type FeedbackScalarWhereWithAggregatesInput = {
   response?: Prisma.StringWithAggregatesFilter<"Feedback"> | string
   user_id?: Prisma.IntWithAggregatesFilter<"Feedback"> | number
   chapel_session_id?: Prisma.IntWithAggregatesFilter<"Feedback"> | number
-  completed?: Prisma.BoolWithAggregatesFilter<"Feedback"> | boolean
 }
 
 export type FeedbackCreateInput = {
   stars: number
   response: string
-  completed?: boolean
   user: Prisma.UserCreateNestedOneWithoutFeedbacksInput
   chapelSession: Prisma.ChapelSessionCreateNestedOneWithoutFeedbacksInput
 }
@@ -305,13 +292,11 @@ export type FeedbackUncheckedCreateInput = {
   response: string
   user_id: number
   chapel_session_id: number
-  completed?: boolean
 }
 
 export type FeedbackUpdateInput = {
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   response?: Prisma.StringFieldUpdateOperationsInput | string
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   user?: Prisma.UserUpdateOneRequiredWithoutFeedbacksNestedInput
   chapelSession?: Prisma.ChapelSessionUpdateOneRequiredWithoutFeedbacksNestedInput
 }
@@ -322,7 +307,6 @@ export type FeedbackUncheckedUpdateInput = {
   response?: Prisma.StringFieldUpdateOperationsInput | string
   user_id?: Prisma.IntFieldUpdateOperationsInput | number
   chapel_session_id?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type FeedbackCreateManyInput = {
@@ -331,13 +315,11 @@ export type FeedbackCreateManyInput = {
   response: string
   user_id: number
   chapel_session_id: number
-  completed?: boolean
 }
 
 export type FeedbackUpdateManyMutationInput = {
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   response?: Prisma.StringFieldUpdateOperationsInput | string
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type FeedbackUncheckedUpdateManyInput = {
@@ -346,7 +328,6 @@ export type FeedbackUncheckedUpdateManyInput = {
   response?: Prisma.StringFieldUpdateOperationsInput | string
   user_id?: Prisma.IntFieldUpdateOperationsInput | number
   chapel_session_id?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type FeedbackListRelationFilter = {
@@ -365,7 +346,6 @@ export type FeedbackCountOrderByAggregateInput = {
   response?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   chapel_session_id?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
 }
 
 export type FeedbackAvgOrderByAggregateInput = {
@@ -381,7 +361,6 @@ export type FeedbackMaxOrderByAggregateInput = {
   response?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   chapel_session_id?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
 }
 
 export type FeedbackMinOrderByAggregateInput = {
@@ -390,7 +369,6 @@ export type FeedbackMinOrderByAggregateInput = {
   response?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   chapel_session_id?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
 }
 
 export type FeedbackSumOrderByAggregateInput = {
@@ -487,7 +465,6 @@ export type FeedbackUncheckedUpdateManyWithoutChapelSessionNestedInput = {
 export type FeedbackCreateWithoutUserInput = {
   stars: number
   response: string
-  completed?: boolean
   chapelSession: Prisma.ChapelSessionCreateNestedOneWithoutFeedbacksInput
 }
 
@@ -496,7 +473,6 @@ export type FeedbackUncheckedCreateWithoutUserInput = {
   stars: number
   response: string
   chapel_session_id: number
-  completed?: boolean
 }
 
 export type FeedbackCreateOrConnectWithoutUserInput = {
@@ -533,13 +509,11 @@ export type FeedbackScalarWhereInput = {
   response?: Prisma.StringFilter<"Feedback"> | string
   user_id?: Prisma.IntFilter<"Feedback"> | number
   chapel_session_id?: Prisma.IntFilter<"Feedback"> | number
-  completed?: Prisma.BoolFilter<"Feedback"> | boolean
 }
 
 export type FeedbackCreateWithoutChapelSessionInput = {
   stars: number
   response: string
-  completed?: boolean
   user: Prisma.UserCreateNestedOneWithoutFeedbacksInput
 }
 
@@ -548,7 +522,6 @@ export type FeedbackUncheckedCreateWithoutChapelSessionInput = {
   stars: number
   response: string
   user_id: number
-  completed?: boolean
 }
 
 export type FeedbackCreateOrConnectWithoutChapelSessionInput = {
@@ -581,13 +554,11 @@ export type FeedbackCreateManyUserInput = {
   stars: number
   response: string
   chapel_session_id: number
-  completed?: boolean
 }
 
 export type FeedbackUpdateWithoutUserInput = {
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   response?: Prisma.StringFieldUpdateOperationsInput | string
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   chapelSession?: Prisma.ChapelSessionUpdateOneRequiredWithoutFeedbacksNestedInput
 }
 
@@ -596,7 +567,6 @@ export type FeedbackUncheckedUpdateWithoutUserInput = {
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   response?: Prisma.StringFieldUpdateOperationsInput | string
   chapel_session_id?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type FeedbackUncheckedUpdateManyWithoutUserInput = {
@@ -604,7 +574,6 @@ export type FeedbackUncheckedUpdateManyWithoutUserInput = {
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   response?: Prisma.StringFieldUpdateOperationsInput | string
   chapel_session_id?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type FeedbackCreateManyChapelSessionInput = {
@@ -612,13 +581,11 @@ export type FeedbackCreateManyChapelSessionInput = {
   stars: number
   response: string
   user_id: number
-  completed?: boolean
 }
 
 export type FeedbackUpdateWithoutChapelSessionInput = {
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   response?: Prisma.StringFieldUpdateOperationsInput | string
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   user?: Prisma.UserUpdateOneRequiredWithoutFeedbacksNestedInput
 }
 
@@ -627,7 +594,6 @@ export type FeedbackUncheckedUpdateWithoutChapelSessionInput = {
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   response?: Prisma.StringFieldUpdateOperationsInput | string
   user_id?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type FeedbackUncheckedUpdateManyWithoutChapelSessionInput = {
@@ -635,7 +601,6 @@ export type FeedbackUncheckedUpdateManyWithoutChapelSessionInput = {
   stars?: Prisma.IntFieldUpdateOperationsInput | number
   response?: Prisma.StringFieldUpdateOperationsInput | string
   user_id?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -646,7 +611,6 @@ export type FeedbackSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   response?: boolean
   user_id?: boolean
   chapel_session_id?: boolean
-  completed?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   chapelSession?: boolean | Prisma.ChapelSessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["feedback"]>
@@ -657,7 +621,6 @@ export type FeedbackSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   response?: boolean
   user_id?: boolean
   chapel_session_id?: boolean
-  completed?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   chapelSession?: boolean | Prisma.ChapelSessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["feedback"]>
@@ -668,7 +631,6 @@ export type FeedbackSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   response?: boolean
   user_id?: boolean
   chapel_session_id?: boolean
-  completed?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   chapelSession?: boolean | Prisma.ChapelSessionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["feedback"]>
@@ -679,10 +641,9 @@ export type FeedbackSelectScalar = {
   response?: boolean
   user_id?: boolean
   chapel_session_id?: boolean
-  completed?: boolean
 }
 
-export type FeedbackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "stars" | "response" | "user_id" | "chapel_session_id" | "completed", ExtArgs["result"]["feedback"]>
+export type FeedbackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "stars" | "response" | "user_id" | "chapel_session_id", ExtArgs["result"]["feedback"]>
 export type FeedbackInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   chapelSession?: boolean | Prisma.ChapelSessionDefaultArgs<ExtArgs>
@@ -708,7 +669,6 @@ export type $FeedbackPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     response: string
     user_id: number
     chapel_session_id: number
-    completed: boolean
   }, ExtArgs["result"]["feedback"]>
   composites: {}
 }
@@ -1139,7 +1099,6 @@ export interface FeedbackFieldRefs {
   readonly response: Prisma.FieldRef<"Feedback", 'String'>
   readonly user_id: Prisma.FieldRef<"Feedback", 'Int'>
   readonly chapel_session_id: Prisma.FieldRef<"Feedback", 'Int'>
-  readonly completed: Prisma.FieldRef<"Feedback", 'Boolean'>
 }
     
 

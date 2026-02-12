@@ -46,7 +46,6 @@ export type ChapelSessionMinAggregateOutputType = {
   date: Date | null
   end_time: Date | null
   number_standings: number | null
-  completed: boolean | null
 }
 
 export type ChapelSessionMaxAggregateOutputType = {
@@ -57,7 +56,6 @@ export type ChapelSessionMaxAggregateOutputType = {
   date: Date | null
   end_time: Date | null
   number_standings: number | null
-  completed: boolean | null
 }
 
 export type ChapelSessionCountAggregateOutputType = {
@@ -68,7 +66,6 @@ export type ChapelSessionCountAggregateOutputType = {
   date: number
   end_time: number
   number_standings: number
-  completed: number
   _all: number
 }
 
@@ -93,7 +90,6 @@ export type ChapelSessionMinAggregateInputType = {
   date?: true
   end_time?: true
   number_standings?: true
-  completed?: true
 }
 
 export type ChapelSessionMaxAggregateInputType = {
@@ -104,7 +100,6 @@ export type ChapelSessionMaxAggregateInputType = {
   date?: true
   end_time?: true
   number_standings?: true
-  completed?: true
 }
 
 export type ChapelSessionCountAggregateInputType = {
@@ -115,7 +110,6 @@ export type ChapelSessionCountAggregateInputType = {
   date?: true
   end_time?: true
   number_standings?: true
-  completed?: true
   _all?: true
 }
 
@@ -213,7 +207,6 @@ export type ChapelSessionGroupByOutputType = {
   date: Date
   end_time: Date
   number_standings: number
-  completed: boolean
   _count: ChapelSessionCountAggregateOutputType | null
   _avg: ChapelSessionAvgAggregateOutputType | null
   _sum: ChapelSessionSumAggregateOutputType | null
@@ -247,7 +240,6 @@ export type ChapelSessionWhereInput = {
   date?: Prisma.DateTimeFilter<"ChapelSession"> | Date | string
   end_time?: Prisma.DateTimeFilter<"ChapelSession"> | Date | string
   number_standings?: Prisma.IntFilter<"ChapelSession"> | number
-  completed?: Prisma.BoolFilter<"ChapelSession"> | boolean
   feedbacks?: Prisma.FeedbackListRelationFilter
   speaker?: Prisma.XOR<Prisma.SpeakerScalarRelationFilter, Prisma.SpeakerWhereInput>
 }
@@ -260,7 +252,6 @@ export type ChapelSessionOrderByWithRelationInput = {
   date?: Prisma.SortOrder
   end_time?: Prisma.SortOrder
   number_standings?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
   feedbacks?: Prisma.FeedbackOrderByRelationAggregateInput
   speaker?: Prisma.SpeakerOrderByWithRelationInput
 }
@@ -276,7 +267,6 @@ export type ChapelSessionWhereUniqueInput = Prisma.AtLeast<{
   date?: Prisma.DateTimeFilter<"ChapelSession"> | Date | string
   end_time?: Prisma.DateTimeFilter<"ChapelSession"> | Date | string
   number_standings?: Prisma.IntFilter<"ChapelSession"> | number
-  completed?: Prisma.BoolFilter<"ChapelSession"> | boolean
   feedbacks?: Prisma.FeedbackListRelationFilter
   speaker?: Prisma.XOR<Prisma.SpeakerScalarRelationFilter, Prisma.SpeakerWhereInput>
 }, "id">
@@ -289,7 +279,6 @@ export type ChapelSessionOrderByWithAggregationInput = {
   date?: Prisma.SortOrder
   end_time?: Prisma.SortOrder
   number_standings?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
   _count?: Prisma.ChapelSessionCountOrderByAggregateInput
   _avg?: Prisma.ChapelSessionAvgOrderByAggregateInput
   _max?: Prisma.ChapelSessionMaxOrderByAggregateInput
@@ -308,7 +297,6 @@ export type ChapelSessionScalarWhereWithAggregatesInput = {
   date?: Prisma.DateTimeWithAggregatesFilter<"ChapelSession"> | Date | string
   end_time?: Prisma.DateTimeWithAggregatesFilter<"ChapelSession"> | Date | string
   number_standings?: Prisma.IntWithAggregatesFilter<"ChapelSession"> | number
-  completed?: Prisma.BoolWithAggregatesFilter<"ChapelSession"> | boolean
 }
 
 export type ChapelSessionCreateInput = {
@@ -317,7 +305,6 @@ export type ChapelSessionCreateInput = {
   date: Date | string
   end_time: Date | string
   number_standings: number
-  completed?: boolean
   feedbacks?: Prisma.FeedbackCreateNestedManyWithoutChapelSessionInput
   speaker: Prisma.SpeakerCreateNestedOneWithoutChapelSessionsInput
 }
@@ -330,7 +317,6 @@ export type ChapelSessionUncheckedCreateInput = {
   date: Date | string
   end_time: Date | string
   number_standings: number
-  completed?: boolean
   feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutChapelSessionInput
 }
 
@@ -340,7 +326,6 @@ export type ChapelSessionUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   number_standings?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   feedbacks?: Prisma.FeedbackUpdateManyWithoutChapelSessionNestedInput
   speaker?: Prisma.SpeakerUpdateOneRequiredWithoutChapelSessionsNestedInput
 }
@@ -353,7 +338,6 @@ export type ChapelSessionUncheckedUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   number_standings?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutChapelSessionNestedInput
 }
 
@@ -365,7 +349,6 @@ export type ChapelSessionCreateManyInput = {
   date: Date | string
   end_time: Date | string
   number_standings: number
-  completed?: boolean
 }
 
 export type ChapelSessionUpdateManyMutationInput = {
@@ -374,7 +357,6 @@ export type ChapelSessionUpdateManyMutationInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   number_standings?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ChapelSessionUncheckedUpdateManyInput = {
@@ -385,7 +367,6 @@ export type ChapelSessionUncheckedUpdateManyInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   number_standings?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ChapelSessionListRelationFilter = {
@@ -406,7 +387,6 @@ export type ChapelSessionCountOrderByAggregateInput = {
   date?: Prisma.SortOrder
   end_time?: Prisma.SortOrder
   number_standings?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
 }
 
 export type ChapelSessionAvgOrderByAggregateInput = {
@@ -423,7 +403,6 @@ export type ChapelSessionMaxOrderByAggregateInput = {
   date?: Prisma.SortOrder
   end_time?: Prisma.SortOrder
   number_standings?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
 }
 
 export type ChapelSessionMinOrderByAggregateInput = {
@@ -434,7 +413,6 @@ export type ChapelSessionMinOrderByAggregateInput = {
   date?: Prisma.SortOrder
   end_time?: Prisma.SortOrder
   number_standings?: Prisma.SortOrder
-  completed?: Prisma.SortOrder
 }
 
 export type ChapelSessionSumOrderByAggregateInput = {
@@ -514,7 +492,6 @@ export type ChapelSessionCreateWithoutSpeakerInput = {
   date: Date | string
   end_time: Date | string
   number_standings: number
-  completed?: boolean
   feedbacks?: Prisma.FeedbackCreateNestedManyWithoutChapelSessionInput
 }
 
@@ -525,7 +502,6 @@ export type ChapelSessionUncheckedCreateWithoutSpeakerInput = {
   date: Date | string
   end_time: Date | string
   number_standings: number
-  completed?: boolean
   feedbacks?: Prisma.FeedbackUncheckedCreateNestedManyWithoutChapelSessionInput
 }
 
@@ -565,7 +541,6 @@ export type ChapelSessionScalarWhereInput = {
   date?: Prisma.DateTimeFilter<"ChapelSession"> | Date | string
   end_time?: Prisma.DateTimeFilter<"ChapelSession"> | Date | string
   number_standings?: Prisma.IntFilter<"ChapelSession"> | number
-  completed?: Prisma.BoolFilter<"ChapelSession"> | boolean
 }
 
 export type ChapelSessionCreateWithoutFeedbacksInput = {
@@ -574,7 +549,6 @@ export type ChapelSessionCreateWithoutFeedbacksInput = {
   date: Date | string
   end_time: Date | string
   number_standings: number
-  completed?: boolean
   speaker: Prisma.SpeakerCreateNestedOneWithoutChapelSessionsInput
 }
 
@@ -586,7 +560,6 @@ export type ChapelSessionUncheckedCreateWithoutFeedbacksInput = {
   date: Date | string
   end_time: Date | string
   number_standings: number
-  completed?: boolean
 }
 
 export type ChapelSessionCreateOrConnectWithoutFeedbacksInput = {
@@ -611,7 +584,6 @@ export type ChapelSessionUpdateWithoutFeedbacksInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   number_standings?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   speaker?: Prisma.SpeakerUpdateOneRequiredWithoutChapelSessionsNestedInput
 }
 
@@ -623,7 +595,6 @@ export type ChapelSessionUncheckedUpdateWithoutFeedbacksInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   number_standings?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ChapelSessionCreateManySpeakerInput = {
@@ -633,7 +604,6 @@ export type ChapelSessionCreateManySpeakerInput = {
   date: Date | string
   end_time: Date | string
   number_standings: number
-  completed?: boolean
 }
 
 export type ChapelSessionUpdateWithoutSpeakerInput = {
@@ -642,7 +612,6 @@ export type ChapelSessionUpdateWithoutSpeakerInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   number_standings?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   feedbacks?: Prisma.FeedbackUpdateManyWithoutChapelSessionNestedInput
 }
 
@@ -653,7 +622,6 @@ export type ChapelSessionUncheckedUpdateWithoutSpeakerInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   number_standings?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   feedbacks?: Prisma.FeedbackUncheckedUpdateManyWithoutChapelSessionNestedInput
 }
 
@@ -664,7 +632,6 @@ export type ChapelSessionUncheckedUpdateManyWithoutSpeakerInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_time?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   number_standings?: Prisma.IntFieldUpdateOperationsInput | number
-  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -706,7 +673,6 @@ export type ChapelSessionSelect<ExtArgs extends runtime.Types.Extensions.Interna
   date?: boolean
   end_time?: boolean
   number_standings?: boolean
-  completed?: boolean
   feedbacks?: boolean | Prisma.ChapelSession$feedbacksArgs<ExtArgs>
   speaker?: boolean | Prisma.SpeakerDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ChapelSessionCountOutputTypeDefaultArgs<ExtArgs>
@@ -720,7 +686,6 @@ export type ChapelSessionSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   date?: boolean
   end_time?: boolean
   number_standings?: boolean
-  completed?: boolean
   speaker?: boolean | Prisma.SpeakerDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["chapelSession"]>
 
@@ -732,7 +697,6 @@ export type ChapelSessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   date?: boolean
   end_time?: boolean
   number_standings?: boolean
-  completed?: boolean
   speaker?: boolean | Prisma.SpeakerDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["chapelSession"]>
 
@@ -744,10 +708,9 @@ export type ChapelSessionSelectScalar = {
   date?: boolean
   end_time?: boolean
   number_standings?: boolean
-  completed?: boolean
 }
 
-export type ChapelSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "speaker_id" | "topic" | "scripture" | "date" | "end_time" | "number_standings" | "completed", ExtArgs["result"]["chapelSession"]>
+export type ChapelSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "speaker_id" | "topic" | "scripture" | "date" | "end_time" | "number_standings", ExtArgs["result"]["chapelSession"]>
 export type ChapelSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   feedbacks?: boolean | Prisma.ChapelSession$feedbacksArgs<ExtArgs>
   speaker?: boolean | Prisma.SpeakerDefaultArgs<ExtArgs>
@@ -774,7 +737,6 @@ export type $ChapelSessionPayload<ExtArgs extends runtime.Types.Extensions.Inter
     date: Date
     end_time: Date
     number_standings: number
-    completed: boolean
   }, ExtArgs["result"]["chapelSession"]>
   composites: {}
 }
@@ -1207,7 +1169,6 @@ export interface ChapelSessionFieldRefs {
   readonly date: Prisma.FieldRef<"ChapelSession", 'DateTime'>
   readonly end_time: Prisma.FieldRef<"ChapelSession", 'DateTime'>
   readonly number_standings: Prisma.FieldRef<"ChapelSession", 'Int'>
-  readonly completed: Prisma.FieldRef<"ChapelSession", 'Boolean'>
 }
     
 

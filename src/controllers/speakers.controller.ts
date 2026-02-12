@@ -35,11 +35,7 @@ let nextId = 1;
 // GET /api/speakers — returns all speakers
 export const getAllSpeakers = async (_req: Request, res: Response): Promise<void> => {
   console.log("testing...")
-  const s = await prisma.speaker.findMany({
-    include: {
-      chapelSessions: true,
-    }
-  });
+  const s = await prisma.speaker.findMany();
   console.log(s);
 
   res.json(s);

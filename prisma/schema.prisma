@@ -64,7 +64,6 @@ model Feedback {
   response          String
   user_id           Int
   chapel_session_id Int
-  completed         Boolean @default(false)
 
   user          User          @relation(fields: [user_id], references: [id])
   chapelSession ChapelSession @relation(fields: [chapel_session_id], references: [id])
