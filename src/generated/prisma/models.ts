@@ -8,7 +8,8 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User'
-export type * from './models/Post'
-export type * from './models/Task'
-export type * from './commonInputTypes'
+export type * from './models/User.js'
+export type * from './models/Speaker.js'
+export type * from './models/ChapelSession.js'
+export type * from './models/Feedback.js'
+export type * from './commonInputTypes.js'
