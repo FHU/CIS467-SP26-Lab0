@@ -1,20 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import { prisma } from "../lib/prisma.js";
+import { UserType } from "../generated/prisma/enums.js";
 
 // Data model for a speaker
 interface Speaker {
-  id: number
-  first_name: string
-  last_name: string
-  bio: string
-  title: string
-  type: string
-
-  chapelSessions: {
-    id: string
-    title: string
-    date: string
-  }[]
+  id: number;
+  first_name: string;
+  last_name: string;
+  bio: string;
+  title: boolean;
+  type: UserType
 }
 
 // Extends the built-in Error to include an HTTP status code.
@@ -35,10 +30,10 @@ let nextId = 1;
 // GET /api/speakers — returns all speakers
 export const getAllSpeakers = async (_req: Request, res: Response): Promise<void> => {
   console.log("testing...")
-  const s = await prisma.speaker.findMany();
-  console.log(s);
+  const t = await prisma.speaker.findMany();
+  console.log(t);
 
-  res.json(s);
+  res.json(t);
 };
 
 // GET /api/speakers/:id — returns a single speaker by ID
@@ -68,8 +63,7 @@ export const createSpeaker = (req: Request, res: Response): void => {
     last_name,
     bio,
     title,
-    type,
-    chapelSessions: []
+    type
   };
   speakers.push(speaker);
   res.status(201).json(speaker); // 201 Created
@@ -94,7 +88,7 @@ export const updateSpeaker = (
   if (req.body.bio !== undefined) speaker.bio = req.body.bio;
   if (req.body.title !== undefined) speaker.title = req.body.title;
   if (req.body.type !== undefined) speaker.type = req.body.type;
-  if (req.body.chapelSessions !== undefined) speaker.chapelSessions = req.body.chapelSessions;
+
   res.json(speaker);
 };
 
