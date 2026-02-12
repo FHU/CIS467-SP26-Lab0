@@ -42,7 +42,11 @@ let nextId = 1;
 // GET /api/chapelSessions — returns all chapel sessions
 export const getAllChapelSessions = async (_req: Request, res: Response): Promise<void> => {
   console.log("testing...")
-  const c = await prisma.chapelSession.findMany();
+  const c = await prisma.chapelSession.findMany({
+    include: {
+      speaker: true,
+    }
+  });
   console.log(c);
 
   res.json(c);

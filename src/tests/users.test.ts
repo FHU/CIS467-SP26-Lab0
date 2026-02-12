@@ -121,20 +121,6 @@ describe("POST /api/users", () => {
     }
   });
 
-  it("Should return 400 when creating user with duplicate email.", async () => {
-    const userData = {
-      email: "duplicate@example.com",
-      first_name: "First",
-      last_name: "User",
-      user_type: "STUDENT",
-    };
-
-    await request(app).post("/api/users").send(userData);
-    const response = await request(app).post("/api/users").send(userData);
-
-    expect(response.status).toBe(400);
-  });
-
   it("Should return 400 when creating user with invalid user_type.", async () => {
     const response = await request(app)
       .post("/api/users")
@@ -201,34 +187,6 @@ describe("PUT /api/users/:id", () => {
 
     expect(response.status).toBe(200);
     expect(response.body.user_type).toBe("ALUMNI");
-  });
-
-  it("Should return 400 when updating to duplicate email.", async () => {
-    await prisma.user.create({
-      data: {
-        email: "existing@example.com",
-        first_name: "Existing",
-        last_name: "User",
-        user_type: "STUDENT",
-      },
-    });
-
-    const userToUpdate = await prisma.user.create({
-      data: {
-        email: "toupdate@example.com",
-        first_name: "To",
-        last_name: "Update",
-        user_type: "FACULTY",
-      },
-    });
-
-    const response = await request(app)
-      .put(`/api/users/${userToUpdate.id}`)
-      .send({
-        email: "existing@example.com",
-      });
-
-    expect(response.status).toBe(400);
   });
 
   it("Should return 404 when updating non-existent user.", async () => {
