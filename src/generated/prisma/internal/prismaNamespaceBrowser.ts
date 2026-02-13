@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models'
-export type * from './prismaNamespace'
+export type * from '../models.js'
+export type * from './prismaNamespace.js'
 
 export const Decimal = runtime.Decimal
 
@@ -51,8 +51,10 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Speaker: 'Speaker',
+  ChapelSession: 'ChapelSession',
   User: 'User',
-  Post: 'Post',
+  Feedback: 'Feedback',
   Task: 'Task'
 } as const
 
@@ -69,6 +71,24 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const SpeakerScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type SpeakerScalarFieldEnum = (typeof SpeakerScalarFieldEnum)[keyof typeof SpeakerScalarFieldEnum]
+
+
+export const ChapelSessionScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  date: 'date',
+  speakerId: 'speakerId'
+} as const
+
+export type ChapelSessionScalarFieldEnum = (typeof ChapelSessionScalarFieldEnum)[keyof typeof ChapelSessionScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -78,15 +98,16 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const PostScalarFieldEnum = {
+export const FeedbackScalarFieldEnum = {
   id: 'id',
   title: 'title',
   content: 'content',
   published: 'published',
-  authorId: 'authorId'
+  authorId: 'authorId',
+  chapelSessionId: 'chapelSessionId'
 } as const
 
-export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]
 
 
 export const TaskScalarFieldEnum = {

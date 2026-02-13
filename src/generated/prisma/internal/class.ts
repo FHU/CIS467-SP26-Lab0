@@ -12,7 +12,7 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "./prismaNamespace"
+import type * as Prisma from "./prismaNamespace.js"
 
 
 const config: runtime.GetPrismaClientConfig = {
@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.3.0",
   "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
   "activeProvider": "sqlite",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n}\n\nmodel User {\n  id    Int     @id @default(autoincrement())\n  email String  @unique\n  name  String?\n  posts Post[]\n}\n\nmodel Post {\n  id        Int     @id @default(autoincrement())\n  title     String\n  content   String?\n  published Boolean @default(false)\n  author    User    @relation(fields: [authorId], references: [id])\n  authorId  Int\n}\n\nmodel Task {\n  id        Int     @id @default(autoincrement())\n  title     String\n  completed Boolean @default(false)\n}\n",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n}\n\nmodel Speaker {\n  id             Int             @id @default(autoincrement())\n  name           String\n  chapelSessions ChapelSession[] // one-to-many\n}\n\nmodel ChapelSession {\n  id    Int      @id @default(autoincrement())\n  title String\n  date  DateTime\n\n  speakerId Int?\n  speaker   Speaker? @relation(fields: [speakerId], references: [id])\n\n  feedbacks Feedback[]\n}\n\nmodel User {\n  id        Int        @id @default(autoincrement())\n  email     String     @unique\n  name      String?\n  feedbacks Feedback[]\n}\n\nmodel Feedback {\n  id              Int            @id @default(autoincrement())\n  title           String\n  content         String?\n  published       Boolean        @default(false)\n  author          User           @relation(fields: [authorId], references: [id])\n  authorId        Int\n  chapelSession   ChapelSession? @relation(fields: [chapelSessionId], references: [id])\n  chapelSessionId Int?\n}\n\nmodel Task {\n  id        Int     @id @default(autoincrement())\n  title     String\n  completed Boolean @default(false)\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToUser\"}],\"dbName\":null},\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"published\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"author\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PostToUser\"},{\"name\":\"authorId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"Task\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"completed\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Speaker\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"chapelSessions\",\"kind\":\"object\",\"type\":\"ChapelSession\",\"relationName\":\"ChapelSessionToSpeaker\"}],\"dbName\":null},\"ChapelSession\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"speakerId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"speaker\",\"kind\":\"object\",\"type\":\"Speaker\",\"relationName\":\"ChapelSessionToSpeaker\"},{\"name\":\"feedbacks\",\"kind\":\"object\",\"type\":\"Feedback\",\"relationName\":\"ChapelSessionToFeedback\"}],\"dbName\":null},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"feedbacks\",\"kind\":\"object\",\"type\":\"Feedback\",\"relationName\":\"FeedbackToUser\"}],\"dbName\":null},\"Feedback\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"published\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"author\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"FeedbackToUser\"},{\"name\":\"authorId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"chapelSession\",\"kind\":\"object\",\"type\":\"ChapelSession\",\"relationName\":\"ChapelSessionToFeedback\"},{\"name\":\"chapelSessionId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"Task\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"completed\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -60,8 +60,8 @@ export interface PrismaClientConstructor {
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more Speakers
+   * const speakers = await prisma.speaker.findMany()
    * ```
    * 
    * Read more in our [docs](https://pris.ly/d/client).
@@ -82,8 +82,8 @@ export interface PrismaClientConstructor {
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Speakers
+ * const speakers = await prisma.speaker.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -177,6 +177,26 @@ export interface PrismaClient<
   }>>
 
       /**
+   * `prisma.speaker`: Exposes CRUD operations for the **Speaker** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Speakers
+    * const speakers = await prisma.speaker.findMany()
+    * ```
+    */
+  get speaker(): Prisma.SpeakerDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.chapelSession`: Exposes CRUD operations for the **ChapelSession** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChapelSessions
+    * const chapelSessions = await prisma.chapelSession.findMany()
+    * ```
+    */
+  get chapelSession(): Prisma.ChapelSessionDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -187,14 +207,14 @@ export interface PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.post`: Exposes CRUD operations for the **Post** model.
+   * `prisma.feedback`: Exposes CRUD operations for the **Feedback** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Posts
-    * const posts = await prisma.post.findMany()
+    * // Fetch zero or more Feedbacks
+    * const feedbacks = await prisma.feedback.findMany()
     * ```
     */
-  get post(): Prisma.PostDelegate<ExtArgs, { omit: OmitOpts }>;
+  get feedback(): Prisma.FeedbackDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
    * `prisma.task`: Exposes CRUD operations for the **Task** model.

@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../src/generated/prisma"
 }
 
@@ -10,24 +10,50 @@ datasource db {
   provider = "sqlite"
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+enum UserType {
+  ADMIN
+  STUDENT
+  STAFF
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+model Speaker {
+  id             Int             @id @default(autoincrement())
+  name           String
+  chapelSessions ChapelSession[] // one-to-many
+}
+
+model ChapelSession {
+  id    Int      @id @default(autoincrement())
+  title String
+  date  DateTime
+
+  speakerId Int?
+  speaker   Speaker? @relation(fields: [speakerId], references: [id])
+
+  feedbacks Feedback[]
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  name      String?
+  userType  UserType   @default(STUDENT)
+  feedbacks Feedback[]
+}
+
+model Feedback {
+  id              Int            @id @default(autoincrement())
+  title           String
+  content         String?
+  published       Boolean        @default(false)
+  author          User           @relation(fields: [authorId], references: [id])
+  authorId        Int
+  chapelSession   ChapelSession? @relation(fields: [chapelSessionId], references: [id])
+  chapelSessionId Int?
 }
 
 model Task {
-  id        Int   @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   title     String
   completed Boolean @default(false)
 }
