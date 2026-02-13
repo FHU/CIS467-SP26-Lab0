@@ -1,104 +1,163 @@
 import { prisma } from "../src/lib/prisma";
 
 async function main() {
-    // Create a task
-    const task1 = await prisma.task.upsert({
+    // Create users
+    const task1 = await prisma.user.upsert({
         where: {
             id: 1
         },
         update: {
-            title: "Fold laundry",
-            completed: false
+            email: "user1@example.com",
+            first_name: "John",
+            last_name: "Doe",
+            type: "STUDENT"
         },
         create: {
             id: 1,
-            title:"Fold laundry"
+            email: "user1@example.com",
+            first_name: "John",
+            last_name: "Doe",
+            type: "STUDENT"
         }
     });
 
-    const task2 = await prisma.task.upsert({
+    const task2 = await prisma.user.upsert({
         where: {
             id: 2
         },
         update: {
-            title: "Read the bible",
-            completed: false
+            id: 2,
+            email: "anexample@email.com",
+            first_name: "Jane",
+            last_name: "Smith",
+            type: "STAFF"
         },
         create: {
             id: 2,
-            title: "Read the bible"
+            email: "anexample@email.com",
+            first_name: "Jane",
+            last_name: "Smith",
+            type: "STAFF"
+        }
+    });
+    // create speakers
+    const speaker1 = await prisma.speaker.upsert({
+        where: {
+            id: 1
+        },
+        update: {
+            first_name: "Dr. Alice",
+            last_name: "Johnson",
+            bio: "Expert in theology and spirituality.",
+            title: "Professor of Theology",
+            type: "GUEST"
+        },
+        create: {
+            id: 1,
+            first_name: "Dr. Alice",
+            last_name: "Johnson",
+            bio: "Expert in theology and spirituality.",
+            title: "Professor of Theology",
+            type: "GUEST"
         }
     });
 
-    const task3 = await prisma.task.upsert({
+    const speaker2 = await prisma.speaker.upsert({
         where: {
-            id: 3
+            id: 2
         },
         update: {
-            title: "Wash dishes",
-            completed: false
+            first_name: "Rev. Bob",
+            last_name: "Smith",
+            bio: "Experienced pastor and speaker.",
+            title: "Senior Pastor",
+            type: "STAFF"
         },
         create: {
-            id: 3,
-            title: "Wash dishes"
+            id: 2,
+            first_name: "Rev. Bob",
+            last_name: "Smith",
+            bio: "Experienced pastor and speaker.",
+            title: "Senior Pastor",
+            type: "STAFF"
         }
     });
 
-    const task4 = await prisma.task.upsert({
+    // create chapel sessions
+    const chapelSession1 = await prisma.chapelSession.upsert({
         where: {
-            id: 4
+            id: 1
         },
         update: {
-            title: "Buy groceries",
-            completed: true
+            date: new Date("2024-01-15T10:00:00Z"),
+            end_time: new Date("2024-01-15T11:00:00Z"),
+            speaker_id: 1,
+            number_standings: 5
         },
         create: {
-            id: 4,
-            title: "Buy groceries",
-            completed: true
+            id: 1,
+            date: new Date("2024-01-15T10:00:00Z"),
+            end_time: new Date("2024-01-15T11:00:00Z"),
+            speaker_id: 1,
+            number_standings: 5
         }
     });
 
-    const task5 = await prisma.task.upsert({
+    const chapelSession2 = await prisma.chapelSession.upsert({
         where: {
-            id: 5
+            id: 2
         },
         update: {
-            title: "Walk the dog",
-            completed: false
+            date: new Date("2024-02-20T14:00:00Z"),
+            end_time: new Date("2024-02-20T15:00:00Z"),
+            speaker_id: 2,
+            number_standings: 3
         },
         create: {
-            id: 5,
-            title: "Walk the dog"
+            id: 2,
+            date: new Date("2024-02-20T14:00:00Z"),
+            end_time: new Date("2024-02-20T15:00:00Z"),
+            speaker_id: 2,
+            number_standings: 3
         }
     });
 
-    const task6 = await prisma.task.upsert({
+    // create feedbacks
+    const feedback1 = await prisma.feedback.upsert({
         where: {
-            id: 6
+            id: 1
         },
         update: {
-            title: "Pay bills",
-            completed: true
+            response: "Great session! Very inspiring.",
+            stars: 5,
+            user_id: 1,
+            chapel_session_id: 1
         },
         create: {
-            id: 6,
-            title: "Pay bills",
-            completed: true
+            id: 1,
+            response: "Great session! Very inspiring.",
+            stars: 5,
+            user_id: 1,
+            chapel_session_id: 1
         }
     });
 
-    const task7 = await prisma.task.upsert({
+    const feedback2 = await prisma.feedback.upsert({
         where: {
-            id: 7
+            id: 2
         },
         update: {
-            title: "Call mom",
-            completed: false
+            response: "Informative but could be more engaging.",
+            stars: 3,
+            user_id: 1,
+            chapel_session_id: 2
         },
         create: {
-            id: 7,
-            title: "Call mom"
+            id: 2,
+            response: "Informative but could be more engaging.",
+            stars: 3,
+            user_id: 1,
+            chapel_session_id: 2
         }
     });
 

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { prisma } from "../lib/prisma.js";
-import { User } from "../generated/prisma/client.js";
+import { Speaker } from "../generated/prisma/client.js";
 
 // Extends the built-in Error to include an HTTP status code.
 // The global error handler in middleware/errorHandler.ts reads this.
@@ -9,7 +9,7 @@ interface AppError extends Error {
 }
 
 // Type for route params — ensures req.params.id is typed as string
-interface UserParams {
+interface SpeakerParams {
   id: string;
 }
 
@@ -30,107 +30,108 @@ const isNotFoundError = (e: unknown): boolean => {
   );
 };
 
-// GET /api/tasks — returns all users
-export const getAllUsers = async (
+// GET /api/speakers — returns all speakers
+export const getAllSpeakers = async (
   _req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const users = await prisma.user.findMany();
-    res.json(users);
+    const speakers = await prisma.speaker.findMany();
+    res.json(speakers);
   } catch (e) {
     return next(e);
   }
 };
 
-// GET /api/users/:id — returns a single user by ID
-export const getUserById = async (
-  req: Request<UserParams>,
+// GET /api/speakers/:id — returns a single speaker by ID
+export const getSpeakerById = async (
+  req: Request<SpeakerParams>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const user = await prisma.user.findUnique({
+    const speaker = await prisma.speaker.findUnique({
       where: { id: parseInt(req.params.id) }
     });
 
-    if (!user) {
-      return next(createError("User not found", 404));
+    if (!speaker) {
+      return next(createError("Speaker not found", 404));
     }
-    res.json(user);
+    res.json(speaker);
   } catch (e) {
     return next(e);
   }
 };
 
-// POST /api/users — creates a new user
-// Expects JSON body: { "email": "...", "first_name": "...", "last_name": "...", "type": "..." }
-export const createUser = async (
+// POST /api/speakers — creates a new speaker
+export const createSpeaker = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { email, first_name, last_name, type } = req.body;
+    const { first_name, last_name, bio, title, type} = req.body;
 
-    const user: User = await prisma.user.create({
+    const speaker: Speaker = await prisma.speaker.create({
       data: {
-        email,
-        first_name,
-        last_name,
-        type: type || "STUDENT"
+        first_name: first_name || "Unnamed Speaker",
+        last_name: last_name || "",
+        bio: bio || "No biography available.",
+        title: title || null,
+        type: type || "STAFF"
       }
     });
 
-    res.status(201).json(user);
+    res.status(201).json(speaker);
   } catch (e) {
     return next(e);
   }
 };
 
-// PATCH /api/users/:id — partially updates a user
-// Expects JSON body with optional fields: { "email"?, "first_name"?, "last_name"?, "type"? }
-export const updateUser = async (
-  req: Request<UserParams>,
+// PATCH /api/speakers/:id — partially updates a speaker
+// Expects JSON body with optional fields: { "first_name"?, "last_name"?, "bio"?, "title"?, "type"? }
+export const updateSpeaker = async (
+  req: Request<SpeakerParams>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { email, first_name, last_name, type } = req.body;
+    const { first_name, last_name, bio, title, type } = req.body;
 
-    const user = await prisma.user.update({
+    const speaker = await prisma.speaker.update({
       where: { id: parseInt(req.params.id) },
       data: {
-        ...(email !== undefined && { email }),
         ...(first_name !== undefined && { first_name }),
         ...(last_name !== undefined && { last_name }),
+        ...(bio !== undefined && { bio }),
+        ...(title !== undefined && { title }),
         ...(type !== undefined && { type })
       }
     });
-    res.json(user);
+    res.json(speaker);
   } catch (e) {
     if (isNotFoundError(e)) {
-      return next(createError("User not found", 404));
+      return next(createError("Speaker not found", 404));
     }
     return next(e);
   }
 };
 
-// DELETE /api/users/:id — removes a user
-export const deleteUser = async (
-  req: Request<UserParams>,
+// DELETE /api/speakers/:id — removes a speaker
+export const deleteSpeaker = async (
+  req: Request<SpeakerParams>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    await prisma.user.delete({
+    await prisma.speaker.delete({
       where: { id: parseInt(req.params.id) }
     });
     res.status(204).send();
   } catch (e) {
     if (isNotFoundError(e)) {
-      return next(createError("User not found", 404));
+      return next(createError("Speaker not found", 404));
     }
     return next(e);
   }
