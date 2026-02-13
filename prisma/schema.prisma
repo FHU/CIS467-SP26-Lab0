@@ -32,12 +32,19 @@ datasource db {
 //   completed Boolean @default(false)
 // }
 
+enum UserType {
+  STUDENT
+  FACULTY
+  STAFF
+  ALUMNI
+  GUEST
+}
 
 model User {
   id    Int     @id @default(autoincrement())
   name  String?
   email String  @unique
-  user_type String
+  user_type UserType  
 
   reviews Review[]
 
