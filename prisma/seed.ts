@@ -1,25 +1,61 @@
+import { UserType } from "../src/generated/prisma/enums";
 import { prisma } from "../src/lib/prisma";
 
 async function main() {
-    // Create a task
-    const task1 = await prisma.task.create({
+    // Create a feedback entry
+    const user1 = await prisma.user.create({
         data: {
             id: 1,
-            title: "Fold laundry",
+            first_name: "John",
+            last_name: "Doe",
+            email: "john.doe@example.com",
+            user_type: UserType.ALUMNI
         }
     });
 
-    const task2 = await prisma.task.create({
+    const user2 = await prisma.user.create({
         data: {
             id: 2,
-            title: "Read the bible",
+            first_name: "Jane",
+            last_name: "Smith",
+            email: "jane.smith@example.com",
+            user_type: UserType.STUDENT
         }
     });
 
-    const task3 = await prisma.task.create({
+    const chapelSession = await prisma.chapelSession.create({
+        data: {
+            id: 1,
+            date: new Date("2024-09-01"),
+            topic: "Welcome Back!",
+            speaker_id: 3,
+            number_standings: 2,
+            end_time: new Date("2024-09-01T10:00:00Z"),
+            scripture: "John 3:16"
+        }
+    });
+
+    const speaker = await prisma.speaker.create({
         data: {
             id: 3,
-            title: "Wash dishes",
+            first_name: "Allen",
+            last_name: "Johnson",
+            title: "Dr.",
+            user_type: UserType.FACULTY,
+            chapel_session: {
+                connect: { id: chapelSession.id }
+            }
+        }
+    });
+
+    const feedback1 = await prisma.feedback.create({
+        data: {
+            id: 1,
+            user_id: user1.id,
+            speakerId: speaker.id,
+            chapel_session_id: chapelSession.id,
+            stars: 5,
+            response: "Great session!"
         }
     });
 

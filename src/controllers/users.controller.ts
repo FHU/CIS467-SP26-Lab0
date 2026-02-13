@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { prisma } from "../lib/prisma.js";
-import { Task } from "../generated/prisma/client.js";
+import { User } from "../generated/prisma/client.js";
 
 // Extends the built-in Error to include an HTTP status code.
 // The global error handler in middleware/errorHandler.ts reads this.
@@ -9,7 +9,7 @@ interface AppError extends Error {
 }
 
 // Type for route params — ensures req.params.id is typed as string
-interface TaskParams {
+interface UserParams {
   id: string;
 }
 
@@ -30,33 +30,33 @@ const isNotFoundError = (e: unknown): boolean => {
   );
 };
 
-// GET /api/tasks — returns all tasks
-export const getAllTasks = async (
+// GET /api/users — returns all users
+export const getAllUsers = async (
   _req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const tasks = await prisma.task.findMany();
-    res.json(tasks);
+    const users = await prisma.user.findMany();
+    res.json(users);
   } catch (e) {
     return next(e);
   }
 };
 
-// GET /api/tasks/:id — returns a single task by ID
-export const getTaskById = async (
-  req: Request<TaskParams>,
+// GET /api/users/:id — returns a single user by ID
+export const getUsersById = async (
+  req: Request<UserParams>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const task = await prisma.task.findUnique({
+    const task = await prisma.user.findUnique({
       where: { id: parseInt(req.params.id) }
     });
 
     if (!task) {
-      return next(createError("Task not found", 404));
+      return next(createError("User not found", 404));
     }
     res.json(task);
   } catch (e) {
@@ -64,68 +64,73 @@ export const getTaskById = async (
   }
 };
 
-// POST /api/tasks — creates a new task
-// Expects JSON body: { "title": "..." }
-export const createTask = async (
+// POST /api/users — creates a new user
+// Expects JSON body: { "first_name": "...", "last_name": "...", "email": "...", "type": "..." }
+export const createUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { title } = req.body;
+    const { first_name, last_name, email, type } = req.body;
 
-    const task: Task = await prisma.task.create({
+    const user: User = await prisma.user.create({
       data: {
-        title: title || "Untitled"
+        first_name: first_name || "Unnamed User",
+        last_name: last_name || "Unnamed Last Name",
+        email: email || "unknown@example.com",
+        user_type: type || "user"
       }
     });
 
-    res.status(201).json(task);
+    res.status(201).json(user);
   } catch (e) {
     return next(e);
   }
 };
 
-// PATCH /api/tasks/:id — partially updates a task
-// Expects JSON body with optional fields: { "title"?, "completed"? }
-export const updateTask = async (
-  req: Request<TaskParams>,
+// PATCH /api/users/:id — partially updates a user
+// Expects JSON body with optional fields: { "name"?, "completed"? }
+export const updateUser = async (
+  req: Request<UserParams>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { title, completed } = req.body;
+    const { first_name, last_name, email, user_type } = req.body;
 
-    const task = await prisma.task.update({
+    const user = await prisma.user.update({
       where: { id: parseInt(req.params.id) },
       data: {
-        ...(title !== undefined && { title }),
-        ...(completed !== undefined && { completed })
+        ...(first_name !== undefined && { first_name }),
+        ...(last_name !== undefined && { last_name }),
+        ...(email !== undefined && { email }),
+        ...(user_type !== undefined && { user_type })
       }
     });
-    res.json(task);
+    res.json(user);
   } catch (e) {
     if (isNotFoundError(e)) {
-      return next(createError("Task not found", 404));
+      return next(createError("User not found", 404));
     }
     return next(e);
   }
 };
 
-// DELETE /api/tasks/:id — removes a task
-export const deleteTask = async (
-  req: Request<TaskParams>,
+// DELETE /api/users/:id — removes a user
+export const deleteUser = async (
+  req: Request<UserParams>,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    await prisma.task.delete({
+    await prisma.user.delete({
       where: { id: parseInt(req.params.id) }
     });
     res.status(204).send();
   } catch (e) {
     if (isNotFoundError(e)) {
-      return next(createError("Task not found", 404));
+      return next(createError("User not found", 404));
     }
     return next(e);
   }
