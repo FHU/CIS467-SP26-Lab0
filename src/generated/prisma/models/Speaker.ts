@@ -40,6 +40,7 @@ export type SpeakerMinAggregateOutputType = {
   last_name: string | null
   bio: string | null
   title: string | null
+  usertype: $Enums.Usertype | null
 }
 
 export type SpeakerMaxAggregateOutputType = {
@@ -48,6 +49,7 @@ export type SpeakerMaxAggregateOutputType = {
   last_name: string | null
   bio: string | null
   title: string | null
+  usertype: $Enums.Usertype | null
 }
 
 export type SpeakerCountAggregateOutputType = {
@@ -56,6 +58,7 @@ export type SpeakerCountAggregateOutputType = {
   last_name: number
   bio: number
   title: number
+  usertype: number
   _all: number
 }
 
@@ -74,6 +77,7 @@ export type SpeakerMinAggregateInputType = {
   last_name?: true
   bio?: true
   title?: true
+  usertype?: true
 }
 
 export type SpeakerMaxAggregateInputType = {
@@ -82,6 +86,7 @@ export type SpeakerMaxAggregateInputType = {
   last_name?: true
   bio?: true
   title?: true
+  usertype?: true
 }
 
 export type SpeakerCountAggregateInputType = {
@@ -90,6 +95,7 @@ export type SpeakerCountAggregateInputType = {
   last_name?: true
   bio?: true
   title?: true
+  usertype?: true
   _all?: true
 }
 
@@ -185,6 +191,7 @@ export type SpeakerGroupByOutputType = {
   last_name: string
   bio: string
   title: string
+  usertype: $Enums.Usertype
   _count: SpeakerCountAggregateOutputType | null
   _avg: SpeakerAvgAggregateOutputType | null
   _sum: SpeakerSumAggregateOutputType | null
@@ -216,6 +223,8 @@ export type SpeakerWhereInput = {
   last_name?: Prisma.StringFilter<"Speaker"> | string
   bio?: Prisma.StringFilter<"Speaker"> | string
   title?: Prisma.StringFilter<"Speaker"> | string
+  usertype?: Prisma.EnumUsertypeFilter<"Speaker"> | $Enums.Usertype
+  chapelSessions?: Prisma.ChapelSessionListRelationFilter
 }
 
 export type SpeakerOrderByWithRelationInput = {
@@ -224,6 +233,8 @@ export type SpeakerOrderByWithRelationInput = {
   last_name?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  usertype?: Prisma.SortOrder
+  chapelSessions?: Prisma.ChapelSessionOrderByRelationAggregateInput
 }
 
 export type SpeakerWhereUniqueInput = Prisma.AtLeast<{
@@ -235,6 +246,8 @@ export type SpeakerWhereUniqueInput = Prisma.AtLeast<{
   last_name?: Prisma.StringFilter<"Speaker"> | string
   bio?: Prisma.StringFilter<"Speaker"> | string
   title?: Prisma.StringFilter<"Speaker"> | string
+  usertype?: Prisma.EnumUsertypeFilter<"Speaker"> | $Enums.Usertype
+  chapelSessions?: Prisma.ChapelSessionListRelationFilter
 }, "id">
 
 export type SpeakerOrderByWithAggregationInput = {
@@ -243,6 +256,7 @@ export type SpeakerOrderByWithAggregationInput = {
   last_name?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  usertype?: Prisma.SortOrder
   _count?: Prisma.SpeakerCountOrderByAggregateInput
   _avg?: Prisma.SpeakerAvgOrderByAggregateInput
   _max?: Prisma.SpeakerMaxOrderByAggregateInput
@@ -259,6 +273,7 @@ export type SpeakerScalarWhereWithAggregatesInput = {
   last_name?: Prisma.StringWithAggregatesFilter<"Speaker"> | string
   bio?: Prisma.StringWithAggregatesFilter<"Speaker"> | string
   title?: Prisma.StringWithAggregatesFilter<"Speaker"> | string
+  usertype?: Prisma.EnumUsertypeWithAggregatesFilter<"Speaker"> | $Enums.Usertype
 }
 
 export type SpeakerCreateInput = {
@@ -266,6 +281,8 @@ export type SpeakerCreateInput = {
   last_name: string
   bio: string
   title: string
+  usertype?: $Enums.Usertype
+  chapelSessions?: Prisma.ChapelSessionCreateNestedManyWithoutSpeakerInput
 }
 
 export type SpeakerUncheckedCreateInput = {
@@ -274,6 +291,8 @@ export type SpeakerUncheckedCreateInput = {
   last_name: string
   bio: string
   title: string
+  usertype?: $Enums.Usertype
+  chapelSessions?: Prisma.ChapelSessionUncheckedCreateNestedManyWithoutSpeakerInput
 }
 
 export type SpeakerUpdateInput = {
@@ -281,6 +300,8 @@ export type SpeakerUpdateInput = {
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  usertype?: Prisma.EnumUsertypeFieldUpdateOperationsInput | $Enums.Usertype
+  chapelSessions?: Prisma.ChapelSessionUpdateManyWithoutSpeakerNestedInput
 }
 
 export type SpeakerUncheckedUpdateInput = {
@@ -289,6 +310,8 @@ export type SpeakerUncheckedUpdateInput = {
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  usertype?: Prisma.EnumUsertypeFieldUpdateOperationsInput | $Enums.Usertype
+  chapelSessions?: Prisma.ChapelSessionUncheckedUpdateManyWithoutSpeakerNestedInput
 }
 
 export type SpeakerCreateManyInput = {
@@ -297,6 +320,7 @@ export type SpeakerCreateManyInput = {
   last_name: string
   bio: string
   title: string
+  usertype?: $Enums.Usertype
 }
 
 export type SpeakerUpdateManyMutationInput = {
@@ -304,6 +328,7 @@ export type SpeakerUpdateManyMutationInput = {
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  usertype?: Prisma.EnumUsertypeFieldUpdateOperationsInput | $Enums.Usertype
 }
 
 export type SpeakerUncheckedUpdateManyInput = {
@@ -312,6 +337,7 @@ export type SpeakerUncheckedUpdateManyInput = {
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  usertype?: Prisma.EnumUsertypeFieldUpdateOperationsInput | $Enums.Usertype
 }
 
 export type SpeakerCountOrderByAggregateInput = {
@@ -320,6 +346,7 @@ export type SpeakerCountOrderByAggregateInput = {
   last_name?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  usertype?: Prisma.SortOrder
 }
 
 export type SpeakerAvgOrderByAggregateInput = {
@@ -332,6 +359,7 @@ export type SpeakerMaxOrderByAggregateInput = {
   last_name?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  usertype?: Prisma.SortOrder
 }
 
 export type SpeakerMinOrderByAggregateInput = {
@@ -340,12 +368,111 @@ export type SpeakerMinOrderByAggregateInput = {
   last_name?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  usertype?: Prisma.SortOrder
 }
 
 export type SpeakerSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
+export type SpeakerScalarRelationFilter = {
+  is?: Prisma.SpeakerWhereInput
+  isNot?: Prisma.SpeakerWhereInput
+}
+
+export type SpeakerCreateNestedOneWithoutChapelSessionsInput = {
+  create?: Prisma.XOR<Prisma.SpeakerCreateWithoutChapelSessionsInput, Prisma.SpeakerUncheckedCreateWithoutChapelSessionsInput>
+  connectOrCreate?: Prisma.SpeakerCreateOrConnectWithoutChapelSessionsInput
+  connect?: Prisma.SpeakerWhereUniqueInput
+}
+
+export type SpeakerUpdateOneRequiredWithoutChapelSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.SpeakerCreateWithoutChapelSessionsInput, Prisma.SpeakerUncheckedCreateWithoutChapelSessionsInput>
+  connectOrCreate?: Prisma.SpeakerCreateOrConnectWithoutChapelSessionsInput
+  upsert?: Prisma.SpeakerUpsertWithoutChapelSessionsInput
+  connect?: Prisma.SpeakerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SpeakerUpdateToOneWithWhereWithoutChapelSessionsInput, Prisma.SpeakerUpdateWithoutChapelSessionsInput>, Prisma.SpeakerUncheckedUpdateWithoutChapelSessionsInput>
+}
+
+export type SpeakerCreateWithoutChapelSessionsInput = {
+  first_name: string
+  last_name: string
+  bio: string
+  title: string
+  usertype?: $Enums.Usertype
+}
+
+export type SpeakerUncheckedCreateWithoutChapelSessionsInput = {
+  id?: number
+  first_name: string
+  last_name: string
+  bio: string
+  title: string
+  usertype?: $Enums.Usertype
+}
+
+export type SpeakerCreateOrConnectWithoutChapelSessionsInput = {
+  where: Prisma.SpeakerWhereUniqueInput
+  create: Prisma.XOR<Prisma.SpeakerCreateWithoutChapelSessionsInput, Prisma.SpeakerUncheckedCreateWithoutChapelSessionsInput>
+}
+
+export type SpeakerUpsertWithoutChapelSessionsInput = {
+  update: Prisma.XOR<Prisma.SpeakerUpdateWithoutChapelSessionsInput, Prisma.SpeakerUncheckedUpdateWithoutChapelSessionsInput>
+  create: Prisma.XOR<Prisma.SpeakerCreateWithoutChapelSessionsInput, Prisma.SpeakerUncheckedCreateWithoutChapelSessionsInput>
+  where?: Prisma.SpeakerWhereInput
+}
+
+export type SpeakerUpdateToOneWithWhereWithoutChapelSessionsInput = {
+  where?: Prisma.SpeakerWhereInput
+  data: Prisma.XOR<Prisma.SpeakerUpdateWithoutChapelSessionsInput, Prisma.SpeakerUncheckedUpdateWithoutChapelSessionsInput>
+}
+
+export type SpeakerUpdateWithoutChapelSessionsInput = {
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  usertype?: Prisma.EnumUsertypeFieldUpdateOperationsInput | $Enums.Usertype
+}
+
+export type SpeakerUncheckedUpdateWithoutChapelSessionsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  usertype?: Prisma.EnumUsertypeFieldUpdateOperationsInput | $Enums.Usertype
+}
+
+
+/**
+ * Count Type SpeakerCountOutputType
+ */
+
+export type SpeakerCountOutputType = {
+  chapelSessions: number
+}
+
+export type SpeakerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  chapelSessions?: boolean | SpeakerCountOutputTypeCountChapelSessionsArgs
+}
+
+/**
+ * SpeakerCountOutputType without action
+ */
+export type SpeakerCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SpeakerCountOutputType
+   */
+  select?: Prisma.SpeakerCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * SpeakerCountOutputType without action
+ */
+export type SpeakerCountOutputTypeCountChapelSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ChapelSessionWhereInput
+}
 
 
 export type SpeakerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -354,6 +481,9 @@ export type SpeakerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   last_name?: boolean
   bio?: boolean
   title?: boolean
+  usertype?: boolean
+  chapelSessions?: boolean | Prisma.Speaker$chapelSessionsArgs<ExtArgs>
+  _count?: boolean | Prisma.SpeakerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["speaker"]>
 
 export type SpeakerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -362,6 +492,7 @@ export type SpeakerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   last_name?: boolean
   bio?: boolean
   title?: boolean
+  usertype?: boolean
 }, ExtArgs["result"]["speaker"]>
 
 export type SpeakerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -370,6 +501,7 @@ export type SpeakerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   last_name?: boolean
   bio?: boolean
   title?: boolean
+  usertype?: boolean
 }, ExtArgs["result"]["speaker"]>
 
 export type SpeakerSelectScalar = {
@@ -378,19 +510,29 @@ export type SpeakerSelectScalar = {
   last_name?: boolean
   bio?: boolean
   title?: boolean
+  usertype?: boolean
 }
 
-export type SpeakerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "first_name" | "last_name" | "bio" | "title", ExtArgs["result"]["speaker"]>
+export type SpeakerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "first_name" | "last_name" | "bio" | "title" | "usertype", ExtArgs["result"]["speaker"]>
+export type SpeakerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  chapelSessions?: boolean | Prisma.Speaker$chapelSessionsArgs<ExtArgs>
+  _count?: boolean | Prisma.SpeakerCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type SpeakerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type SpeakerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $SpeakerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Speaker"
-  objects: {}
+  objects: {
+    chapelSessions: Prisma.$ChapelSessionPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     first_name: string
     last_name: string
     bio: string
     title: string
+    usertype: $Enums.Usertype
   }, ExtArgs["result"]["speaker"]>
   composites: {}
 }
@@ -785,6 +927,7 @@ readonly fields: SpeakerFieldRefs;
  */
 export interface Prisma__SpeakerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  chapelSessions<T extends Prisma.Speaker$chapelSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Speaker$chapelSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChapelSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -819,6 +962,7 @@ export interface SpeakerFieldRefs {
   readonly last_name: Prisma.FieldRef<"Speaker", 'String'>
   readonly bio: Prisma.FieldRef<"Speaker", 'String'>
   readonly title: Prisma.FieldRef<"Speaker", 'String'>
+  readonly usertype: Prisma.FieldRef<"Speaker", 'Usertype'>
 }
     
 
@@ -835,6 +979,10 @@ export type SpeakerFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Speaker
    */
   omit?: Prisma.SpeakerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SpeakerInclude<ExtArgs> | null
   /**
    * Filter, which Speaker to fetch.
    */
@@ -854,6 +1002,10 @@ export type SpeakerFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.SpeakerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SpeakerInclude<ExtArgs> | null
+  /**
    * Filter, which Speaker to fetch.
    */
   where: Prisma.SpeakerWhereUniqueInput
@@ -871,6 +1023,10 @@ export type SpeakerFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Speaker
    */
   omit?: Prisma.SpeakerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SpeakerInclude<ExtArgs> | null
   /**
    * Filter, which Speaker to fetch.
    */
@@ -920,6 +1076,10 @@ export type SpeakerFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.SpeakerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SpeakerInclude<ExtArgs> | null
+  /**
    * Filter, which Speaker to fetch.
    */
   where?: Prisma.SpeakerWhereInput
@@ -968,6 +1128,10 @@ export type SpeakerFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.SpeakerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SpeakerInclude<ExtArgs> | null
+  /**
    * Filter, which Speakers to fetch.
    */
   where?: Prisma.SpeakerWhereInput
@@ -1010,6 +1174,10 @@ export type SpeakerCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Speaker
    */
   omit?: Prisma.SpeakerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SpeakerInclude<ExtArgs> | null
   /**
    * The data needed to create a Speaker.
    */
@@ -1056,6 +1224,10 @@ export type SpeakerUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Speaker
    */
   omit?: Prisma.SpeakerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SpeakerInclude<ExtArgs> | null
   /**
    * The data needed to update a Speaker.
    */
@@ -1123,6 +1295,10 @@ export type SpeakerUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.SpeakerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SpeakerInclude<ExtArgs> | null
+  /**
    * The filter to search for the Speaker to update in case it exists.
    */
   where: Prisma.SpeakerWhereUniqueInput
@@ -1149,6 +1325,10 @@ export type SpeakerDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.SpeakerOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SpeakerInclude<ExtArgs> | null
+  /**
    * Filter which Speaker to delete.
    */
   where: Prisma.SpeakerWhereUniqueInput
@@ -1169,6 +1349,30 @@ export type SpeakerDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * Speaker.chapelSessions
+ */
+export type Speaker$chapelSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChapelSession
+   */
+  select?: Prisma.ChapelSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChapelSession
+   */
+  omit?: Prisma.ChapelSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapelSessionInclude<ExtArgs> | null
+  where?: Prisma.ChapelSessionWhereInput
+  orderBy?: Prisma.ChapelSessionOrderByWithRelationInput | Prisma.ChapelSessionOrderByWithRelationInput[]
+  cursor?: Prisma.ChapelSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ChapelSessionScalarFieldEnum | Prisma.ChapelSessionScalarFieldEnum[]
+}
+
+/**
  * Speaker without action
  */
 export type SpeakerDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1180,4 +1384,8 @@ export type SpeakerDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Speaker
    */
   omit?: Prisma.SpeakerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SpeakerInclude<ExtArgs> | null
 }

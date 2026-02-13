@@ -11,12 +11,6 @@ interface AppError extends Error {
 // Type for route params — ensures req.params.id is typed as string
 interface chapelSessionParams {
   id: string;
-  speaker_id: Number;
-  topic: String;
-  scripture: String;
-  date: Date;
-  end_time: Date;
-  number_standing: Number
 }
 
 // Helper to create an AppError with a status code
@@ -43,7 +37,11 @@ export const getAllchapelSessions = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const chapelSession = await prisma.chapelSession.findMany();
+    const chapelSession = await prisma.chapelSession.findMany(
+      {include: {
+        speaker: true
+      }}
+    );
     res.json(chapelSession);
   } catch (e) {
     return next(e);
@@ -62,7 +60,7 @@ export const getChapelSessionById = async (
     });
 
     if (!chapelSession) {
-      return next(createError("chapelSession not found", 404));
+      return next(createError("chapel Session not found", 404));
     }
     res.json(chapelSession);
   } catch (e) {
@@ -78,11 +76,10 @@ export const createChapelSession = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { id, speaker_id, topic, scripture, date, end_time, number_standing} = req.body;
+    const { speaker_id, topic, scripture, date, end_time, number_standing} = req.body;
 
     const chapelSession: ChapelSession = await prisma.chapelSession.create({
       data: {
-        id: id,
         speaker_id: speaker_id,
         topic: topic,
         scripture: scripture,
@@ -106,15 +103,17 @@ export const updateChapelSession = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { id, email, first_name, last_name } = req.body;
+    const {speaker_id, topic, scripture, date, end_time, number_standing } = req.body;
 
     const chapelSession = await prisma.chapelSession.update({
       where: { id: parseInt(req.params.id) },
       data: {
-        ...(id !== undefined && { id }),
-        ...(email !== undefined && { email }),
-        ...(first_name !== undefined && { id }),
-        ...(last_name !== undefined && { email })
+        ...(speaker_id !== undefined && { speaker_id }),
+        ...(topic !== undefined && { topic }),
+        ...(scripture !== undefined && { scripture }),
+        ...(date !== undefined && { date }),
+        ...(end_time !== undefined && { end_time }),
+        ...(number_standing !== undefined && { number_standing }),
       }
     });
     res.json(chapelSession);

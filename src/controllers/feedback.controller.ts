@@ -11,10 +11,6 @@ interface AppError extends Error {
 // Type for route params — ensures req.params.id is typed as string
 interface FeedbackParams {
   id: string;
-  stars: number;
-  response: string;
-  user_id: number;
-  chapel_session_id: number
 }
 
 // Helper to create an AppError with a status code
@@ -41,7 +37,16 @@ export const getAllFeedback = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const feedback = await prisma.feedback.findMany();
+    const feedback = await prisma.feedback.findMany({
+      include: {
+        user: true,
+        chapelSession: {
+          include: {
+            speaker: true
+          }
+        }
+      },
+    });
     res.json(feedback);
   } catch (e) {
     return next(e);
@@ -76,11 +81,10 @@ export const createFeedback = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { id, stars, response, user_id, chapel_session_id} = req.body;
+    const { stars, response, user_id, chapel_session_id} = req.body;
 
     const feedback: Feedback = await prisma.feedback.create({
       data: {
-      id: id,
       stars: stars,
       response: response,
       user_id: user_id,
@@ -102,15 +106,15 @@ export const updateFeedback = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { id, email, first_name, last_name } = req.body;
+    const { stars, response, user_id, chapel_session_id } = req.body;
 
     const feedback = await prisma.feedback.update({
       where: { id: parseInt(req.params.id) },
       data: {
-        ...(id !== undefined && { id }),
-        ...(email !== undefined && { email }),
-        ...(first_name !== undefined && { id }),
-        ...(last_name !== undefined && { email })
+        ...(stars !== undefined && { stars }),
+        ...(response !== undefined && { response }),
+        ...(user_id !== undefined && { user_id }),
+        ...(chapel_session_id !== undefined && { chapel_session_id }),
       }
     });
     res.json(feedback);

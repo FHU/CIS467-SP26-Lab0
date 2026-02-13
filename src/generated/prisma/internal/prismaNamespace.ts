@@ -818,7 +818,8 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   first_name: 'first_name',
-  last_name: 'last_name'
+  last_name: 'last_name',
+  usertype: 'usertype'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -838,7 +839,8 @@ export const SpeakerScalarFieldEnum = {
   first_name: 'first_name',
   last_name: 'last_name',
   bio: 'bio',
-  title: 'title'
+  title: 'title',
+  usertype: 'usertype'
 } as const
 
 export type SpeakerScalarFieldEnum = (typeof SpeakerScalarFieldEnum)[keyof typeof SpeakerScalarFieldEnum]
@@ -893,6 +895,13 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'String'
  */
 export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+/**
+ * Reference to a field of type 'Usertype'
+ */
+export type EnumUsertypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Usertype'>
     
 
 

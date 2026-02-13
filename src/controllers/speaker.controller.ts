@@ -10,12 +10,7 @@ interface AppError extends Error {
 
 // Type for route params — ensures req.params.id is typed as string
 interface speakerParams {
-  id: number;
-  first_name: String;
-  last_name: String;
-  bio: String;
-  title: String;
-
+  id: string;
 }
 
 // Helper to create an AppError with a status code
@@ -77,15 +72,15 @@ export const createSpeaker = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { id, bio, first_name, last_name, title} = req.body;
+    const { bio, first_name, last_name, title, usertype} = req.body;
 
     const speaker: Speaker = await prisma.speaker.create({
       data: {
-        id: id,
         bio: bio,
         first_name: first_name,
         last_name: last_name,
-        title: title 
+        title: title,
+        usertype: usertype 
       }
     });
 
@@ -103,15 +98,16 @@ export const updateSpeaker = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { id, email, first_name, last_name } = req.body;
+    const { bio, first_name, last_name, title, usertype } = req.body;
 
     const speaker = await prisma.speaker.update({
       where: { id: parseInt(req.params.id) },
       data: {
-        ...(id !== undefined && { id }),
-        ...(email !== undefined && { email }),
-        ...(first_name !== undefined && { id }),
-        ...(last_name !== undefined && { email })
+        ...(bio !== undefined && { bio }),
+        ...(first_name !== undefined && { first_name }),
+        ...(last_name !== undefined && { last_name }),
+        ...(title !== undefined && { title }),
+        ...(usertype !== undefined && { usertype }),
       }
     });
     res.json(speaker);

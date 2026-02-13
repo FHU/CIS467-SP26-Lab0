@@ -75,7 +75,8 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   first_name: 'first_name',
-  last_name: 'last_name'
+  last_name: 'last_name',
+  usertype: 'usertype'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -95,7 +96,8 @@ export const SpeakerScalarFieldEnum = {
   first_name: 'first_name',
   last_name: 'last_name',
   bio: 'bio',
-  title: 'title'
+  title: 'title',
+  usertype: 'usertype'
 } as const
 
 export type SpeakerScalarFieldEnum = (typeof SpeakerScalarFieldEnum)[keyof typeof SpeakerScalarFieldEnum]

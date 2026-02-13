@@ -39,6 +39,13 @@ export type StringFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringFilter<$PrismaModel> | string
 }
 
+export type EnumUsertypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.Usertype | Prisma.EnumUsertypeFieldRefInput<$PrismaModel>
+  in?: $Enums.Usertype[]
+  notIn?: $Enums.Usertype[]
+  not?: Prisma.NestedEnumUsertypeFilter<$PrismaModel> | $Enums.Usertype
+}
+
 export type IntWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[]
@@ -70,6 +77,16 @@ export type StringWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedStringFilter<$PrismaModel>
   _max?: Prisma.NestedStringFilter<$PrismaModel>
+}
+
+export type EnumUsertypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Usertype | Prisma.EnumUsertypeFieldRefInput<$PrismaModel>
+  in?: $Enums.Usertype[]
+  notIn?: $Enums.Usertype[]
+  not?: Prisma.NestedEnumUsertypeWithAggregatesFilter<$PrismaModel> | $Enums.Usertype
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumUsertypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumUsertypeFilter<$PrismaModel>
 }
 
 export type BoolFilter<$PrismaModel = never> = {
@@ -135,6 +152,13 @@ export type NestedStringFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringFilter<$PrismaModel> | string
 }
 
+export type NestedEnumUsertypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.Usertype | Prisma.EnumUsertypeFieldRefInput<$PrismaModel>
+  in?: $Enums.Usertype[]
+  notIn?: $Enums.Usertype[]
+  not?: Prisma.NestedEnumUsertypeFilter<$PrismaModel> | $Enums.Usertype
+}
+
 export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[]
@@ -177,6 +201,16 @@ export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedStringFilter<$PrismaModel>
   _max?: Prisma.NestedStringFilter<$PrismaModel>
+}
+
+export type NestedEnumUsertypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Usertype | Prisma.EnumUsertypeFieldRefInput<$PrismaModel>
+  in?: $Enums.Usertype[]
+  notIn?: $Enums.Usertype[]
+  not?: Prisma.NestedEnumUsertypeWithAggregatesFilter<$PrismaModel> | $Enums.Usertype
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumUsertypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumUsertypeFilter<$PrismaModel>
 }
 
 export type NestedBoolFilter<$PrismaModel = never> = {

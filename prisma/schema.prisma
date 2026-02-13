@@ -10,11 +10,21 @@ datasource db {
   provider = "sqlite"
 }
 
+enum Usertype {
+  STUDENT 
+  FACUTLY  
+  STAFF
+  ALUMNI
+  GUEST
+}
+
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   first_name String
   last_name String
+  feedback Feedback[]
+  usertype Usertype @default(STUDENT)
 }
 
 model Task {
@@ -29,6 +39,8 @@ model Speaker {
   last_name String
   bio String
   title String
+  usertype Usertype @default(STAFF)
+  chapelSessions ChapelSession[]
 }
 
 model ChapelSession {
@@ -39,7 +51,8 @@ model ChapelSession {
   date DateTime
   end_time DateTime
   number_standing Int
-
+  speaker Speaker @relation(fields: [speaker_id], references: [id])
+  feedback Feedback[]
 }
 
 model Feedback {
@@ -47,5 +60,7 @@ model Feedback {
   stars Int
   response String
   user_id Int
-  chapel_session_id Int 
+  chapel_session_id Int
+  chapelSession ChapelSession @relation(fields: [chapel_session_id], references: [id])
+  user User @relation(fields: [user_id], references: [id]) 
 }

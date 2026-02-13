@@ -11,9 +11,6 @@ interface AppError extends Error {
 // Type for route params — ensures req.params.id is typed as string
 interface UserParams {
   id: string;
-  email: String;
-  first_name: String;
-  last_name: String
 }
 
 // Helper to create an AppError with a status code
@@ -75,14 +72,14 @@ export const createUser = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { id, email, first_name, last_name} = req.body;
+    const { email, first_name, last_name, usertype} = req.body;
 
     const user: User = await prisma.user.create({
       data: {
-        id: id,
         email: email,
         first_name: first_name,
-        last_name: last_name 
+        last_name: last_name,
+        usertype: usertype 
       }
     });
 
@@ -100,15 +97,15 @@ export const updateUser = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { id, email, first_name, last_name } = req.body;
+    const { email, first_name, last_name, usertype } = req.body;
 
     const user = await prisma.user.update({
       where: { id: parseInt(req.params.id) },
       data: {
-        ...(id !== undefined && { id }),
         ...(email !== undefined && { email }),
-        ...(first_name !== undefined && { id }),
-        ...(last_name !== undefined && { email })
+        ...(first_name !== undefined && { first_name }),
+        ...(last_name !== undefined && { last_name }),
+        ...(usertype !== undefined && { usertype }),
       }
     });
     res.json(user);
@@ -128,8 +125,9 @@ export const deleteUser = async (
 ): Promise<void> => {
   try {
     await prisma.user.delete({
-      where: { id: parseInt(req.params.id) }
+      where: { id: parseInt(req.params.id) },
     });
+    console.log("Deleted user ID", req.params.id)
     res.status(204).send();
   } catch (e) {
     if (isNotFoundError(e)) {
