@@ -375,9 +375,9 @@ export type SpeakerSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
-export type SpeakerScalarRelationFilter = {
-  is?: Prisma.SpeakerWhereInput
-  isNot?: Prisma.SpeakerWhereInput
+export type SpeakerNullableScalarRelationFilter = {
+  is?: Prisma.SpeakerWhereInput | null
+  isNot?: Prisma.SpeakerWhereInput | null
 }
 
 export type SpeakerCreateNestedOneWithoutChapelSessionsInput = {
@@ -386,10 +386,12 @@ export type SpeakerCreateNestedOneWithoutChapelSessionsInput = {
   connect?: Prisma.SpeakerWhereUniqueInput
 }
 
-export type SpeakerUpdateOneRequiredWithoutChapelSessionsNestedInput = {
+export type SpeakerUpdateOneWithoutChapelSessionsNestedInput = {
   create?: Prisma.XOR<Prisma.SpeakerCreateWithoutChapelSessionsInput, Prisma.SpeakerUncheckedCreateWithoutChapelSessionsInput>
   connectOrCreate?: Prisma.SpeakerCreateOrConnectWithoutChapelSessionsInput
   upsert?: Prisma.SpeakerUpsertWithoutChapelSessionsInput
+  disconnect?: Prisma.SpeakerWhereInput | boolean
+  delete?: Prisma.SpeakerWhereInput | boolean
   connect?: Prisma.SpeakerWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.SpeakerUpdateToOneWithWhereWithoutChapelSessionsInput, Prisma.SpeakerUpdateWithoutChapelSessionsInput>, Prisma.SpeakerUncheckedUpdateWithoutChapelSessionsInput>
 }

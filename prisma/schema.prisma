@@ -47,7 +47,7 @@ model Speaker {
 
 model ChapelSession {
   id               Int      @id @default(autoincrement())
-  speaker_id       Int
+  speaker_id       Int?
   topic            String
   scripture        String
   date             DateTime
@@ -55,7 +55,7 @@ model ChapelSession {
   number_standings Int
 
   feedbacks Feedback[]
-  speaker   Speaker    @relation(fields: [speaker_id], references: [id])
+  speaker   Speaker?    @relation(fields: [speaker_id], references: [id])
 }
 
 model Feedback {

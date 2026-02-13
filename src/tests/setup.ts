@@ -7,6 +7,10 @@ export async function setup() {
 
 export async function dropData() {
     await prisma.task.deleteMany()
+    await prisma.feedback.deleteMany();
+    await prisma.chapelSession.deleteMany();
+    await prisma.speaker.deleteMany();
+    await prisma.user.deleteMany();
 }
 
 export async function tearDown() {

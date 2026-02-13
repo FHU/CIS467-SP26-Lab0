@@ -151,7 +151,7 @@
 //   });
 // });
 
-// describe("PUT /api/speakers/:id", () => {
+// describe("PATCH /api/speakers/:id", () => {
 //   it("Should update speaker information.", async () => {
 //     const created = await prisma.speaker.create({
 //       data: {
@@ -164,7 +164,7 @@
 //     });
 
 //     const response = await request(app)
-//       .put(`/api/speakers/${created.id}`)
+//       .patch(`/api/speakers/${created.id}`)
 //       .send({
 //         first_name: "New",
 //         last_name: "Name",
@@ -189,7 +189,7 @@
 //     });
 
 //     const response = await request(app)
-//       .put(`/api/speakers/${created.id}`)
+//       .patch(`/api/speakers/${created.id}`)
 //       .send({
 //         type: "ALUMNI",
 //       });
@@ -200,7 +200,7 @@
 
 //   it("Should return 404 when updating non-existent speaker.", async () => {
 //     const response = await request(app)
-//       .put("/api/speakers/99999")
+//       .patch("/api/speakers/99999")
 //       .send({
 //         first_name: "New",
 //       });
@@ -265,20 +265,5 @@
 //         },
 //       ],
 //     });
-//   });
-
-//   it("Should filter speakers by type.", async () => {
-//     const response = await request(app).get("/api/speakers?type=FACULTY");
-
-//     expect(response.status).toBe(200);
-//     expect(response.body).toHaveLength(2);
-//     expect(response.body.every((speaker: any) => speaker.type === "FACULTY")).toBe(true);
-//   });
-
-//   it("Should search speakers by name.", async () => {
-//     const response = await request(app).get("/api/speakers?search=Faculty");
-
-//     expect(response.status).toBe(200);
-//     expect(response.body.length).toBeGreaterThan(0);
 //   });
 // });

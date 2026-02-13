@@ -110,6 +110,16 @@ async function main() {
         }
     })
 
+    const session4 = await prisma.chapelSession.create({
+        data: {
+            speaker_id: null,
+            topic: "Singing Chapel",
+            scripture: "N/A",
+            date: new Date("2024-09-22T10:30:00Z"),
+            end_time: new Date("2024-09-22T10:59:31Z"),
+            number_standings: 5
+        }
+    })
 
     const feedback1 = await prisma.feedback.create({
         data: {
@@ -117,6 +127,24 @@ async function main() {
             response: "Great job!",
             user_id: user1.id,
             chapel_session_id: 1,
+        }
+    });
+
+    const feedback2 = await prisma.feedback.create({
+        data: {
+            stars: 4,
+            response: "This chapel was pretty good!",
+            user_id: user2.id,
+            chapel_session_id: 2,
+        }
+    });
+
+    const feedback3 = await prisma.feedback.create({
+        data: {
+            stars: 2,
+            response: "Could've used a bit more AI, if you ask me.",
+            user_id: user3.id,
+            chapel_session_id: 3,
         }
     });
             

@@ -2,16 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { prisma } from "../lib/prisma.js";
 import { UserType } from "../generated/prisma/enums.js";
 
-// Data model for a speaker
-interface Speaker {
-  id: number;
-  first_name: string;
-  last_name: string;
-  bio: string;
-  title: boolean;
-  type: UserType
-}
-
 // Extends the built-in Error to include an HTTP status code.
 // The global error handler in middleware/errorHandler.ts reads this.
 interface AppError extends Error {
@@ -23,87 +13,129 @@ interface SpeakerParams {
   id: string;
 }
 
-// In-memory store (replace with database in production)
-let speakers: Speaker[] = [];
-let nextId = 1;
-
 // GET /api/speakers — returns all speakers
 export const getAllSpeakers = async (_req: Request, res: Response): Promise<void> => {
   console.log("testing...")
-  const t = await prisma.speaker.findMany();
-  console.log(t);
+  const s = await prisma.speaker.findMany();
+  console.log(s);
 
-  res.json(t);
+  res.json(s);
 };
 
 // GET /api/speakers/:id — returns a single speaker by ID
 // Uses next(err) to pass errors to the global error handler
-export const getSpeakerById = (
+export const getSpeakerById = async (
   req: Request<SpeakerParams>,
   res: Response,
   next: NextFunction
-): void => {
-  const speaker = speakers.find((s) => s.id === parseInt(req.params.id, 10));
+): Promise<void> => {
+  try {
+    const speaker = await prisma.speaker.findUnique({
+      where: { id: parseInt(req.params.id, 10) }
+    });
 
-  if (!speaker) {
-    const err: AppError = new Error("Speaker not found");
-    err.statusCode = 404;
-    return next(err); // Delegates to errorHandler middleware
+    if (!speaker) {
+      const err: AppError = new Error("Speaker not found");
+      err.statusCode = 404;
+      return next(err);
+    }
+    
+    res.json(speaker);
+  } catch (error) {
+    next(error);
   }
-  res.json(speaker);
 };
 
 // POST /api/speakers — creates a new speaker
 // Expects JSON body: { "title": "..." }
-export const createSpeaker = (req: Request, res: Response): void => {
+export const createSpeaker = async (
+  req: Request, 
+  res: Response,
+  next: NextFunction
+) => {
   const { first_name, last_name, bio, title, type } = req.body;
-  const speaker: Speaker = {
-    id: nextId++,
-    first_name,
-    last_name,
-    bio,
-    title,
-    type
-  };
-  speakers.push(speaker);
+
+  if (!first_name || !last_name || !bio || !title || !type
+      || !Object.values(UserType).includes(type))
+  {
+    const err: AppError = new Error("Invalid or missing fields");
+    err.statusCode = 400;
+    return next(err);
+  }
+  
+  const speaker = await prisma.speaker.create({
+    data: {
+      first_name,
+      last_name,
+      bio,
+      title,
+      type
+    }
+  })
+
   res.status(201).json(speaker); // 201 Created
 };
 
 // PATCH /api/speakers/:id — partially updates a speaker
 // Expects JSON body with optional fields: { "title"?, "completed"? }
-export const updateSpeaker = (
+export const updateSpeaker = async (
   req: Request<SpeakerParams>,
   res: Response,
   next: NextFunction
-): void => {
-  const speaker = speakers.find((s) => s.id === parseInt(req.params.id, 10));
+): Promise<void> => {
+
+  const speaker = await prisma.speaker.findUnique({
+    where: { id: parseInt(req.params.id, 10) }
+  })
+
   if (!speaker) {
     const err: AppError = new Error("Speaker not found");
     err.statusCode = 404;
     return next(err);
   }
-  // Only update fields that were provided
-  if (req.body.first_name !== undefined) speaker.first_name = req.body.first_name;
-  if (req.body.last_name !== undefined) speaker.last_name = req.body.last_name;
-  if (req.body.bio !== undefined) speaker.bio = req.body.bio;
-  if (req.body.title !== undefined) speaker.title = req.body.title;
-  if (req.body.type !== undefined) speaker.type = req.body.type;
 
-  res.json(speaker);
+  const data: any = {};
+  
+  if (req.body.first_name !== undefined) data.first_name = req.body.first_name;
+  if (req.body.last_name !== undefined) data.last_name = req.body.last_name;
+  if (req.body.bio !== undefined) data.bio = req.body.bio;
+  if (req.body.title !== undefined) data.title = req.body.title;
+  if (req.body.type !== undefined) {
+    if (!Object.values(UserType).includes(req.body.type)) {
+      const err: AppError = new Error("Invalid speaker type");
+      err.statusCode = 400;
+      return next(err);
+    }
+    data.type = req.body.type;
+  }
+
+  const updatedSpeaker = await prisma.speaker.update({
+    where: { id: parseInt(req.params.id, 10) },
+    data
+  })
+  
+  res.status(200).json(updatedSpeaker)
 };
 
 // DELETE /api/speakers/:id — removes a speaker
-export const deleteSpeaker = (
+export const deleteSpeaker = async (
   req: Request<SpeakerParams>,
   res: Response,
   next: NextFunction
-): void => {
-  const index = speakers.findIndex((s) => s.id === parseInt(req.params.id, 10));
-  if (index === -1) {
+): Promise<void> => {
+  const speaker = await prisma.speaker.findUnique({
+    where: { id: parseInt(req.params.id, 10) }
+  })
+
+  if (!speaker) {
     const err: AppError = new Error("Speaker not found");
     err.statusCode = 404;
     return next(err);
   }
-  speakers.splice(index, 1);
+
+  await prisma.speaker.delete({
+    where: { id: parseInt(req.params.id, 10) }
+  })
+
   res.status(204).send(); // 204 No Content
 };

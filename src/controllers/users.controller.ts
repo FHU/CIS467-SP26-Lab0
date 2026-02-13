@@ -93,16 +93,23 @@ export const updateUser = async (
     return next(err);
   }
 
-  if (req.body.email === undefined) {}
+  const data: any = {};
+  
+  if (req.body.email !== undefined) data.email = req.body.email;
+  if (req.body.first_name !== undefined) data.first_name = req.body.first_name;
+  if (req.body.last_name !== undefined) data.last_name = req.body.last_name;
+  if (req.body.user_type !== undefined) {
+    if (!Object.values(UserType).includes(req.body.user_type)) {
+      const err: AppError = new Error("Invalid user type");
+      err.statusCode = 400;
+      return next(err);
+    }
+    data.user_type = req.body.user_type;
+  }
 
   const updatedUser = await prisma.user.update({
     where: { id: parseInt(req.params.id, 10) },
-    data: {
-      email: req.body.email,
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      user_type: req.body.user_type
-    }
+    data
   })
   
   res.status(200).json(updatedUser)
@@ -124,7 +131,7 @@ export const deleteUser = async (
     return next(err);
   }
 
-  prisma.user.delete({
+  await prisma.user.delete({
     where: { id: parseInt(req.params.id, 10) }
   })
 

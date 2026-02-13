@@ -138,7 +138,7 @@
 //     expect(response.status).toBe(404);
 //   });
 
-//   it("Should include user and chapel session when requested.", async () => {
+//   it("Should include chapel session and speaker when requested.", async () => {
 //     const user = await prisma.user.create({
 //       data: {
 //         email: "user@example.com",
@@ -150,10 +150,10 @@
 
 //     const speaker = await prisma.speaker.create({
 //       data: {
-//         first_name: "Speaker",
-//         last_name: "Name",
+//         first_name: "Jane",
+//         last_name: "Smith",
 //         bio: "Bio",
-//         title: "Title",
+//         title: "Pastor",
 //         type: "FACULTY",
 //       },
 //     });
@@ -178,13 +178,14 @@
 //       },
 //     });
 
-//     const response = await request(app).get(`/api/feedbacks/${created.id}?include=user,chapelSession`);
+//     const response = await request(app).get(`/api/feedbacks/${created.id}?include=chapelSession`);
 
 //     expect(response.status).toBe(200);
-//     expect(response.body).toHaveProperty("user");
-//     expect(response.body.user.first_name).toBe("John");
 //     expect(response.body).toHaveProperty("chapelSession");
 //     expect(response.body.chapelSession.topic).toBe("Love");
+//     expect(response.body.chapelSession).toHaveProperty("speaker");
+//     expect(response.body.chapelSession.speaker.first_name).toBe("Jane");
+//     expect(response.body.chapelSession.speaker.last_name).toBe("Smith");
 //   });
 // });
 
@@ -393,7 +394,7 @@
 //   });
 // });
 
-// describe("PUT /api/feedbacks/:id", () => {
+// describe("PATCH /api/feedbacks/:id", () => {
 //   it("Should update feedback information.", async () => {
 //     const user = await prisma.user.create({
 //       data: {
@@ -435,7 +436,7 @@
 //     });
 
 //     const response = await request(app)
-//       .put(`/api/feedbacks/${created.id}`)
+//       .patch(`/api/feedbacks/${created.id}`)
 //       .send({
 //         stars: 5,
 //         response: "Updated response",
@@ -448,7 +449,7 @@
 
 //   it("Should return 404 when updating non-existent feedback.", async () => {
 //     const response = await request(app)
-//       .put("/api/feedbacks/99999")
+//       .patch("/api/feedbacks/99999")
 //       .send({
 //         stars: 5,
 //       });
@@ -512,90 +513,5 @@
 //   it("Should return 404 when deleting non-existent feedback.", async () => {
 //     const response = await request(app).delete("/api/feedbacks/99999");
 //     expect(response.status).toBe(404);
-//   });
-// });
-
-// describe("Feedback filtering and querying", () => {
-//   beforeEach(async () => {
-//     const user = await prisma.user.create({
-//       data: {
-//         email: "user@example.com",
-//         first_name: "Test",
-//         last_name: "User",
-//         user_type: "STUDENT",
-//       },
-//     });
-
-//     const speaker = await prisma.speaker.create({
-//       data: {
-//         first_name: "Speaker",
-//         last_name: "Name",
-//         bio: "Bio",
-//         title: "Title",
-//         type: "FACULTY",
-//       },
-//     });
-
-//     const chapelSession = await prisma.chapelSession.create({
-//       data: {
-//         speaker_id: speaker.id,
-//         topic: "Topic",
-//         scripture: "Scripture",
-//         date: new Date("2024-06-15T10:00:00Z"),
-//         end_time: new Date("2024-06-15T11:00:00Z"),
-//         number_standings: 150,
-//       },
-//     });
-
-//     await prisma.feedback.createMany({
-//       data: [
-//         {
-//           stars: 5,
-//           response: "Excellent!",
-//           user_id: user.id,
-//           chapel_session_id: chapelSession.id,
-//         },
-//         {
-//           stars: 3,
-//           response: "Good.",
-//           user_id: user.id,
-//           chapel_session_id: chapelSession.id,
-//         },
-//         {
-//           stars: 5,
-//           response: "Amazing!",
-//           user_id: user.id,
-//           chapel_session_id: chapelSession.id,
-//         },
-//       ],
-//     });
-//   });
-
-//   it("Should filter feedbacks by star rating.", async () => {
-//     const response = await request(app).get("/api/feedbacks?stars=5");
-
-//     expect(response.status).toBe(200);
-//     expect(response.body).toHaveLength(2);
-//     expect(response.body.every((fb: any) => fb.stars === 5)).toBe(true);
-//   });
-
-//   it("Should filter feedbacks by user.", async () => {
-//     const users = await prisma.user.findMany();
-//     const userId = users[0].id;
-
-//     const response = await request(app).get(`/api/feedbacks?user_id=${userId}`);
-
-//     expect(response.status).toBe(200);
-//     expect(response.body.every((fb: any) => fb.user_id === userId)).toBe(true);
-//   });
-
-//   it("Should filter feedbacks by chapel session.", async () => {
-//     const sessions = await prisma.chapelSession.findMany();
-//     const sessionId = sessions[0].id;
-
-//     const response = await request(app).get(`/api/feedbacks?chapel_session_id=${sessionId}`);
-
-//     expect(response.status).toBe(200);
-//     expect(response.body.every((fb: any) => fb.chapel_session_id === sessionId)).toBe(true);
 //   });
 // });

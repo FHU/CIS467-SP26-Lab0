@@ -219,7 +219,7 @@
 //   });
 // });
 
-// describe("PUT /api/chapel-sessions/:id", () => {
+// describe("PATCH /api/chapel-sessions/:id", () => {
 //   it("Should update chapel session information.", async () => {
 //     const speaker = await prisma.speaker.create({
 //       data: {
@@ -243,7 +243,7 @@
 //     });
 
 //     const response = await request(app)
-//       .put(`/api/chapel-sessions/${created.id}`)
+//       .patch(`/api/chapel-sessions/${created.id}`)
 //       .send({
 //         topic: "Updated Topic",
 //         scripture: "Updated Scripture",
@@ -289,7 +289,7 @@
 //     });
 
 //     const response = await request(app)
-//       .put(`/api/chapel-sessions/${created.id}`)
+//       .patch(`/api/chapel-sessions/${created.id}`)
 //       .send({
 //         speaker_id: speaker2.id,
 //       });
@@ -300,7 +300,7 @@
 
 //   it("Should return 404 when updating non-existent chapel session.", async () => {
 //     const response = await request(app)
-//       .put("/api/chapel-sessions/99999")
+//       .patch("/api/chapel-sessions/99999")
 //       .send({
 //         topic: "New Topic",
 //       });
@@ -346,73 +346,5 @@
 //   it("Should return 404 when deleting non-existent chapel session.", async () => {
 //     const response = await request(app).delete("/api/chapel-sessions/99999");
 //     expect(response.status).toBe(404);
-//   });
-// });
-
-// describe("Chapel session filtering and querying", () => {
-//   beforeEach(async () => {
-//     const speaker = await prisma.speaker.create({
-//       data: {
-//         first_name: "Test",
-//         last_name: "Speaker",
-//         bio: "Bio",
-//         title: "Title",
-//         type: "FACULTY",
-//       },
-//     });
-
-//     await prisma.chapelSession.createMany({
-//       data: [
-//         {
-//           speaker_id: speaker.id,
-//           topic: "Faith",
-//           scripture: "Hebrews 11:1",
-//           date: new Date("2024-05-01T10:00:00Z"),
-//           end_time: new Date("2024-05-01T11:00:00Z"),
-//           number_standings: 150,
-//         },
-//         {
-//           speaker_id: speaker.id,
-//           topic: "Hope",
-//           scripture: "Romans 15:13",
-//           date: new Date("2024-05-08T10:00:00Z"),
-//           end_time: new Date("2024-05-08T11:00:00Z"),
-//           number_standings: 175,
-//         },
-//         {
-//           speaker_id: speaker.id,
-//           topic: "Love",
-//           scripture: "1 John 4:8",
-//           date: new Date("2024-05-15T10:00:00Z"),
-//           end_time: new Date("2024-05-15T11:00:00Z"),
-//           number_standings: 200,
-//         },
-//       ],
-//     });
-//   });
-
-//   it("Should filter chapel sessions by date range.", async () => {
-//     const response = await request(app).get("/api/chapel-sessions?startDate=2024-05-01&endDate=2024-05-10");
-
-//     expect(response.status).toBe(200);
-//     expect(response.body).toHaveLength(2);
-//   });
-
-//   it("Should search chapel sessions by topic.", async () => {
-//     const response = await request(app).get("/api/chapel-sessions?search=Faith");
-
-//     expect(response.status).toBe(200);
-//     expect(response.body.length).toBeGreaterThan(0);
-//     expect(response.body[0].topic).toContain("Faith");
-//   });
-
-//   it("Should sort chapel sessions by date.", async () => {
-//     const response = await request(app).get("/api/chapel-sessions?sortBy=date&order=desc");
-
-//     expect(response.status).toBe(200);
-//     expect(response.body).toHaveLength(3);
-//     expect(new Date(response.body[0].date).getTime()).toBeGreaterThan(
-//       new Date(response.body[1].date).getTime()
-//     );
 //   });
 // });
