@@ -2,7 +2,7 @@ import { execSync } from 'child_process'
 import { prisma } from '../lib/prisma.js'
 
 export async function setup() {
-    execSync('npx prisma db push --force-reset')
+    execSync('npx prisma migrate reset --force')
 }
 
 export async function dropData() {
