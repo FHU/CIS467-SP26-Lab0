@@ -23,7 +23,8 @@ export type UserType = (typeof UserType)[keyof typeof UserType]
 export const Title = {
   Dr: 'Dr',
   Mr: 'Mr',
-  Mrs: 'Mrs'
+  Mrs: 'Mrs',
+  Ms: 'Ms'
 } as const
 
 export type Title = (typeof Title)[keyof typeof Title]

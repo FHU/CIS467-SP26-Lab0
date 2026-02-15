@@ -25,6 +25,13 @@ enum Title {
   Ms
 }
 
+// I'm putting this comment after my coding has been complete as to answer why you may wonder 
+// why all my functions are prisma.uSER, prisma.sPEAKER etc. and the answer is I didn't know the proper
+// way to use captializationa and this is just the way it came out. However I believe I invented 
+// a new type of casing called eTHAN cASE where it makes it easier to find your database calls in your code
+// because of how it leads the eyes (HCI refrence) and it allowed for me to make my corrections quicker
+// In conclusion it works on my machine
+
 model USER {
   id    Int     @id @default(autoincrement())
   email String  @unique

@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import { prisma } from "../lib/prisma.js";
-import { UserType } from "../generated/prisma/enums.js";
 
 interface AppError extends Error {
   statusCode?: number;
@@ -9,18 +8,6 @@ interface AppError extends Error {
 interface UserParams {
     id: string;
 }
-
-//data model for a user
-interface User {
-  id: number;
-  email: String;
-  first_name:  String;
-  last_name: String;
-  type: UserType;
-  feedbacks: [];
-}
-
-
 
 // Get all users
 export const getAllUsers = async (
