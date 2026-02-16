@@ -14,6 +14,14 @@ describe('Feedback CRUD Operations', () => {
   let createdFeedbackId: number;
 
   beforeAll(async () => {
+    await setup();  // Run once before ALL tests
+  });
+
+  beforeEach(async () => {
+    await dropData();  // Run before EACH test to reset data
+  });
+
+  beforeAll(async () => {
     const user = await prisma.user.create({
       data: {
         email: 'feedback.tester@university.edu',

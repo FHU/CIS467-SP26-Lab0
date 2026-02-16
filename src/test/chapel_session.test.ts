@@ -11,6 +11,14 @@ describe('ChapelSession CRUD Operations', () => {
   let createdSessionId: number;
 
   beforeAll(async () => {
+    await setup();  // Run once before ALL tests
+  });
+
+  beforeEach(async () => {
+    await dropData();  // Run before EACH test to reset data
+  });
+  
+  beforeAll(async () => {
     const speaker = await prisma.speaker.create({
       data: {
         first_name: 'Test',

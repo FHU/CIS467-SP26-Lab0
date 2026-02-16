@@ -3,7 +3,7 @@ import {prisma} from "../lib/prisma.js";
 
 //befor all tests: reset DB
 export async function setup(){
-    execSync("npx prisma db push --force--reset");
+    execSync("npx prisma db push --force-reset");
 }
 //befoe each test: clean out the  DB
 export async function dropData(){
@@ -17,3 +17,5 @@ export async function dropData(){
 export async function teardown(){
     await prisma.$disconnect();
 }
+
+setup();

@@ -12,6 +12,14 @@ describe('Relational Integrity Tests', () => {
   let speakerId: number;
   let sessionId: number;
 
+beforeAll(async () => {
+    await setup();  // Run once before ALL tests
+  });
+
+  beforeEach(async () => {
+    await dropData();  // Run before EACH test to reset data
+  });
+
   beforeAll(async () => {
     const user = await prisma.user.create({
       data: {

@@ -9,6 +9,14 @@ import { UserType } from '../generated/prisma/enums.js';
 describe('User CRUD Operations', () => {
   let createdUserId: number;
 
+beforeAll(async () => {
+    await setup();  // Run once before ALL tests
+  });
+
+  beforeEach(async () => {
+    await dropData();  // Run before EACH test to reset data
+  });
+
   afterAll(async () => {
     // Cleanup
     await prisma.feedback.deleteMany();
