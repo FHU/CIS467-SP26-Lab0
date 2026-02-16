@@ -6,6 +6,7 @@ export default defineConfig({
     env: {
         DATABASE_URL: "file:./test.db"
     },
+    fileParallelism: false,
     setupFiles: './src/test/setup.ts',
   },
 });
