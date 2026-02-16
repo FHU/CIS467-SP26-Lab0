@@ -74,6 +74,7 @@ export const createUser = async (
   try {
     const { first_name, last_name, email, type } = req.body;
 
+
     const user: User = await prisma.user.create({
       data: {
         first_name: first_name || "Unnamed User",
@@ -82,6 +83,7 @@ export const createUser = async (
         user_type: type || "user"
       }
     });
+
 
     res.status(201).json(user);
   } catch (e) {

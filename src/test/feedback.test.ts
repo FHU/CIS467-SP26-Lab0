@@ -14,14 +14,9 @@ describe('Feedback CRUD Operations', () => {
   let createdFeedbackId: number;
 
   beforeAll(async () => {
-    await setup();  // Run once before ALL tests
-  });
-
-  beforeEach(async () => {
-    await dropData();  // Run before EACH test to reset data
-  });
-
-  beforeAll(async () => {
+    await setup();  // Initialize database schema
+    
+    // Now create test data
     const user = await prisma.user.create({
       data: {
         email: 'feedback.tester@university.edu',
@@ -52,10 +47,7 @@ describe('Feedback CRUD Operations', () => {
   });
 
   afterAll(async () => {
-    await prisma.feedback.deleteMany();
-    await prisma.chapelSession.delete({ where: { id: testSessionId } });
-    await prisma.speaker.delete({ where: { id: testSpeakerId } });
-    await prisma.user.delete({ where: { id: testUserId } });
+    await dropData();  // Clean everything
     await prisma.$disconnect();
   });
 

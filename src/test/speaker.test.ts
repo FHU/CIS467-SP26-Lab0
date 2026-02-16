@@ -15,14 +15,8 @@ describe('Speaker CRUD Operations', () => {
     await setup();  // Run once before ALL tests
   });
 
-  beforeEach(async () => {
-    await dropData();  // Run before EACH test to reset data
-  });
-
   afterAll(async () => {
-    await prisma.feedback.deleteMany();
-    await prisma.chapelSession.deleteMany();
-    await prisma.speaker.deleteMany();
+    await dropData();  // Clean everything
     await prisma.$disconnect();
   });
 

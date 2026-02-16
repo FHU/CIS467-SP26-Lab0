@@ -12,15 +12,9 @@ describe('User CRUD Operations', () => {
 beforeAll(async () => {
     await setup();  // Run once before ALL tests
   });
-
-  beforeEach(async () => {
-    await dropData();  // Run before EACH test to reset data
-  });
-
+  
   afterAll(async () => {
-    // Cleanup
-    await prisma.feedback.deleteMany();
-    await prisma.user.deleteMany();
+    await dropData();  // Clean everything
     await prisma.$disconnect();
   });
 

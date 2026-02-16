@@ -9,16 +9,11 @@ import { UserType } from '../generated/prisma/enums.js';
 describe('ChapelSession CRUD Operations', () => {
   let testSpeakerId: number;
   let createdSessionId: number;
-
-  beforeAll(async () => {
-    await setup();  // Run once before ALL tests
-  });
-
-  beforeEach(async () => {
-    await dropData();  // Run before EACH test to reset data
-  });
   
   beforeAll(async () => {
+
+    await setup();  // Initialize database schema
+
     const speaker = await prisma.speaker.create({
       data: {
         first_name: 'Test',
@@ -31,9 +26,7 @@ describe('ChapelSession CRUD Operations', () => {
   });
 
   afterAll(async () => {
-    await prisma.feedback.deleteMany();
-    await prisma.chapelSession.deleteMany();
-    await prisma.speaker.delete({ where: { id: testSpeakerId } });
+    await dropData();  // Clean everything
     await prisma.$disconnect();
   });
 
