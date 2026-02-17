@@ -1,23 +1,19 @@
 import { Request, Response } from "express";
-import {prisma} from "../lib/prisma.js";
+import { prisma } from "../lib/prisma.js";
 
-/* CREATE */
-export const createSpeaker = async (
-  req: Request,
-  res: Response
-) => {
+export const createSpeaker = async (req: Request, res: Response) => {
+  const { name } = req.body;
+
   const speaker = await prisma.speaker.create({
-    data: req.body,
+    data: {
+      name,
+    },
   });
 
   res.status(201).json(speaker);
 };
 
-/* RETRIEVE */
-export const getSpeakers = async (
-  req: Request,
-  res: Response
-) => {
+export const getSpeakers = async (req: Request, res: Response) => {
   const speakers = await prisma.speaker.findMany({
     include: {
       chapelSessions: true,
@@ -27,26 +23,39 @@ export const getSpeakers = async (
   res.json(speakers);
 };
 
-/* UPDATE */
-export const updateSpeaker = async (
-  req: Request,
-  res: Response
-) => {
+export const getSpeakerById = async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const updated = await prisma.speaker.update({
+  const speaker = await prisma.speaker.findUnique({
+    where: { id: Number(id) },
+    include: {
+      chapelSessions: {
+        include: {
+          feedbacks: true,
+        },
+      },
+    },
+  });
+
+  if (!speaker) {
+    return res.status(404).json({ error: "Speaker not found" });
+  }
+
+  res.json(speaker);
+};
+
+export const updateSpeaker = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const updatedSpeaker = await prisma.speaker.update({
     where: { id: Number(id) },
     data: req.body,
   });
 
-  res.json(updated);
+  res.json(updatedSpeaker);
 };
 
-/* DELETE */
-export const deleteSpeaker = async (
-  req: Request,
-  res: Response
-) => {
+export const deleteSpeaker = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   await prisma.speaker.delete({

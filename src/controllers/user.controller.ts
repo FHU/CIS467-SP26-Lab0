@@ -1,60 +1,63 @@
 import { Request, Response } from "express";
-import {prisma} from "../lib/prisma.js";
+import { prisma } from "../lib/prisma.js";
 
-/* CREATE */
-export const createUser = async (
-  req: Request,
-  res: Response
-) => {
+export const createUser = async (req: Request, res: Response) => {
+  const { name, email, userType } = req.body;
+
   const user = await prisma.user.create({
-    data: req.body,
+    data: {
+      name,
+      email,
+      userType,
+    },
   });
 
   res.status(201).json(user);
 };
 
-/* RETRIEVE */
-export const getUsers = async (
-  req: Request,
-  res: Response
-) => {
+export const getUsers = async (req: Request, res: Response) => {
   const users = await prisma.user.findMany({
     include: {
-      feedbacks: {
-        include: {
-          chapelSession: {
-            include: {
-              speaker: true,
-            },
-          },
-        },
-      },
+      feedbacks: true,
     },
   });
 
   res.json(users);
 };
 
-/* UPDATE */
-export const updateUser = async (
-  req: Request,
-  res: Response
-) => {
+export const getUserById = async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const updated = await prisma.user.update({
+  const user = await prisma.user.findUnique({
+    where: { id: Number(id) },
+    include: {
+      feedbacks: {
+        include: {
+          chapelSession: true,
+        },
+      },
+    },
+  });
+
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  res.json(user);
+};
+
+export const updateUser = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const updatedUser = await prisma.user.update({
     where: { id: Number(id) },
     data: req.body,
   });
 
-  res.json(updated);
+  res.json(updatedUser);
 };
 
-/* DELETE */
-export const deleteUser = async (
-  req: Request,
-  res: Response
-) => {
+export const deleteUser = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   await prisma.user.delete({

@@ -80,3 +80,27 @@ export const deleteFeedback = async (
 
   res.status(204).send();
 };
+export const getFeedbackById = async (
+  req: Request,
+  res: Response
+) => {
+  const { id } = req.params;
+
+  const feedback = await prisma.feedback.findUnique({
+    where: { id: Number(id) },
+    include: {
+      author: true,
+      chapelSession: {
+        include: {
+          speaker: true,
+        },
+      },
+    },
+  });
+
+  if (!feedback) {
+    return res.status(404).json({ error: "Feedback not found" });
+  }
+
+  res.json(feedback);
+};
