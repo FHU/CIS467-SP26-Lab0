@@ -11,7 +11,7 @@ beforeAll( async () => {
 
 beforeEach( async () => {
     await dropData();
-    prisma.user.create({
+    await prisma.user.create({
     data: {
         id: 1,
         email: "test@test.com",
@@ -47,9 +47,9 @@ afterAll( async () => {
     await tearDown();
 });
 
-describe('GET /api/feedback', () => {
+describe('GET /api/feedbacks', () => {
     it("should return an empty array when there are no feedback entries", async () => {
-        const response = await request(app).get('/api/feedback');
+        const response = await request(app).get('/api/feedbacks');
         expect(response.status).toBe(200);
         expect(response.body).toEqual([]);
     });
@@ -65,14 +65,14 @@ describe('GET /api/feedback', () => {
             }
         });
         // Act - send API request
-        const response = await request(app).get('/api/feedback');
+        const response = await request(app).get('/api/feedbacks');
         // Assert - check the response
         expect(response.status).toBe(200);
         expect(response.body.length).toBe(1);
     });
 });
 
-describe('GET /api/feedback/:id', () => {
+describe('GET /api/feedbacks/:id', () => {
     it("should return a single feedback entry", async () => {
 
         const feedback = await prisma.feedback.create({
@@ -84,7 +84,7 @@ describe('GET /api/feedback/:id', () => {
             }
         });
 
-        const response = await request(app).get(`/api/feedback/${feedback.id}`);
+        const response = await request(app).get(`/api/feedbacks/${feedback.id}`);
 
         expect(response.status).toBe(200);
         expect(response.body.id).toBe(feedback.id);
@@ -92,13 +92,13 @@ describe('GET /api/feedback/:id', () => {
     });
 
     it("should return 404 if feedback does not exist", async () => {
-        const response = await request(app).get('/feedback/999');
+        const response = await request(app).get('/api/feedbacks/999');
 
         expect(response.status).toBe(404);
     });
 });
 
-describe('POST /api/feedback', () => {
+describe('POST /api/feedbacks', () => {
     it("should create a new feedback entry", async () => {
 
         const newFeedback = {
@@ -109,7 +109,7 @@ describe('POST /api/feedback', () => {
         };
 
         const response = await request(app)
-            .post('/api/feedback')
+            .post('/api/feedbacks')
             .send(newFeedback);
 
         expect(response.status).toBe(201);
@@ -121,7 +121,7 @@ describe('POST /api/feedback', () => {
 
     it("should fail if stars are missing", async () => {
         const response = await request(app)
-            .post('/api/feedback')
+            .post('/api/feedbacks')
             .send({
                 user_id: 1,
                 chapel_session_id: 1
@@ -131,7 +131,7 @@ describe('POST /api/feedback', () => {
     });
 });
 
-describe('PUT /api/feedback/:id', () => {
+describe('PATCH /api/feedbacks/:id', () => {
     it("should update feedback", async () => {
 
         const feedback = await prisma.feedback.create({
@@ -144,7 +144,7 @@ describe('PUT /api/feedback/:id', () => {
         });
 
         const response = await request(app)
-            .put(`/api/feedback/${feedback.id}`)
+            .patch(`/api/feedbacks/${feedback.id}`)
             .send({
                 stars: 5,
                 response: "Actually great!"
@@ -155,7 +155,7 @@ describe('PUT /api/feedback/:id', () => {
     });
 });
 
-describe('DELETE /api/feedback/:id', () => {
+describe('DELETE /api/feedbacks/:id', () => {
     it("should delete feedback", async () => {
 
         const feedback = await prisma.feedback.create({
@@ -168,9 +168,9 @@ describe('DELETE /api/feedback/:id', () => {
         });
 
         const response = await request(app)
-            .delete(`/api/feedback/${feedback.id}`);
+            .delete(`/api/feedbacks/${feedback.id}`);
 
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(204);
 
         const dbFeedback = await prisma.feedback.findMany();
         expect(dbFeedback.length).toBe(0);

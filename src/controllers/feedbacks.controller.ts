@@ -75,6 +75,10 @@ export const createFeedback = async (
   try {
     const { response, stars, user_id, chapel_session_id } = req.body;
 
+    if (stars === undefined || stars === null) {
+      return next(createError("stars is required", 400));
+    }
+
     const feedback: Feedback = await prisma.feedback.create({
       data: {
         response: response,

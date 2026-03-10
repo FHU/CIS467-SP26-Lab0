@@ -9,9 +9,9 @@ export async function setup() {
 // before each test: clean out the data
 // may be more efficient to use transactions and truncate tables instead of deleting rows one by one
 export async function dropData() {
-    await prisma.user.deleteMany();
-    await prisma.chapelSession.deleteMany();
     await prisma.feedback.deleteMany();
+    await prisma.chapelSession.deleteMany();
+    await prisma.user.deleteMany();
     await prisma.speaker.deleteMany();
     // npx prisma migrate reset
 }
