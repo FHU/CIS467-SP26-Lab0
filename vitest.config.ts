@@ -8,4 +8,5 @@ export default defineConfig({
             DATABASE_URL: 'file:./test.db'
         },
         fileParallelism: false,
+        setupFiles: './src/tests/setup.ts'
     }})
